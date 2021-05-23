@@ -1,0 +1,19 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100vh;
+}
+
+@import "./variables";
+@import "./mixins";
+
+@import "./layout";
+@import "./svg-text";
+@import "./clouds";
+@import "./footer";

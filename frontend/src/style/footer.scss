@@ -1,0 +1,20 @@
+.footer {
+  position: absolute;
+  height: 80px;
+  width: 100vw;
+  @include layout;
+
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: $header;
+  transform: translateY(180px);
+
+  .contact {
+    @include footer;
+  }
+
+  .lmp {
+    @include footer;
+  }
+}

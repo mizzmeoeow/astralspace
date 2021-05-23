@@ -1,0 +1,23 @@
+.cloud-svg-landing {
+  display: grid;
+  justify-content: right;
+  font-family: "Old Standard TT", serif;
+  font-weight: 600;
+  font-size: 20px;
+  grid-template-rows:
+    [signin-s] 64px [signin-e register-s] 64px [register-e shop-s] minmax(
+      20px,
+      160px
+    )
+    [shop-e];
+  grid-template-columns: 1fr;
+
+  a {
+    text-decoration: none;
+    color: black;
+    :hover {
+      color: rgba(255, 255, 255, 1);
+      box-shadow: 0 5px 15px rgba(145, 92, 182, 0.4);
+    }
+  }
+}

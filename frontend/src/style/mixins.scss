@@ -1,0 +1,13 @@
+@mixin layout {
+  // display: flex;
+
+  color: #b535fc;
+  font-family: "Tangerine", cursive;
+  background-color: $header;
+}
+
+@mixin footer {
+  margin-left: 150px;
+  font-size: 25px;
+  display: inline;
+}
