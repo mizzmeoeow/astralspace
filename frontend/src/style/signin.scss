@@ -1,2 +1,19 @@
-.sign-in-form {
+.sign-in__form {
+  color: black;
+  font-family: "Old Standard TT", serif;
+  font-weight: 600;
+  font-size: 20px;
+
+  margin: 0;
+  display: inline;
+  float: left;
+
+  input {
+    transform: translateX(30px);
+    justify-content: center;
+    text-align: right;
+  }
+}
+.sign-in-page {
+  width: 200px;
 }

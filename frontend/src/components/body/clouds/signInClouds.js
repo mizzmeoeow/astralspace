@@ -1,18 +1,14 @@
 import React, { Component } from "react";
+import SigninForm from "../../auth/sign-in/signinForm";
 
 class SignInClouds extends Component {
   render() {
     return (
       <div className="clouds-svg">
         <svg className="background" xmlnsXlink="http://www.w3.org/2000/svg">
-          <foreignObject x="800" y="200" width="200" height="150">
-            {/* <div className="cloud-svg-landing">
-              <a xlinkHref="/sign-in" className="cloud-svg-landing__sign-in">
-                Sign In
-              </a>
-              <a className="cloud-svg-landing__register">Register</a>
-              <a className="cloud-svg-landing__shop-as-guest">Shop as Guest</a>
-            </div> */}
+          <foreignObject x="800" y="200" width="300" height="150">
+            {this.props.children}
+            <SigninForm className="sign-in__form" />
           </foreignObject>
           <filter id="filter">
             <feTurbulence
