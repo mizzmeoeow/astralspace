@@ -1,13 +1,12 @@
 import React, { Component } from "react";
 import Layout from "../../layout";
-// import SigninForm from "./signinForm";
 import SignInClouds from "../../body/clouds/signInClouds";
 
 class Signin extends Component {
   render() {
     return (
       <div className="header sign-in">
-        <p>Sign In</p>
+        <p className="sign-in-page">Sign In</p>
         <div>
           {this.props.children}
           <Layout />

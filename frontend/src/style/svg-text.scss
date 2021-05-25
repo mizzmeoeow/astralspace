@@ -14,10 +14,13 @@
 
   a {
     text-decoration: none;
-    color: black;
-    :hover {
-      color: rgba(255, 255, 255, 1);
-      box-shadow: 0 5px 15px rgba(145, 92, 182, 0.4);
-    }
+    height: 2px;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: normal;
+    transition: all 0.2s ease-in-out;
+  }
+  a:hover {
+    color: #570670;
+    box-shadow: 5px 5px 30px rgba(3, 2, 3, 0.4);
   }
 }

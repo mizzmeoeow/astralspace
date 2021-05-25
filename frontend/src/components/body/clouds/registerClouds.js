@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import SigninForm from "../../auth/sign-in/signinForm";
+import RegisterForm from "../../auth/register/registerForm";
 
-class SignInClouds extends Component {
+class RegisterClouds extends Component {
   render() {
     return (
       <div className="clouds-svg">
@@ -36,7 +36,7 @@ class SignInClouds extends Component {
           <rect width="100%" height="100%" filter="url(#filter)" />
           <foreignObject x="800" y="200" width="300" height="150">
             {this.props.children}
-            <SigninForm className="sign-in__form" />
+            <RegisterForm className="sign-in__form" />
           </foreignObject>
         </svg>
       </div>
@@ -44,4 +44,4 @@ class SignInClouds extends Component {
   }
 }
 
-export default SignInClouds;
+export default RegisterClouds;

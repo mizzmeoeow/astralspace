@@ -5,15 +5,6 @@ class LandingClouds extends Component {
     return (
       <div className="clouds-svg">
         <svg className="background" xmlnsXlink="http://www.w3.org/2000/svg">
-          <foreignObject x="800" y="200" width="200" height="150">
-            <div className="cloud-svg-landing">
-              <a xlinkHref="/sign-in" className="cloud-svg-landing__sign-in">
-                Sign In
-              </a>
-              <a className="cloud-svg-landing__register">Register</a>
-              <a className="cloud-svg-landing__shop-as-guest">Shop as Guest</a>
-            </div>
-          </foreignObject>
           <filter id="filter">
             <feTurbulence
               type="fractalNoise"
@@ -42,6 +33,19 @@ class LandingClouds extends Component {
             </feComponentTransfer>
           </filter>
           <rect width="100%" height="100%" filter="url(#filter)" />
+          <foreignObject x="800" y="200" width="200" height="150">
+            <div className="cloud-svg-landing">
+              <a href="/sign-in" className="cloud-svg-landing__sign-in">
+                Sign In
+              </a>
+              <a href="/register" className="cloud-svg-landing__register">
+                Register
+              </a>
+              <a href="/shop" className="cloud-svg-landing__shop-as-guest">
+                Shop as Guest
+              </a>
+            </div>
+          </foreignObject>
         </svg>
       </div>
     );
