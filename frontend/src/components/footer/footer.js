@@ -4,7 +4,9 @@ class Footer extends Component {
   render() {
     return (
       <div className="footer">
-        <a className="contact">Contact</a>
+        <a href="/contact" className="contact">
+          Contact
+        </a>
         <div className="lmp">
           LilithMeowProductions
           <span dangerouslySetInnerHTML={{ __html: "&#8482;" }} />

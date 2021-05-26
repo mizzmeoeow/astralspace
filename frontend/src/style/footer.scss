@@ -1,6 +1,6 @@
 .footer {
   position: absolute;
-  height: 80px;
+  height: 100px;
   width: 100vw;
   @include layout;
 
@@ -12,6 +12,7 @@
 
   .contact {
     @include footer;
+    text-decoration: none;
   }
 
   .lmp {

@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import RegisterForm from "../../auth/register/registerForm";
 
-class RegisterClouds extends Component {
+import ContactForm from "../../contactForm";
+
+class ContactClouds extends Component {
   render() {
     return (
       <div className="clouds-svg">
@@ -34,9 +35,8 @@ class RegisterClouds extends Component {
             </feComponentTransfer>
           </filter>
           <rect width="100%" height="100%" filter="url(#filter)" />
-          <foreignObject x="600" y="150" width="300" height="450">
-            {this.props.children}
-            <RegisterForm className="sign-in__form" />
+          <foreignObject x="800" y="200" width="200" height="150">
+            <ContactForm />
           </foreignObject>
         </svg>
       </div>
@@ -44,4 +44,4 @@ class RegisterClouds extends Component {
   }
 }
 
-export default RegisterClouds;
+export default ContactClouds;

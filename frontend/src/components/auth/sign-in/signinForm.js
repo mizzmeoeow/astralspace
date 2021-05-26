@@ -1,37 +1,56 @@
 import React, { Component } from "react";
 
-import { reduxForm, Field } from "redux-form";
-
-import { FormInput } from "../../formFields";
-
 import history from "../../../history";
 
-class SigninForm extends Component {
+class SignInForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  submitLogin(e) {}
+
   render() {
-    const { className, handleSubmit } = this.props;
     return (
-      <form onSubmit={handleSubmit} className={`${className} sign-in-form`}>
-        <Field
-          className="sign-in-form__email"
-          type="email"
-          title="Email"
-          name="email"
-          component={FormInput}
-        />
-        <Field
-          className="sign-in-form__password"
-          name="password"
-          title="Password"
-          name="password"
-          component={FormInput}
-        />
-      </form>
+      <div className="sign-in-form">
+        <div className="input-group">
+          <label htmlFor="username">Username</label>
+          <input
+            type="text"
+            name="username"
+            className="login-input"
+            placeholder="Username"
+          />
+        </div>
+
+        <div className="input-group">
+          <label htmlFor="password">Password</label>
+          <input
+            type="password"
+            name="password"
+            className="login-input"
+            placeholder="Password"
+          />
+        </div>
+
+        <button
+          type="button buttons"
+          className="back-btn"
+          onClick={this.submitLogin.bind(this)}
+        >
+          Go Back
+        </button>
+
+        <button
+          type="button buttons"
+          className="login-btn"
+          onClick={this.submitLogin.bind(this)}
+        >
+          Launch
+        </button>
+      </div>
     );
   }
 }
 
-SigninForm = reduxForm({
-  form: "SigninForm",
-})(SigninForm);
-
-export default SigninForm;
+export default SignInForm;

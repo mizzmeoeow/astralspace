@@ -52,10 +52,4 @@ class LandingClouds extends Component {
   }
 }
 
-// function mapstatetoprops(state) {
-//   const { landingLinks }
-// }
-
-// LandingClouds = connect(mapstatetoprops, actions)(LandingClouds);
-
 export default LandingClouds;

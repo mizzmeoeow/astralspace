@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Layout from "../../layout";
 import SignInClouds from "../../body/clouds/signInClouds";
 
-class Signin extends Component {
+class SignIn extends Component {
   render() {
     return (
       <div className="header sign-in">
@@ -17,4 +17,4 @@ class Signin extends Component {
   }
 }
 
-export default Signin;
+export default SignIn;

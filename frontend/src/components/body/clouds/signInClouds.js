@@ -1,7 +1,11 @@
 import React, { Component } from "react";
-import SigninForm from "../../auth/sign-in/signinForm";
+import SignInForm from "../../auth/sign-in/signinForm";
 
 class SignInClouds extends Component {
+  onSubmit = (fields) => {
+    console.log(fields);
+  };
+
   render() {
     return (
       <div className="clouds-svg">
@@ -34,9 +38,9 @@ class SignInClouds extends Component {
             </feComponentTransfer>
           </filter>
           <rect width="100%" height="100%" filter="url(#filter)" />
-          <foreignObject x="800" y="200" width="300" height="150">
+          <foreignObject x="600" y="250" width="300" height="150">
             {this.props.children}
-            <SigninForm className="sign-in__form" />
+            <SignInForm onSubmit={this.onSubmit} className="sign-in__form" />
           </foreignObject>
         </svg>
       </div>
