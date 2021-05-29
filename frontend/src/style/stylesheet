@@ -1,0 +1,35 @@
+  header:
+  font-size: 60px;
+
+  footer:
+  font-size: 25px;
+  
+  header & footer: 
+  color: #b535fc
+  font-family: "Tangerine", cursive;
+  background-color: #d0deff;
+
+
+  body:
+  color: rgb(100, 6, 88);
+  font-family: "Old Standard TT", serif;
+  font-weight: 600;
+  font-size: 20px; 
+
+  button:
+  border: 2px solid #008cba;
+  color: black;
+  hover:
+  background-image: linear-gradient(
+      180deg,
+      rgb(47, 0, 255),
+      rgb(255, 0, 234)
+    );
+    active:
+  background-color: #a3b8e9;
+
+
+
+
+
+

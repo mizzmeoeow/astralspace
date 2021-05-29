@@ -1,5 +1,6 @@
 .layout {
   display: flex;
+  overflow-x: hidden;
 
   p {
     grid-row: p-s/p-e;
@@ -9,7 +10,7 @@
 
 .header {
   flex-direction: column;
-  font-size: 30px;
+  font-size: 60px;
   margin: 0;
   @include layout;
 
@@ -25,7 +26,7 @@
 
   .header__space {
     margin: 0;
-    margin-right: 1178px;
+    margin-right: 1112px;
     display: inline;
     float: right;
   }

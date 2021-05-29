@@ -2,11 +2,15 @@ import React, { Component } from "react";
 import SignInForm from "../../auth/sign-in/signinForm";
 
 class SignInClouds extends Component {
-  onSubmit = (fields) => {
-    console.log(fields);
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLoginActive: true,
+    };
+  }
 
   render() {
+    const { isLoginActive } = this.state;
     return (
       <div className="clouds-svg">
         <svg className="background" xmlnsXlink="http://www.w3.org/2000/svg">
@@ -38,9 +42,13 @@ class SignInClouds extends Component {
             </feComponentTransfer>
           </filter>
           <rect width="100%" height="100%" filter="url(#filter)" />
-          <foreignObject x="600" y="250" width="300" height="150">
-            {this.props.children}
-            <SignInForm onSubmit={this.onSubmit} className="sign-in__form" />
+          <foreignObject x="600" y="250" width="400" height="150">
+            {isLoginActive && (
+              <SignInForm
+                className="sign-in__form"
+                containerRef={(ref) => (this.current = ref)}
+              />
+            )}
           </foreignObject>
         </svg>
       </div>

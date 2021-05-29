@@ -3,16 +3,9 @@ import React, { Component } from "react";
 import history from "../../../history";
 
 class SignInForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
-  submitLogin(e) {}
-
   render() {
     return (
-      <div className="sign-in-form">
+      <div className="sign-in-form" ref={this.props.containerRef}>
         <div className="input-group">
           <label htmlFor="username">Username</label>
           <input
@@ -34,19 +27,19 @@ class SignInForm extends React.Component {
         </div>
 
         <button
-          type="button buttons"
-          className="back-btn"
-          onClick={this.submitLogin.bind(this)}
+          type="button"
+          className="login-btn"
+          onClick={this.props.onClick}
         >
-          Go Back
+          Launch
         </button>
 
         <button
-          type="button buttons"
-          className="login-btn"
-          onClick={this.submitLogin.bind(this)}
+          type="button"
+          className="back-btn"
+          onClick={() => history.push("/")}
         >
-          Launch
+          Go Back
         </button>
       </div>
     );

@@ -17,23 +17,27 @@ import Signin from "./components/auth/sign-in/sign-in";
 import Register from "./components/auth/register/register";
 import Shop from "./components/pages/shop";
 import Contact from "./components/pages/contact";
+import Profile from "./components/pages/profile";
 
 function main() {
   ReactDOM.render(
     <Provider store={createStoreWithMiddleware(reducers)}>
       <Router history={history}>
-        <Layout>
-          <Switch>
-            <Route path="/" exact component={LandingPage} />
-            <Route path="/sign-in" exact component={Signin} />
-            <Route path="/register" exact component={Register} />
-            <Route path="/Shop" exact component={Shop} />
-            <Route path="/Contact" exact component={Contact} />
-          </Switch>
-        </Layout>
+        <React.StrictMode>
+          <Layout>
+            <Switch>
+              <Route path="/" exact component={LandingPage} />
+              <Route path="/sign-in" exact component={Signin} />
+              <Route path="/register" exact component={Register} />
+              <Route path="/shop" exact component={Shop} />
+              <Route path="/contact" exact component={Contact} />
+              <Route path="/profile" exact component={Profile} />
+            </Switch>
+          </Layout>
+        </React.StrictMode>
       </Router>
     </Provider>,
-    document.querySelector(".app-wrapper")
+    document.getElementById("root")
   );
 }
 

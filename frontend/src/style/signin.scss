@@ -1,25 +1,32 @@
 .sign-in__form,
 .sign-in-form {
-  color: black;
+  color: rgb(100, 6, 88);
   font-family: "Old Standard TT", serif;
   font-weight: 600;
-  font-size: 20px;
-  align-content: center;
+  font-size: 25px;
 
   margin: 0;
   display: inline;
-  float: left;
+  float: right;
   text-align: center;
+
+  .birthday {
+    transform: translateX(-47px);
+  }
+  .question {
+    transform: translateX(80px);
+  }
 
   button {
     border: 2px solid #008cba;
 
     color: black;
     padding: 12px 20px;
+    transform: translateX(160px);
     margin: 2px;
     border-radius: 6px;
     cursor: pointer;
-    float: right;
+    float: left;
     box-shadow: 5px 5px 5px rgb(192, 19, 178);
   }
 
@@ -36,19 +43,52 @@
   .login-btn:active {
     background-color: #3e8e41;
     box-shadow: 0 5px #666;
-    transform: translateY(4px);
   }
 
   input {
-    transform: translateX(30px);
-    text-align: right;
+    transform: translateX(2px);
+    text-align: center;
     border-radius: 70%;
+    font-size: 20px;
   }
 }
-.sign-in-page {
-  width: 200px;
+
+.sign-in-form h4 {
+  font-size: 12px;
+  color: red;
+  justify-items: center;
 }
 
-.register-form {
-  height: 200px;
+.form-success {
+  color: black;
+}
+
+.form-success {
+  button {
+    border: 2px solid #008cba;
+
+    color: black;
+    padding: 12px 20px;
+    transform: translateX(160px);
+    margin: 2px;
+    border-radius: 6px;
+    cursor: pointer;
+    float: left;
+    box-shadow: 5px 5px 5px rgb(192, 19, 178);
+  }
+
+  .back-btn:hover,
+  .login-btn:hover {
+    background-image: linear-gradient(
+      180deg,
+      rgb(47, 0, 255),
+      rgb(255, 0, 234)
+    );
+  }
+
+  .back-btn:active,
+  .login-btn:active {
+    background-color: #3e8e41;
+    box-shadow: 0 5px #666;
+  }
 }
