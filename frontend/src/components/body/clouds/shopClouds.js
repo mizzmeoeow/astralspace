@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 
-// import ContactForm from "../../auth/contact/contactForm";
-
-class ContactClouds extends Component {
+class ShopClouds extends Component {
   render() {
     return (
       <div className="clouds-svg">
@@ -35,8 +33,16 @@ class ContactClouds extends Component {
             </feComponentTransfer>
           </filter>
           <rect width="100%" height="100%" filter="url(#filter)" />
-          <foreignObject x="800" y="200" width="200" height="150">
-            {/* <ContactForm /> */}
+          <foreignObject x="400" y="100" width="700" height="300">
+            <div className="shop-down-info">
+              <h2 className="shop-down">
+                Welcome to the Shop. We are currently under construction and
+                will debut the Shop in the near future. In the meantime, check
+                out a creator and their links to their shop! Thank you for your
+                patience.
+              </h2>
+              <h4 className="shop-down-sig">LilithMeowProductions</h4>
+            </div>
           </foreignObject>
         </svg>
       </div>
@@ -44,4 +50,4 @@ class ContactClouds extends Component {
   }
 }
 
-export default ContactClouds;
+export default ShopClouds;

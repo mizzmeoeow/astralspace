@@ -18,6 +18,8 @@ import Register from "./components/auth/register/register";
 import Shop from "./components/pages/shop";
 import Contact from "./components/pages/contact";
 import Profile from "./components/pages/profile";
+import Blog from "./components/pages/blog";
+import Users from "./components/users";
 
 function main() {
   ReactDOM.render(
@@ -32,6 +34,8 @@ function main() {
               <Route path="/shop" exact component={Shop} />
               <Route path="/contact" exact component={Contact} />
               <Route path="/profile" exact component={Profile} />
+              <Route path="/blog" exact component={Blog} />
+              <Users />
             </Switch>
           </Layout>
         </React.StrictMode>

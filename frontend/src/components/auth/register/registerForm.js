@@ -1,108 +1,196 @@
-import React, { Component } from "react";
-import validate from "../login/validateInfo";
-import useForm from "../login/useForm";
+import React, { Component, useState } from "react";
+// import ValidateForm from "../login/validateInfo";
 
 import history from "../../../history";
+import axios from "axios";
 
-const RegisterForm = ({ submitForm }) => {
-  const { handleChange, values, handleSubmit, errors } = useForm(
-    submitForm,
-    validate
-  );
+class RegisterForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: "",
+      email: "",
+      password: "",
+      confirm: "",
+      birthday: "",
+      question: "",
+      usernameError: false,
+      emailError: false,
+      passwordError: false,
+      confirmError: false,
+      birthdayError: false,
+      questionError: false,
+    };
+    this.validateForm = this.validateForm.bind(this);
+    this.onChangeInput = this.onChangeInput.bind(this);
+  }
 
-  return (
-    <form className="sign-in-form" onSubmit={handleSubmit} noValidate>
-      <div className="sign-in-form register">
-        <label htmlFor="username">Username</label>
-        <input
-          type="text"
-          name="username"
-          className="login-input"
-          placeholder="Username"
-          value={values.username}
-          onChange={handleChange}
-        />
-        {errors.username && <h4 className="error">{errors.username}</h4>}
-      </div>
+  validateForm() {
+    const username = this.state.username;
+    const email = this.state.email;
+    const password = this.state.password;
+    const confirm = this.state.confirm;
+    const birthday = this.state.username;
+    const question = this.state.question;
 
-      <div className="sign-in-form">
-        <label htmlFor="email">Email</label>
-        <input
-          type="text"
-          name="email"
-          className="login-input"
-          placeholder="Email"
-          value={values.email}
-          onChange={handleChange}
-        />
-        {errors.email && <h4 className="error">{errors.email}</h4>}
-      </div>
+    if (username) {
+      this.setState({ usernameError: false });
+    } else {
+      this.setState({ usernameError: true });
+    }
 
-      <div className="sign-in-form">
-        <label htmlFor="password">Password</label>
-        <input
-          type="password"
-          name="password"
-          className="login-input"
-          placeholder="Password"
-          value={values.password}
-          onChange={handleChange}
-        />
-        {errors.password && <h4 className="error">{errors.password}</h4>}
-      </div>
+    if (email) {
+      this.setState({ emailError: false });
+    } else {
+      this.setState({ emailError: true });
+    }
 
-      <div className="sign-in-form">
-        <label htmlFor="confirm">Confirm Password</label>
-        <input
-          type="password"
-          name="confirm"
-          className="login-input"
-          placeholder="Confirm Password"
-          value={values.confirm}
-          onChange={handleChange}
-        />
-        {errors.confirm && <h4 className="error">{errors.confirm}</h4>}
-      </div>
+    if (password) {
+      this.setState({ passwordError: false });
+    } else {
+      this.setState({ passwordError: true });
+    }
 
-      <div className="sign-in-form birthday">
-        <label htmlFor="birthday">Birthday</label>
-        <input
-          type="date"
-          name="birthday"
-          min="2004-28-05"
-          max="2096-28-05"
-          className="login-input"
-          placeholder="Birthday"
-          value={values.birthday}
-          onChange={handleChange}
-        />
-        {errors.birthday && <h4 className="error">{errors.birthday}</h4>}
-      </div>
+    if (confirm) {
+      this.setState({ confirmError: false });
+    } else {
+      this.setState({ confirmError: true });
+    }
 
-      <div className="sign-in-form question">
-        <label htmlFor="question">What art field interests you?</label>
-        <input
-          type="question"
-          name="question"
-          className="login-input"
-          placeholder="Question"
-          value={values.question}
-          onChange={handleChange}
-        />
-        {errors.question && <h4 className="error">{errors.question}</h4>}
-      </div>
-      <button type="submit" className="login-btn" value="Validate">
-        Register
-      </button>
-      <button
-        type="button"
-        className="login-btn"
-        onClick={() => history.push("/")}
-      >
-        Go Back
-      </button>
-    </form>
-  );
-};
+    if (birthday) {
+      this.setState({ birthdayError: false });
+    } else {
+      this.setState({ birthdayError: true });
+    }
+
+    if (question) {
+      this.setState({ questionError: false });
+    } else {
+      this.setState({ questionError: true });
+    }
+
+    var signUpFormData = {
+      username: username,
+      email: email,
+      password: password,
+      birthday: birthday,
+      question: question,
+    };
+    axios
+      .post("https://localhost:5000/register", signUpFormData)
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
+  componentDidMount() {
+    this.axios;
+  }
+
+  onChangeInput(event) {
+    const name = event.target.name;
+    const value = event.target.value;
+    this.setState({ [name]: value });
+  }
+
+  render() {
+    return (
+      <form className="sign-in-form" onChange={(e) => this.onChangeInput(e)}>
+        <div className="sign-in-form register">
+          <label htmlFor="username">Username</label>
+          <input
+            type="text"
+            name="username"
+            className="login-input"
+            placeholder="Username"
+            value={this.state.username}
+            style={{ border: this.state.usernameError ? "1px solid red" : "" }}
+            onChange={(e) => this.onChangeInput(e)}
+          />
+        </div>
+        <div className="sign-in-form">
+          <label htmlFor="email">Email</label>
+          <input
+            type="text"
+            name="email"
+            className="login-input"
+            placeholder="Email"
+            value={this.state.email}
+            style={{ border: this.state.emailError ? "1px solid red" : "" }}
+            onChange={(e) => this.onChangeInput(e)}
+          />
+        </div>
+        <div className="sign-in-form">
+          <label htmlFor="password">Password</label>
+          <input
+            type="password"
+            name="password"
+            className="login-input"
+            placeholder="Password"
+            value={this.state.password}
+            style={{ border: this.state.passwordError ? "1px solid red" : "" }}
+            onChange={(e) => this.onChangeInput(e)}
+          />
+        </div>
+        <div className="sign-in-form">
+          <label htmlFor="confirm">Confirm Password</label>
+          <input
+            type="password"
+            name="confirm"
+            className="login-input"
+            placeholder="Confirm Password"
+            value={this.state.confirm}
+            style={{ border: this.state.confirmError ? "1px solid red" : "" }}
+            onChange={(e) => this.onChangeInput(e)}
+          />
+        </div>
+        <div className="sign-in-form birthday">
+          <label htmlFor="birthday">Birthday</label>
+          <input
+            type="date"
+            name="birthday"
+            min="2004-28-05"
+            max="2096-28-05"
+            className="login-input"
+            placeholder="Birthday"
+            value={this.state.birthday}
+            style={{ border: this.state.birthdayError ? "1px solid red" : "" }}
+            onChange={(e) => this.onChangeInput(e)}
+          />
+        </div>
+        <div className="sign-in-form question">
+          <label htmlFor="question">What art field interests you?</label>
+          <input
+            type="question"
+            name="question"
+            className="login-input"
+            placeholder="Question"
+            value={this.state.question}
+            style={{ border: this.state.questionError ? "1px solid red" : "" }}
+            onChange={(e) => this.onChangeInput(e)}
+          />
+        </div>
+        <button
+          onClick={this.validate}
+          type="submit"
+          className="login-btn"
+          value="Validate"
+        >
+          Register
+        </button>
+        <button
+          type="button"
+          className="login-btn"
+          onClick={() => history.push("/")}
+        >
+          Go Back
+        </button>
+      </form>
+    );
+  }
+}
 
 export default RegisterForm;
