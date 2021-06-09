@@ -11,7 +11,6 @@ class Layout extends Component {
       <div className="layout">
         {this.props.children}
         <Header />
-        <Navbar />
         <Footer />
       </div>
     );

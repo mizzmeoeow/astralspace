@@ -1,5 +1,4 @@
 const { User } = require("./dbSchema/models/user");
-const dotenv = require("dotenv");
 const express = require("express");
 const cookieSession = require("cookie-session");
 const bcrypt = require("bcrypt");
@@ -7,7 +6,6 @@ const mongoose = require("mongoose");
 
 const app = express();
 const cors = require("cors");
-dotenv.config();
 
 const port = 5000;
 
@@ -29,6 +27,7 @@ app.use(express.json());
 app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static("public"));
+app.use("/", require("./routes/usersRoute"));
 
 //cookie session
 app.use(
@@ -50,7 +49,7 @@ app
     res.render("register");
   });
 
-app.post("/register", async (req, res) => {
+app.post("/register", async (req, res, next) => {
   console.log("data", req.body);
   const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
