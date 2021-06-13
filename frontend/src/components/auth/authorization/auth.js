@@ -1,9 +1,7 @@
 import React, { Component } from "react";
-import Layout from "../../layout";
-import SignInClouds from "../../body/clouds/signInClouds";
-import Footer from "../../footer/footer";
+import Login from "../sign-in/signinForm";
 
-class SignIn extends Component {
+export default class Auth extends Component {
   constructor(props) {
     super(props);
 
@@ -13,25 +11,23 @@ class SignIn extends Component {
 
   handleSuccessfulAuth() {
     this.props.handleSuccessfulLogin();
-    this.props.history.push("/");
+    this.props.history.push("/profile");
   }
 
   handleUnsuccessfulAuth() {
     this.props.handleUnsuccessfulLogin();
   }
+
   render() {
     return (
-      <div className="header sign-in">
-        <p className="sign-in-page">Sign In</p>
-        <div>
-          {this.props.children}
-          <Layout />
-          <SignInClouds />
-          <Footer />
+      <div className="auth-page-wrapper">
+        <div className="right-column">
+          <Login
+            handleSuccessfulAuth={this.handleSuccessfulAuth}
+            handleUnsuccessfulAuth={this.handleUnsuccessfulAuth}
+          />
         </div>
       </div>
     );
   }
 }
-
-export default SignIn;

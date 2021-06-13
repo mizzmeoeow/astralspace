@@ -42,7 +42,7 @@ class SignInClouds extends Component {
             </feComponentTransfer>
           </filter>
           <rect width="100%" height="100%" filter="url(#filter)" />
-          <foreignObject x="600" y="250" width="400" height="150">
+          <foreignObject x="400" y="150" width="400" height="150">
             {isLoginActive && (
               <SignInForm
                 className="sign-in__form"

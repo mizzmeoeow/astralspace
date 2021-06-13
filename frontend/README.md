@@ -1,5 +1,5 @@
-# React/Redux/Router Starter Project
+# Astral Space; a social media experience for connections
 
-> Provided for the students of the [Bottega Code School](https://bottega.tech/)
+> Provided for creators of all types
 
-*Fork from [es6-webpack2-starter](https://github.com/micooz/es6-webpack2-starter)*
+\*Register or Sign In to access your home space

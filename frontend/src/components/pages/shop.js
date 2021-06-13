@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Layout from "../layout";
+import Navbar from "../headernavbar/navbar";
 import ShopClouds from "../body/clouds/shopClouds";
 
 class Shop extends Component {
@@ -9,6 +10,7 @@ class Shop extends Component {
         <p className="sign-in-page">Shop</p>
         {this.props.children}
         <Layout />
+        <Navbar />
         {/* <button
           type="button"
           className="back-btn"

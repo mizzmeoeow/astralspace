@@ -104,7 +104,7 @@ const RegisterForm = ({ submitForm }) => {
       </div>
       <button
         type="submit"
-        className="login-btn"
+        className="login-btn register-btn"
         value="Validate"
         onClick={handleClick}
       >
@@ -112,7 +112,7 @@ const RegisterForm = ({ submitForm }) => {
       </button>
       <button
         type="button"
-        className="login-btn"
+        className="login-btn register-btn"
         onClick={() => history.push("/")}
       >
         Go Back

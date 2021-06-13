@@ -10,6 +10,10 @@
   float: right;
   text-align: center;
 
+  .register-btn {
+    transform: translateX(220px);
+  }
+
   .birthday {
     transform: translateX(-47px);
   }
@@ -18,16 +22,7 @@
   }
 
   button {
-    border: 2px solid #008cba;
-
-    color: black;
-    padding: 12px 20px;
-    transform: translateX(160px);
-    margin: 2px;
-    border-radius: 6px;
-    cursor: pointer;
-    float: left;
-    box-shadow: 5px 5px 5px rgb(192, 19, 178);
+    transform: translateX(30px);
   }
 
   .back-btn:hover,
@@ -64,19 +59,6 @@
 }
 
 .form-success {
-  button {
-    border: 2px solid #008cba;
-
-    color: black;
-    padding: 12px 20px;
-    transform: translateX(160px);
-    margin: 2px;
-    border-radius: 6px;
-    cursor: pointer;
-    float: left;
-    box-shadow: 5px 5px 5px rgb(192, 19, 178);
-  }
-
   .back-btn:hover,
   .login-btn:hover {
     background-image: linear-gradient(
@@ -91,4 +73,26 @@
     background-color: #3e8e41;
     box-shadow: 0 5px #666;
   }
+}
+
+button {
+  border: 2px solid #008cba;
+
+  color: black;
+  padding: 12px 20px;
+  margin: 2px;
+  border-radius: 6px;
+  cursor: pointer;
+  float: left;
+  box-shadow: 5px 5px 5px rgb(192, 19, 178);
+}
+
+.blog-btn:hover {
+  background-image: linear-gradient(180deg, rgb(47, 0, 255), rgb(255, 0, 234));
+}
+
+.blog-btn:active {
+  background-color: #3e8e41;
+  box-shadow: 0 3px transparent;
+  transform: translateY(2px);
 }

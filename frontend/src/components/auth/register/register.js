@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import RegisterClouds from "../../body/clouds/registerClouds";
 import Layout from "../../layout";
+import Footer from "../../footer/footer";
 
 class Register extends Component {
   render() {
@@ -9,6 +10,7 @@ class Register extends Component {
         <p className="sign-in-page">Register</p>
         <Layout />
         <RegisterClouds />
+        <Footer />
       </div>
     );
   }

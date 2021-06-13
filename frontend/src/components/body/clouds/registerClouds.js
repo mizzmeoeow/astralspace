@@ -40,7 +40,7 @@ const RegisterClouds = () => {
           </feComponentTransfer>
         </filter>
         <rect width="100%" height="100%" filter="url(#filter)" />
-        <foreignObject x="500" y="150" width="470" height="500">
+        <foreignObject x="400" y="150" width="470" height="500">
           {!isSubmitted ? (
             <RegisterForm submitForm={submitForm} className="sign-in-form" />
           ) : (

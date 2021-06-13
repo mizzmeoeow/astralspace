@@ -1,0 +1,29 @@
+.navbar {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  height: 2px;
+  font-size: 30px;
+  transform: translateX(-32px) translateY(5px);
+}
+
+.navbar-links {
+  text-decoration: none;
+  color: rgb(100, 6, 88);
+}
+
+.navbar-links:hover {
+  color: #b535fc;
+}
+
+.profile-page {
+  background-color: black;
+}
+
+.profile {
+  color: white;
+}
+
+.profile-links {
+  color: white;
+}

@@ -3,6 +3,7 @@ const express = require("express");
 const cookieSession = require("cookie-session");
 const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
+const jwt = require("jsonwebtoken");
 
 const app = express();
 const cors = require("cors");
@@ -27,7 +28,7 @@ app.use(express.json());
 app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static("public"));
-app.use("/", require("./routes/usersRoute"));
+app.set("view-engine", "ejs");
 
 //cookie session
 app.use(
@@ -39,14 +40,11 @@ app.use(
 //route for serving frontend files
 
 app
-  .get("/", (req, res) => {
-    res.render("home");
+  .get("/profile", (req, res) => {
+    res.render("index.ejs", { name: "" });
   })
   .get("/login", (req, res) => {
-    res.render("login");
-  })
-  .get("/register", (req, res) => {
-    res.render("register");
+    res.render("login.ejs");
   });
 
 app.post("/register", async (req, res, next) => {
@@ -108,6 +106,39 @@ app.post("/register", async (req, res, next) => {
   }
 
   res.json({ status: "ok" });
+});
+
+app.post("/login", (req, res) => {
+  var username = req.body.username;
+  var password = req.body.password;
+  User.findOne({ $or: [{ email: username }] }).then((user) => {
+    if (user) {
+      bcrypt.compare(password, user.password, function (err, result) {
+        if (err) {
+          res.json({
+            error: err,
+          });
+        }
+        if (result) {
+          let token = jwt.sign({ name: user.name }, "verySecretValue", {
+            expiresIn: "2h",
+          });
+          res.json({
+            message: "Login Successful!",
+            token,
+          });
+        } else {
+          res.json({
+            message: "Password does not match!",
+          });
+        }
+      });
+    } else {
+      res.json({
+        message: "No user found!",
+      });
+    }
+  });
 });
 
 app.listen(port, () => console.log(`app listening on port ${port}!`));

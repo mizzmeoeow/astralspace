@@ -15,7 +15,24 @@
     text-decoration: none;
   }
 
+  .contact:hover {
+    color: rgb(100, 6, 88);
+  }
+
   .lmp {
     @include footer;
   }
+}
+
+.profile-contact,
+.profile-lmp {
+  text-decoration: none;
+  margin-left: 150px;
+  font-size: 25px;
+  display: inline;
+  color: white;
+}
+
+.profile-contact:hover {
+  color: #b535fc;
 }

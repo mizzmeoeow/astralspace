@@ -1,43 +1,8 @@
 import React, { Component } from "react";
+import axios from "axios";
+import User from "../../../../../backend/dbSchema/models/user";
 
 import history from "../../../history";
-
-// class SignInForm extends React.Component {
-//   render() {
-//     return (
-//       <div className="sign-in-form" ref={this.props.containerRef}>
-//         <div className="input-group">
-//           <label htmlFor="username">Username</label>
-//           <input
-//             type="text"
-//             name="username"
-//             className="login-input"
-//             placeholder="Username"
-//           />
-//         </div>
-
-//         <div className="input-group">
-//           <label htmlFor="password">Password</label>
-//           <input
-//             type="password"
-//             name="password"
-//             className="login-input"
-//             placeholder="Password"
-//           />
-//         </div>
-
-//         <button
-//           type="button"
-//           className="login-btn"
-//           onClick={this.props.onClick}
-//         >
-//           Launch
-//         </button>
-
-//
-//     );
-//   }
-// }
 
 class SignInForm extends Component {
   constructor(props) {
@@ -46,35 +11,56 @@ class SignInForm extends Component {
       email: "",
       password: "",
     };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  onChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
-  };
-
-  handleSubmit = (e) => {
-    e.preventDefault();
-
-    const { email, password } = this.state;
-
-    const user = {
-      email,
-      password,
-    };
-
-    axios
-      .post("http://localhost:5000/api/login", user)
-      .then(() => console.log("done"))
-      .catch((err) => {
-        console.error(err);
+  handleChange(event) {
+    console.log("working so far"),
+      this.setState({
+        [event.target.name]: event.target.value,
       });
-  };
+  }
 
+  handleSubmit(event) {
+    // debugger;
+    axios
+      .post(
+        "https://localhost:5000/login",
+        User,
+        {
+          client: {
+            email: this.state.email,
+            password: this.state.password,
+          },
+        },
+        { withCredentials: true }
+      )
+      .then((response) => {
+        console.log("response", response);
+        // if (response.data.status === "created") {
+        //   this.props.handleSuccessfulAuth();
+        // } else {
+        //   this.setState({
+        //     errorText: "Wrong email or password",
+        //   });
+        //   this.props.handleUnsuccessfulAuth();
+        // }
+      });
+    // .catch((error) => {
+    //   this.setState({
+    //     errorText: "An error occurred",
+    //   });
+    //   this.props.handleUnsuccessfulAuth();
+    // }
+
+    event.preventDefault();
+  }
   render() {
     return (
       <div id="login">
         <div className="sign-in-form">
-          {/* <p>{this.state.response}</p> --> */}
           <div className="input-group">
             <form onSubmit={this.handleSubmit}>
               <input
@@ -82,27 +68,33 @@ class SignInForm extends Component {
                 type="email"
                 id="email"
                 name="email"
-                placeholder="Enter Email"
-                onChange={this.onChange}
+                placeholder="Email"
+                value={this.state.email}
+                onChange={this.handleChange}
               />
-              <input
-                className="login-input"
-                type="password"
-                id="password"
-                name="password"
-                placeholder="Enter Password"
-                onChange={this.onChange}
-              />
-              <button className="login-btn" type="submit">
-                Launch
-              </button>
-              <button
-                type="button"
-                className="back-btn"
-                onClick={() => history.push("/")}
-              >
-                Go Back
-              </button>
+              <div>
+                <input
+                  className="login-input"
+                  type="password"
+                  id="password"
+                  name="password"
+                  placeholder="Password"
+                  value={this.state.password}
+                  onChange={this.handleChange}
+                />
+              </div>
+              <div className="">
+                <button className="login-btn" type="submit">
+                  Launch
+                </button>
+                <button
+                  type="button"
+                  className="back-btn"
+                  onClick={() => history.push("/")}
+                >
+                  Go Back
+                </button>
+              </div>
             </form>
           </div>
         </div>
