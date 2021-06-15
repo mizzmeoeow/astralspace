@@ -108,7 +108,7 @@ app.post("/register", async (req, res, next) => {
   res.json({ status: "ok" });
 });
 
-app.post("/login", (req, res) => {
+app.post("/login", (req, res, next) => {
   var username = req.body.username;
   var password = req.body.password;
   User.findOne({ $or: [{ email: username }] }).then((user) => {

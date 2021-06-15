@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import axios from "axios";
 
+import Profile from "./components/pages/profile";
+
 export default class App extends Component {
   constructor(props) {
     super(props);
@@ -77,7 +79,7 @@ export default class App extends Component {
         <Router>
           <div>
             <Switch>
-              <Route exact path="/" component={Home} />
+              {/* <Route exact path="/profile" component={Profile} /> */}
 
               <Route
                 path="/sign-in"
@@ -90,16 +92,12 @@ export default class App extends Component {
                 )}
               />
 
-              <Route path="/b/:slug" component={BlogDetail} />
+              {/* <Route path="/b/:slug" component={BlogDetail} /> */}
               {this.state.loggedInStatus === "LOGGED_IN"
                 ? this.authorizedPages()
                 : null}
-              <Route
-                exact
-                path="/portfolio/:slug"
-                component={PortfolioDetail}
-              />
-              <Route component={NoMatch} />
+              <Route exact path="/profile/:slug" component={Profile} />
+              {/* <Route component={NoMatch} /> */}
             </Switch>
           </div>
         </Router>

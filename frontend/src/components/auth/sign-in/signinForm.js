@@ -24,10 +24,9 @@ class SignInForm extends Component {
   }
 
   handleSubmit(event) {
-    // debugger;
     axios
       .post(
-        "https://localhost:5000/login",
+        "http://localhost:5000/login",
         User,
         {
           client: {
@@ -39,21 +38,21 @@ class SignInForm extends Component {
       )
       .then((response) => {
         console.log("response", response);
-        // if (response.data.status === "created") {
-        //   this.props.handleSuccessfulAuth();
-        // } else {
-        //   this.setState({
-        //     errorText: "Wrong email or password",
-        //   });
-        //   this.props.handleUnsuccessfulAuth();
-        // }
+        if (response.data.status === "created") {
+          this.props.handleSuccessfulAuth();
+        } else {
+          this.setState({
+            errorText: "Wrong email or password",
+          });
+          this.props.handleUnsuccessfulAuth();
+        }
+      })
+      .catch((error) => {
+        this.setState({
+          errorText: "An error occurred",
+        });
+        // this.props.handleUnsuccessfulAuth();
       });
-    // .catch((error) => {
-    //   this.setState({
-    //     errorText: "An error occurred",
-    //   });
-    //   this.props.handleUnsuccessfulAuth();
-    // }
 
     event.preventDefault();
   }
