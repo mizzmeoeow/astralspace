@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Login from "../sign-in/signinForm";
+import SignIn from "../sign-in/sign-in";
 
 export default class Auth extends Component {
   constructor(props) {
@@ -22,7 +22,7 @@ export default class Auth extends Component {
     return (
       <div className="auth-page-wrapper">
         <div className="right-column">
-          <Login
+          <SignIn
             handleSuccessfulAuth={this.handleSuccessfulAuth}
             handleUnsuccessfulAuth={this.handleUnsuccessfulAuth}
           />

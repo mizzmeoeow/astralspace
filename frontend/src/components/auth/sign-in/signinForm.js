@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import axios from "axios";
-import User from "../../../../../backend/dbSchema/models/user";
 
 import history from "../../../history";
 
@@ -10,6 +9,7 @@ class SignInForm extends Component {
     this.state = {
       email: "",
       password: "",
+      errorText: "",
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -20,22 +20,20 @@ class SignInForm extends Component {
     console.log("working so far"),
       this.setState({
         [event.target.name]: event.target.value,
+        errorText: "",
       });
   }
 
   handleSubmit(event) {
+    event.preventDefault();
+
+    let user = {
+      email: this.state.email,
+      password: this.state.password,
+    };
+    console.log(user);
     axios
-      .post(
-        "http://localhost:5000/login",
-        User,
-        {
-          client: {
-            email: this.state.email,
-            password: this.state.password,
-          },
-        },
-        { withCredentials: true }
-      )
+      .post("http://localhost:5000/login", user)
       .then((response) => {
         console.log("response", response);
         if (response.data.status === "created") {
@@ -51,16 +49,15 @@ class SignInForm extends Component {
         this.setState({
           errorText: "An error occurred",
         });
-        // this.props.handleUnsuccessfulAuth();
       });
-
-    event.preventDefault();
   }
+
   render() {
     return (
       <div id="login">
         <div className="sign-in-form">
           <div className="input-group">
+            <div>{this.state.errorText}</div>
             <form onSubmit={this.handleSubmit}>
               <input
                 className="login-input"
@@ -70,6 +67,8 @@ class SignInForm extends Component {
                 placeholder="Email"
                 value={this.state.email}
                 onChange={this.handleChange}
+                autoComplete="none"
+                required
               />
               <div>
                 <input
@@ -80,6 +79,8 @@ class SignInForm extends Component {
                   placeholder="Password"
                   value={this.state.password}
                   onChange={this.handleChange}
+                  autoComplete="none"
+                  required
                 />
               </div>
               <div className="">

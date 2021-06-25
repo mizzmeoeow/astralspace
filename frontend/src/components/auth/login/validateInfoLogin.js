@@ -6,7 +6,7 @@ export default function validateInfoLogin(values) {
   }
 
   if (!values.email) {
-    errors.email = "Email required";
+    errors.email = "User not found, please try another email.";
   } else if (!/\S+@\S+\.\S+/.test(values.email)) {
     errors.email = "Email address is invalid";
   }

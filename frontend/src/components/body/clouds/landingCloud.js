@@ -41,9 +41,9 @@ class LandingClouds extends Component {
               <a href="/register" className="cloud-svg-landing__register">
                 Register
               </a>
-              <a href="/shop" className="cloud-svg-landing__shop-as-guest">
+              {/* <a href="/shop" className="cloud-svg-landing__shop-as-guest">
                 Shop as Guest
-              </a>
+              </a> */}
             </div>
           </foreignObject>
         </svg>

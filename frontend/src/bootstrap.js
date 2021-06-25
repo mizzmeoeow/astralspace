@@ -18,14 +18,17 @@ import Signin from "./components/auth/sign-in/sign-in";
 import Register from "./components/auth/register/register";
 import Shop from "./components/pages/shop";
 import Contact from "./components/pages/contact";
-import Profile from "./components/pages/profile";
+import Dashboard from "./components/pages/dashboard";
 import Blog from "./components/pages/blog";
-import Users from "./components/users";
+// import Users from "./components/users";
 import Connect from "./components/pages/connect";
+import configureStore from "./store";
+
+const store = configureStore(store);
 
 function main() {
   ReactDOM.render(
-    <Provider store={createStoreWithMiddleware(reducers)}>
+    <Provider store={store}>
       <Router history={history}>
         <React.StrictMode>
           <Layout>
@@ -35,20 +38,12 @@ function main() {
               <Route
                 exact
                 path="/sign-in"
-                component={Signin}
-                // render={(props) => (
-                // <Auth
-                //   {...props}
-                //   handleSuccessfulLogin={this.handleSuccessfulLogin}
-                //   handleUnSuccessfulLogin={this.handleUnSuccessfulLogin}
-                // />
-                // )
-                // }
+                render={(props) => <Signin {...props} />}
               />
               <Route path="/register" exact component={Register} />
               <Route path="/shop" exact component={Shop} />
               <Route path="/contact" exact component={Contact} />
-              <Route path="/profile" exact component={Profile} />
+              <Route path="/dashboard" exact component={Dashboard} />
               <Route
                 path="/blog"
                 exact
@@ -58,19 +53,9 @@ function main() {
                 // )}
               />
               <Route path="/connect" exact component={Connect} />
-              {/* <Route path="/b/:slug" component={BlogDetail} />
-              {this.state.loggedInStatus === "LOGGED_IN"
-                ? this.authorizedPages()
-                : null}
-              <Route
-                exact
-                path="/portfolio/:slug"
-                component={PortfolioDetail}
-              />
-              <Route component={NoMatch} /> */}
 
               <App />
-              <Users />
+              {/* <Users /> */}
             </Switch>
           </Layout>
         </React.StrictMode>

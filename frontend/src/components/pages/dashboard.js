@@ -1,26 +1,20 @@
 import React, { Component } from "react";
-import ProfileSpace from "../../components/body/space/profileSpace";
+import ProfileSpace from "../body/space/profileSpace";
 import ProfileFooter from "../footer/profileFooter";
 import ProfileNavbar from "../headernavbar/profileNavbar";
 import Hero from "../Hero/hero";
-// import ReactTypingEffect from "react-typing-effect";
 import TypingEffect from "new-react-typing-effect";
+import ProfileAuth from "../auth/profileauth/profileauth";
+import Logout from "./logout";
 
-class Profile extends Component {
+class Dashboard extends Component {
+  constructor(props) {
+    super(props);
+  }
   render() {
     return (
       <div className="profile-page header">
         <div>
-          {/* <ReactTypingEffect
-            className="typingeffect"
-            text={[
-              "Welcome, you have arrived to AstralServers.",
-              "You have a few decisions to make today, as always.",
-              "Please, leave everything the way you found it.",
-            ]}
-            speed={150}
-            eraseDelay={700}
-          /> */}
           <TypingEffect
             messages={[
               "Welcome, you have arrived to AstralServers.",
@@ -52,11 +46,14 @@ class Profile extends Component {
         </div>
         <ProfileNavbar />
         <ProfileSpace />
+        <ProfileAuth />
         <Hero />
+        <h1>Status: {this.props.loggedInStatus}</h1>
+        <Logout />
         <ProfileFooter />
       </div>
     );
   }
 }
 
-export default Profile;
+export default Dashboard;

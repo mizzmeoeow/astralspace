@@ -19,7 +19,9 @@ const RegisterForm = ({ submitForm }) => {
       birthday: values.birthday,
       question: values.question,
     };
-    axios.post("http://localhost:5000/register", newUser);
+    axios.post("http://localhost:5000/register", newUser).then((response) => {
+      console.log("response", response);
+    });
   }
 
   function submitForm(event) {
@@ -31,6 +33,7 @@ const RegisterForm = ({ submitForm }) => {
       <div className="sign-in-form register">
         <label htmlFor="username">Username</label>
         <input
+          autoComplete="off"
           type="text"
           name="username"
           className="login-input"
@@ -43,6 +46,7 @@ const RegisterForm = ({ submitForm }) => {
       <div className="sign-in-form">
         <label htmlFor="email">Email</label>
         <input
+          autoComplete="off"
           type="text"
           name="email"
           className="login-input"
@@ -55,6 +59,7 @@ const RegisterForm = ({ submitForm }) => {
       <div className="sign-in-form">
         <label htmlFor="password">Password</label>
         <input
+          autoComplete="off"
           type="password"
           name="password"
           className="login-input"
@@ -67,6 +72,7 @@ const RegisterForm = ({ submitForm }) => {
       <div className="sign-in-form">
         <label htmlFor="confirm">Confirm Password</label>
         <input
+          autoComplete="off"
           type="password"
           name="confirm"
           className="login-input"
@@ -79,6 +85,7 @@ const RegisterForm = ({ submitForm }) => {
       <div className="sign-in-form birthday">
         <label htmlFor="birthday">Birthday</label>
         <input
+          autoComplete="off"
           type="date"
           name="birthday"
           min="2004-28-05"
@@ -93,6 +100,7 @@ const RegisterForm = ({ submitForm }) => {
       <div className="sign-in-form question">
         <label htmlFor="question">What art field interests you?</label>
         <input
+          autoComplete="off"
           type="question"
           name="question"
           className="login-input"

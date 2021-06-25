@@ -2,15 +2,7 @@ import React, { Component } from "react";
 import SignInForm from "../../auth/sign-in/signinForm";
 
 class SignInClouds extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isLoginActive: true,
-    };
-  }
-
   render() {
-    const { isLoginActive } = this.state;
     return (
       <div className="clouds-svg">
         <svg className="background" xmlnsXlink="http://www.w3.org/2000/svg">
@@ -43,12 +35,7 @@ class SignInClouds extends Component {
           </filter>
           <rect width="100%" height="100%" filter="url(#filter)" />
           <foreignObject x="400" y="150" width="400" height="150">
-            {isLoginActive && (
-              <SignInForm
-                className="sign-in__form"
-                containerRef={(ref) => (this.current = ref)}
-              />
-            )}
+            <SignInForm className="sign-in__form" />
           </foreignObject>
         </svg>
       </div>

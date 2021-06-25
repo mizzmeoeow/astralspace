@@ -1,14 +1,20 @@
-const { User } = require("./dbSchema/models/user");
 const express = require("express");
+// const session = require("express-session");
 const cookieSession = require("cookie-session");
 const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
+const keys = require("../config/keys");
 
-const app = express();
 const cors = require("cors");
+const app = express();
 
-const port = 5000;
+const port = process.env.PORT || 5000;
+let refreshTokens = [];
+const users = [];
+const { User } = require("./dbSchema/models/user");
+const validateRegisterInput = require("../validation/register");
+const validateLoginInput = require("../validation/login");
 
 mongoose
   .connect("mongodb://localhost:27017/AstralSpace", {
@@ -28,7 +34,6 @@ app.use(express.json());
 app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static("public"));
-app.set("view-engine", "ejs");
 
 //cookie session
 app.use(
@@ -37,107 +42,116 @@ app.use(
   })
 );
 
+// app.use("/login", (req, res) => {
+//   res.send({
+//     token: "test123",
+//   });
+// });
+
 //route for serving frontend files
 
-app
-  .get("/profile", (req, res) => {
-    res.render("index.ejs", { name: "" });
-  })
-  .get("/login", (req, res) => {
-    res.render("login.ejs");
-  });
+app.get("/login", (req, res) => {
+  res.send({});
+});
+
+app.delete("/logout", (req, res) => {
+  refreshTokens = refreshTokens.filter((token) => token !== req.body.token);
+  res.sendStatus(204);
+});
+
+app.post("/users", async (req, res) => {
+  try {
+    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+    const user = { name: req.body.name, password: hashedPassword };
+    users.push(user);
+    res.status(201).send();
+  } catch {
+    res.status(500).send();
+  }
+});
 
 app.post("/register", async (req, res, next) => {
   console.log("data", req.body);
-  const hashedPassword = await bcrypt.hash(req.body.password, 10);
+  const { errors, isValid } = validateRegisterInput(req.body);
 
-  var username = req.body.username;
-  var email = req.body.email;
-  var password = hashedPassword;
-  var birthday = req.body.birthday;
-  var question = req.body.question;
-
-  const registerSchema = mongoose.Schema({
-    username: String,
-    email: String,
-    hashedPassword: String,
-    birthday: String,
-    question: String,
-  });
-
-  if (!username || typeof username !== "string") {
-    return res.json({ status: "error", error: "Invalid username" });
+  if (!isValid) {
+    return res.status(400).json(errors);
   }
 
-  if (!hashedPassword || typeof hashedPassword !== "string") {
-    return res.json({ status: "error", error: "Invalid password" });
-  }
+  User.findOne({ email: req.body.email }).then((user) => {
+    if (user) {
+      return res.status(400).json({ email: "Email already exists" });
+    } else {
+      const newUser = new User({
+        username: req.body.username,
+        email: req.body.email,
+        password: req.body.password,
+        birthday: req.body.birthday,
+        question: req.body.question,
+      });
 
-  if (hashedPassword.length < 5) {
-    return res.json({
-      status: "error",
-      error: "Password too small. Should be atleast 6 characters",
-    });
-  }
-
-  if (!birthday || typeof birthday !== "string") {
-    return res.json({ status: "error", error: "Invalid birthday" });
-  }
-
-  if (!question || typeof question !== "string") {
-    return res.json({ status: "error", error: "Invalid question" });
-  }
-
-  try {
-    const response = await User.create({
-      username,
-      email,
-      password,
-      birthday,
-      question,
-    });
-    console.log("User created successfully: ", response);
-  } catch (error) {
-    if (error.code === 11000) {
-      // duplicate key
-      return res.json({ status: "error", error: "Username already in use" });
+      bcrypt.genSalt(10, (err, salt) => {
+        bcrypt.hash(newUser.password, salt, (err, hash) => {
+          if (err) throw err;
+          newUser.password = hash;
+          newUser
+            .save()
+            .then((user) => res.json(user))
+            .catch((err) => console.log(err));
+        });
+      });
     }
-    throw error;
-  }
-
-  res.json({ status: "ok" });
+  });
 });
 
-app.post("/login", (req, res, next) => {
-  var username = req.body.username;
+app.post("/login", (req, res) => {
+  const { errors, isValid } = validateLoginInput(req.body);
+
+  // Check validation
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+
+  var email = req.body.email;
   var password = req.body.password;
-  User.findOne({ $or: [{ email: username }] }).then((user) => {
-    if (user) {
-      bcrypt.compare(password, user.password, function (err, result) {
-        if (err) {
-          res.json({
-            error: err,
-          });
-        }
-        if (result) {
-          let token = jwt.sign({ name: user.name }, "verySecretValue", {
-            expiresIn: "2h",
-          });
-          res.json({
-            message: "Login Successful!",
-            token,
-          });
-        } else {
-          res.json({
-            message: "Password does not match!",
-          });
-        }
-      });
-    } else {
-      res.json({
-        message: "No user found!",
-      });
+  console.log("data", req.body);
+
+  User.findOne({ $or: [{ email: email }] }).then((user) => {
+    if (user == null) {
+      return res.status(404).send("Cannot find user");
     }
+
+    bcrypt.compare(password, user.password).then((isMatch) => {
+      if (isMatch) {
+        // User matched
+        // Create JWT Payload
+        const payload = {
+          id: user.id,
+          name: user.name,
+          email: user.email,
+        };
+
+        // Sign token
+        jwt.sign(
+          payload,
+          keys.secretOrKey,
+          {
+            expiresIn: 31556926, // 1 year in seconds
+          },
+          (err, token) => {
+            res.json({
+              success: true,
+              token: "Bearer " + token,
+              redirect: "/dashboard",
+            });
+          }
+        );
+      } else {
+        return res
+          .status(400)
+          .json({ passwordincorrect: "Password incorrect" });
+      }
+    });
   });
 });
 
