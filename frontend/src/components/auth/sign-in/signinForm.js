@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
 import axios from "axios";
 
 import history from "../../../history";
@@ -10,10 +11,11 @@ class SignInForm extends Component {
       email: "",
       password: "",
       errorText: "",
+      redirect: null,
     };
 
-    this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange(event) {
@@ -27,79 +29,88 @@ class SignInForm extends Component {
   handleSubmit(event) {
     event.preventDefault();
 
-    let user = {
-      email: this.state.email,
-      password: this.state.password,
-    };
-    console.log(user);
     axios
-      .post("http://localhost:5000/login", user)
+      .post("http://localhost:5000/login", {
+        email: this.state.email,
+        password: this.state.password,
+      })
       .then((response) => {
+        console.log("login response: ");
         console.log("response", response);
-        if (response.data.status === "created") {
-          this.props.handleSuccessfulAuth();
-        } else {
-          this.setState({
-            errorText: "Wrong email or password",
+        this.setState({ redirect: "/dashboard" });
+        if (response.data.status === 200) {
+          this.props.updateUser({
+            loggedIn: true,
+            email: response.data.email,
           });
-          this.props.handleUnsuccessfulAuth();
         }
       })
       .catch((error) => {
         this.setState({
-          errorText: "An error occurred",
+          errorText: "Wrong email or password, please try again.",
         });
+        console.log("login error: ");
+        console.log(error);
       });
   }
 
   render() {
-    return (
-      <div id="login">
-        <div className="sign-in-form">
-          <div className="input-group">
-            <div>{this.state.errorText}</div>
-            <form onSubmit={this.handleSubmit}>
-              <input
-                className="login-input"
-                type="email"
-                id="email"
-                name="email"
-                placeholder="Email"
-                value={this.state.email}
-                onChange={this.handleChange}
-                autoComplete="none"
-                required
-              />
-              <div>
+    if (this.state.redirect) {
+      return <Redirect to={this.state.redirect} />;
+    } else {
+      return (
+        <div id="login">
+          <div className="sign-in-form">
+            <div className="input-group">
+              <form onSubmit={this.handleSubmit}>
+                <div className="error-text">{this.state.errorText}</div>
+
                 <input
                   className="login-input"
-                  type="password"
-                  id="password"
-                  name="password"
-                  placeholder="Password"
-                  value={this.state.password}
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="Email"
+                  value={this.state.email}
                   onChange={this.handleChange}
                   autoComplete="none"
                   required
                 />
-              </div>
-              <div className="">
-                <button className="login-btn" type="submit">
-                  Launch
-                </button>
-                <button
-                  type="button"
-                  className="back-btn"
-                  onClick={() => history.push("/")}
-                >
-                  Go Back
-                </button>
-              </div>
-            </form>
+                <div>
+                  <input
+                    className="login-input"
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Password"
+                    value={this.state.password}
+                    onChange={this.handleChange}
+                    autoComplete="none"
+                    required
+                  />
+                </div>
+                <div className="">
+                  <button
+                    className="login-btn"
+                    onClick={this.handleSubmit}
+                    type="submit"
+                  >
+                    Launch
+                  </button>
+                  <button
+                    type="button"
+                    className="back-btn"
+                    onClick={() => history.push("/")}
+                  >
+                    Go Back
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
-      </div>
-    );
+      );
+    }
   }
 }
 

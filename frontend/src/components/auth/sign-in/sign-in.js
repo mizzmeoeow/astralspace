@@ -10,8 +10,10 @@ class SignIn extends Component {
         <p className="sign-in-page">Sign In</p>
         <div>
           {this.props.children}
+
           <Layout />
           <SignInClouds />
+
           <Footer />
         </div>
       </div>

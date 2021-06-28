@@ -1,3 +1,4 @@
+const { User } = require("./dbSchema/models/user");
 const express = require("express");
 // const session = require("express-session");
 const cookieSession = require("cookie-session");
@@ -6,13 +7,12 @@ const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 const keys = require("../config/keys");
 
-const cors = require("cors");
 const app = express();
+const cors = require("cors");
 
-const port = process.env.PORT || 5000;
+const port = 5000;
 let refreshTokens = [];
-const users = [];
-const { User } = require("./dbSchema/models/user");
+
 const validateRegisterInput = require("../validation/register");
 const validateLoginInput = require("../validation/login");
 
@@ -34,6 +34,7 @@ app.use(express.json());
 app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static("public"));
+app.set("view-engine", "ejs");
 
 //cookie session
 app.use(
@@ -42,17 +43,12 @@ app.use(
   })
 );
 
-// app.use("/login", (req, res) => {
-//   res.send({
-//     token: "test123",
-//   });
-// });
-
 //route for serving frontend files
 
-app.get("/login", (req, res) => {
-  res.send({});
-});
+app.use("/user", User);
+
+app.get("/login", (req, res) => {});
+app.get("/logged_in", (req, res) => {});
 
 app.delete("/logout", (req, res) => {
   refreshTokens = refreshTokens.filter((token) => token !== req.body.token);
@@ -142,8 +138,8 @@ app.post("/login", (req, res) => {
             res.json({
               success: true,
               token: "Bearer " + token,
-              redirect: "/dashboard",
             });
+            res.send(payload);
           }
         );
       } else {

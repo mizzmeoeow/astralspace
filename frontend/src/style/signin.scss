@@ -8,7 +8,7 @@
   margin: 0;
   display: inline;
   float: right;
-  text-align: center;
+  // text-align: center;
 
   .register-btn {
     transform: translateX(220px);
@@ -95,4 +95,8 @@ button {
   background-color: #3e8e41;
   box-shadow: 0 3px transparent;
   transform: translateY(2px);
+}
+
+.error-text {
+  display: flex;
 }

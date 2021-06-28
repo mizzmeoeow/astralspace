@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import Dashboard from "../../pages/dashboard";
 
 const useForm = (callback, validate) => {
   const [values, setValues] = useState({
@@ -30,7 +29,7 @@ const useForm = (callback, validate) => {
 
   useEffect(() => {
     if (Object.keys(errors).length === 0 && isSubmitting) {
-      callback();
+      callback;
     }
   }, [errors]);
 

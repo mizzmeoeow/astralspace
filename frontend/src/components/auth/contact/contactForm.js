@@ -7,22 +7,34 @@ class ContactForm extends React.Component {
     return (
       <div className="sign-in-form" ref={this.props.containerRef}>
         <div className="input-group">
-          <label htmlFor="username">Username</label>
+          <label htmlFor="email">Email Address to reach you:</label>
           <input
-            type="text"
-            name="username"
+            type="email"
+            name="email"
             className="login-input"
-            placeholder="Username"
+            placeholder="Email"
           />
         </div>
 
         <div className="input-group">
-          <label htmlFor="password">Password</label>
+          <label htmlFor="name">Your name:</label>
           <input
-            type="password"
-            name="password"
+            type="text"
+            name="name"
             className="login-input"
-            placeholder="Password"
+            placeholder="Full Name"
+          />
+        </div>
+
+        <div className="input-group">
+          <label htmlFor="input">
+            Please, let me know how I can help you today:
+          </label>
+          <input
+            type="textarea"
+            name="input"
+            className="login-input"
+            placeholder="How can I help?"
           />
         </div>
 

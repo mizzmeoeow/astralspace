@@ -21,6 +21,7 @@ const RegisterForm = ({ submitForm }) => {
     };
     axios.post("http://localhost:5000/register", newUser).then((response) => {
       console.log("response", response);
+      location.href = "/sign-in";
     });
   }
 

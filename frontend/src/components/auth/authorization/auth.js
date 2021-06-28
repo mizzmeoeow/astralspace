@@ -1,33 +1,17 @@
-import React, { Component } from "react";
-import SignIn from "../sign-in/sign-in";
+import React from "react";
+import { gql, graphql } from "react-apollo";
 
-export default class Auth extends Component {
-  constructor(props) {
-    super(props);
+const user = ({ id, username }) => <h1 key={id}> {username}</h1>;
 
-    this.handleSuccessfulAuth = this.handleSuccessfulAuth.bind(this);
-    this.handleUnsuccessfulAuth = this.handleUnsuccessfulAuth.bind(this);
+const Auth = ({ data: { allUsers = [] } }) => <div>{allUsers.map(user)}</div>;
+
+const query = gql`
+  {
+    allUsers {
+      id
+      username
+    }
   }
+`;
 
-  handleSuccessfulAuth() {
-    this.props.handleSuccessfulLogin();
-    this.props.history.push("/profile");
-  }
-
-  handleUnsuccessfulAuth() {
-    this.props.handleUnsuccessfulLogin();
-  }
-
-  render() {
-    return (
-      <div className="auth-page-wrapper">
-        <div className="right-column">
-          <SignIn
-            handleSuccessfulAuth={this.handleSuccessfulAuth}
-            handleUnsuccessfulAuth={this.handleUnsuccessfulAuth}
-          />
-        </div>
-      </div>
-    );
-  }
-}
+export default graphql(query)(Auth);

@@ -3,75 +3,53 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import axios from "axios";
 
 import Dashboard from "./components/pages/dashboard";
+import Register from "./components/auth/register/register";
+import Shop from "./components/pages/shop";
+import Connect from "./components/pages/connect";
+import Blog from "./components/pages/blog";
+import LoginContainer from "./components/auth/login/loginContainer";
 
 export default class App extends Component {
-  // constructor(props) {
-  //   super(props);
+  constructor() {
+    super();
+    this.state = {
+      loggedIn: false,
+      email: null,
+    };
 
-  //   this.state = {
-  //     loggedInStatus: "NOT_LOGGED_IN",
-  //   };
+    this.getUser = this.getUser.bind(this);
+    this.componentDidMount = this.componentDidMount.bind(this);
+    this.updateUser = this.updateUser.bind(this);
+  }
 
-  //   this.handleSuccessfulLogin = this.handleSuccessfulLogin.bind(this);
-  //   this.handleUnsuccessfulLogin = this.handleUnsuccessfulLogin.bind(this);
-  //   this.handleSuccessfulLogout = this.handleSuccessfulLogout.bind(this);
-  // }
+  componentDidMount() {
+    this.getUser();
+  }
 
-  // handleSuccessfulLogin() {
-  //   this.setState({
-  //     loggedInStatus: "LOGGED_IN",
-  //   });
-  // }
+  updateUser(userObject) {
+    this.setState(userObject);
+  }
 
-  // handleUnsuccessfulLogin() {
-  //   this.setState({
-  //     loggedInStatus: "NOT_LOGGED_IN",
-  //   });
-  // }
+  getUser() {
+    axios.get("http://localhost:5000/user").then((response) => {
+      console.log("Get user response: ");
+      console.log(response.data);
+      if (response.data.user) {
+        console.log("Get User: There is a user saved in the server session: ");
 
-  // handleSuccessfulLogout() {
-  //   this.setState({
-  //     loggedInStatus: "NOT_LOGGED_IN",
-  //   });
-  // }
-
-  // checkLoginStatus() {
-  //   return axios
-  //     .get("https://localhost:5000/login", {
-  //       withCredentials: true,
-  //     })
-  //     .then((response) => {
-  //       const loggedIn = response.data.logged_in;
-  //       const loggedInStatus = this.state.loggedInStatus;
-
-  //       if (loggedIn && loggedInStatus === "LOGGED_IN") {
-  //         return loggedIn;
-  //       } else if (loggedIn && loggedInStatus === "NOT_LOGGED_IN") {
-  //         this.setState({
-  //           loggedInStatus: "LOGGED_IN",
-  //         });
-  //       } else if (!loggedIn && loggedInStatus === "LOGGED_IN") {
-  //         this.setState({
-  //           loggedInStatus: "NOT_LOGGED_IN",
-  //         });
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.log("Error", error);
-  //     });
-  // }
-
-  // componentDidMount() {
-  //   this.checkLoginStatus();
-  // }
-
-  // authorizedPages() {
-  //   return [
-  //     <Route key="blog" path="/blog" component={Blog} />,
-  //     <Route key="dashboard" path="/dashboard" component={Dashboard} />,
-  //     <Route key="connect" path="/connect" component={Connect} />,
-  //   ];
-  // }
+        this.setState({
+          loggedIn: true,
+          username: response.data.user.username,
+        });
+      } else {
+        console.log("Get user: no user");
+        this.setState({
+          loggedIn: false,
+          username: null,
+        });
+      }
+    });
+  }
 
   render() {
     return (
@@ -79,17 +57,28 @@ export default class App extends Component {
         <Router>
           <div>
             <Switch>
+              {this.state.loggedIn && (
+                <p>Join the party, {this.state.username}!</p>
+              )}
               <Route exact path="/dashboard" component={Dashboard} />
+              <Route path="/shop" exact component={Shop} />
+              <Route path="/connect" exact component={Connect} />
+              <Route
+                path="/blog"
+                exact
+                component={Blog}
+                // render={(props) => (
+                //   <Blog {...props} loggedInStatus={this.state.loggedInStatus} />
+                // )}
+              />
 
               <Route
                 path="/sign-in"
-                render={(props) => (
-                  <Auth
-                    {...props}
-                    handleSuccessfulLogin={this.handleSuccessfulLogin}
-                    handleUnsuccessfulLogin={this.handleUnsuccessfulLogin}
-                  />
-                )}
+                render={() => <LoginContainer user={this.props.user} />}
+              />
+              <Route
+                path="/register"
+                render={() => <Register updateUser={this.updateUser} />}
               />
             </Switch>
           </div>

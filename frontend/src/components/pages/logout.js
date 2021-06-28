@@ -8,7 +8,7 @@ class Logout extends Component {
   }
   handleLogout() {
     Auth.deauthenticateUser();
-    this.props.history.push("/login");
+    this.props.history.push("/sign-in");
   }
   render() {
     return <div>{this.handleLogout()}</div>;

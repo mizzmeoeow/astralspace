@@ -5,11 +5,10 @@ import ProfileNavbar from "../headernavbar/profileNavbar";
 import Hero from "../Hero/hero";
 import TypingEffect from "new-react-typing-effect";
 import ProfileAuth from "../auth/profileauth/profileauth";
-import Logout from "./logout";
 
 class Dashboard extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
   }
   render() {
     return (
@@ -49,7 +48,6 @@ class Dashboard extends Component {
         <ProfileAuth />
         <Hero />
         <h1>Status: {this.props.loggedInStatus}</h1>
-        <Logout />
         <ProfileFooter />
       </div>
     );

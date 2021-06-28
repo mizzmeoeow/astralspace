@@ -56,6 +56,7 @@
     "express-session": "^1.17.2",
     "extract-loader": "^2.0.1",
     "file-loader": "^1.1.11",
+    "graphql-tag": "^2.12.5",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
     "js-cookie": "^2.2.1",
