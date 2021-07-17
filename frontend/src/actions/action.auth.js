@@ -31,18 +31,18 @@ export const check_authenticated = () => async (dispatch) => {
   }
 };
 
-export const login = (name, email, password) => async (dispatch) => {
+export const login = (email, password) => async (dispatch) => {
   const config = {
     header: {
       "Content-Type": "application/json",
     },
   };
 
-  const body = { name, email, password };
+  const body = { email, password };
 
   try {
     const res = await axios.post(
-      `${process.env.REACT_APP_API_URL}/login`,
+      "https://localhost:5000/api/auth/login",
       body,
       config
     );
@@ -58,33 +58,36 @@ export const login = (name, email, password) => async (dispatch) => {
   }
 };
 
-export const register = (name, email, password) => async (dispatch) => {
-  const config = {
-    header: {
-      "Content-Type": "application/json",
-    },
+export const signup =
+  (username, email, password, birthday, question) => async (dispatch) => {
+    const config = {
+      header: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const body = { username, email, password, birthday, question };
+
+    try {
+      console.log(body);
+      const res = await axios.post(
+        "https://localhost:5000/api/auth/register",
+        body,
+        config,
+        console.log(res)
+      );
+      console.log(res);
+      dispatch({
+        type: SIGNUP_SUCCESS,
+        payload: res.data,
+      });
+      console.log("user created!");
+    } catch (err) {
+      dispatch({
+        type: SIGNUP_FAILED,
+      });
+    }
   };
-
-  const body = { name, email, password };
-
-  try {
-    console.log(body);
-    const res = await axios.post(
-      `${process.env.REACT_APP_API_URL}/register`,
-      body,
-      config
-    );
-    dispatch({
-      type: SIGNUP_SUCCESS,
-      payload: res.data,
-    });
-    console.log("user created!");
-  } catch (err) {
-    dispatch({
-      type: SIGNUP_FAILED,
-    });
-  }
-};
 
 export const logout = () => (dispatch) => {
   dispatch({

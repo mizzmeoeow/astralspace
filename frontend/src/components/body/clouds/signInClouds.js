@@ -34,7 +34,7 @@ class SignInClouds extends Component {
             </feComponentTransfer>
           </filter>
           <rect width="100%" height="100%" filter="url(#filter)" />
-          <foreignObject x="230" y="180" width="600" height="300">
+          <foreignObject x="130" y="180" width="600" height="300">
             <SignInForm className="sign-in__form" />
           </foreignObject>
         </svg>

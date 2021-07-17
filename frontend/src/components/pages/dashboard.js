@@ -4,7 +4,6 @@ import ProfileFooter from "../footer/profileFooter";
 import ProfileNavbar from "../headernavbar/profileNavbar";
 import Hero from "../Hero/hero";
 import TypingEffect from "new-react-typing-effect";
-import ProfileAuth from "../auth/profileauth/profileauth";
 
 class Dashboard extends Component {
   constructor() {
@@ -45,9 +44,7 @@ class Dashboard extends Component {
         </div>
         <ProfileNavbar />
         <ProfileSpace />
-        <ProfileAuth />
         <Hero />
-        <h1>Status: {this.props.loggedInStatus}</h1>
         <ProfileFooter />
       </div>
     );

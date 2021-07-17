@@ -63,12 +63,7 @@ class Blog extends Component {
     });
 
     axios
-      .get(
-        `https://shannameow.devcamp.space/portfolio/portfolio_blogs?page=${this.state.currentPage}`,
-        {
-          withCredentials: true,
-        }
-      )
+      .get("http://localhost:5000/api/blog")
       .then((response) => {
         console.log("getting", response.data);
         this.setState({
@@ -82,13 +77,13 @@ class Blog extends Component {
       });
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.getBlogItems();
   }
 
-  componentWillUnmount() {
-    window.removeEventListener("scroll", this.onScroll, false);
-  }
+  // componentDidUnmount() {
+  //   window.removeEventListener("scroll", this.onScroll, false);
+  // }
 
   render() {
     const blogRecords = this.state.blogItems.map((blogItem) => {
@@ -97,20 +92,20 @@ class Blog extends Component {
 
     return (
       <div className="blog-container">
-        <BlogModal
+        {/* <BlogModal
           handleSuccessfulNewBlogSubmission={
             this.handleSuccessfulNewBlogSubmission
           }
           handleModalClose={this.handleModalClose}
           modalIsOpen={this.state.blogModalIsOpen}
-        />
+        /> */}
 
         {this.props.loggedInStatus === "LOGGED_IN" ? (
           <div className="new-blog-link">
             <a onClick={this.handleNewBlogClick}></a>
           </div>
         ) : null}
-
+        <h1>Blog</h1>
         <div className="content-container">{blogRecords}</div>
 
         {this.state.isLoading ? <div className="content-loader"></div> : null}

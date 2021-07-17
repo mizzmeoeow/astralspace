@@ -1,5 +1,5 @@
 import React from "react";
-import Card from "../UI/Card/card";
+// import Card from "../UI/Card/card";
 
 /**
  * @author
@@ -9,12 +9,12 @@ import Card from "../UI/Card/card";
 const Hero = (props) => {
   return (
     <div>
-      <Card>
-        Blog
-        <button className="blog-btn" onClick={() => setShow(true)}>
-          Post Log
-        </button>
-      </Card>
+      {/* <Card> */}
+      Blog
+      <button className="blog-btn" onClick={() => setShow(true)}>
+        Post Log
+      </button>
+      {/* </Card> */}
     </div>
   );
 };

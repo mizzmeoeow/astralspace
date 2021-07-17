@@ -35,7 +35,7 @@ class LandingClouds extends Component {
           <rect width="100%" height="100%" filter="url(#filter)" />
           <foreignObject x="800" y="200" width="200" height="150">
             <div className="cloud-svg-landing">
-              <a href="/sign-in" className="cloud-svg-landing__sign-in">
+              <a href="/login" className="cloud-svg-landing__sign-in">
                 Sign In
               </a>
               <a href="/register" className="cloud-svg-landing__register">
