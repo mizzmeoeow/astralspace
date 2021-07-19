@@ -11,6 +11,8 @@ import {
   isEmail,
   isLength,
   isMatch,
+  // isBirthday,
+  // isQuestion,
 } from "../../../utils/validation/validation";
 
 const initialState = {
@@ -27,6 +29,7 @@ const initialState = {
 function RegisterForm() {
   const [user, setUser] = useState(initialState);
   const [accountCreated, setAccountCreated] = useState(false);
+  const [usernameTaken, setUsernameTaken] = useState(false);
 
   const {
     username,
@@ -46,7 +49,12 @@ function RegisterForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (isEmpty(username) || isEmpty(password))
+    if (
+      isEmpty(username) ||
+      isEmpty(password) ||
+      isEmpty(birthday) ||
+      isEmpty(question)
+    )
       return setUser({
         ...user,
         err: "Please fill in all fields.",
@@ -66,6 +74,20 @@ function RegisterForm() {
     if (!isMatch(password, cf_password))
       return setUser({ ...user, err: "Password did not match.", success: "" });
 
+    // if (!isBirthday(birthday))
+    //   return setUser({
+    //     ...user,
+    //     err: "Sorry, you must be older to register",
+    //     success: "",
+    //   });
+
+    // if (!isQuestion(value))
+    //   return setUser({
+    //     ...user,
+    //     err: "Sorry, you must like art to register",
+    //     success: "",
+    //   });
+
     try {
       const res = await axios.post("http://localhost:5000/api/auth/register", {
         username,
@@ -80,11 +102,16 @@ function RegisterForm() {
     } catch (err) {
       err.response.data.msg &&
         setUser({ ...user, err: err.response.data.msg, success: "" });
+      setUsernameTaken(true);
     }
   };
 
   if (accountCreated) {
     return <Redirect to="/login" />;
+  }
+
+  if (usernameTaken) {
+    return <Redirect to="/unsuccess" />;
   }
 
   return (
@@ -168,13 +195,11 @@ function RegisterForm() {
       <button type="submit" className="login-btn register-btn">
         Register
       </button>
-      <button
-        type="button"
-        className="login-btn register-btn"
-        onClick={() => history.push("/")}
-      >
-        Go Back
-      </button>
+      <a href="/">
+        <button type="button" className="login-btn register-btn">
+          Go Back
+        </button>
+      </a>
     </form>
   );
 }

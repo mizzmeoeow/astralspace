@@ -7,6 +7,7 @@ import LandingPage from "./components/pages/landingPage";
 import Contact from "./components/pages/contact";
 import Dashboard from "./components/pages/dashboard";
 import Register from "./components/auth/register/register";
+import Unsuccess from "./components/auth/login/formUnSuccess";
 import Shop from "./components/pages/shop";
 import Connect from "./components/pages/connect";
 import Blog from "./components/pages/blog";
@@ -69,6 +70,8 @@ export default class App extends Component {
                 <Route path="/shop" exact component={Shop} />
                 <Route path="/connect" exact component={Connect} />
                 <Route path="/blog" exact component={Blog} />
+                <Route path="/unsuccess" exact component={Unsuccess} />
+
                 <Route
                   path="/login"
                   render={() => <LoginContainer user={this.props.user} />}

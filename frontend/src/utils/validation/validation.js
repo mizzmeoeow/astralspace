@@ -19,3 +19,19 @@ export const isMatch = (password, cf_password) => {
   if (password === cf_password) return true;
   return false;
 };
+
+export const isBirthday = (birthday) => {
+  const age =
+    ~~(
+      (Date.now(new Date().toJSON().slice(0, 10) + " 01:00:00") -
+        new Date(birthday.replace(/-/g, "/"))) /
+      31557600000
+    ) < 17;
+  // return true;
+  return age(birthday);
+};
+
+export const isQuestion = (value) => {
+  if (!value) return true;
+  return false;
+};

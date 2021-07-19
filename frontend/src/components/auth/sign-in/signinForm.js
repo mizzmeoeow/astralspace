@@ -101,13 +101,11 @@ class LoginForm extends Component {
                   >
                     Launch
                   </button>
-                  <button
-                    type="button"
-                    className="back-btn"
-                    onClick={() => history.push("/")}
-                  >
-                    Go Back
-                  </button>
+                  <a href="/">
+                    <button type="button" className="back-btn">
+                      Go Back
+                    </button>
+                  </a>
                 </div>
               </form>
             </div>
