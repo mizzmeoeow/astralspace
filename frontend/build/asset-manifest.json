@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/bottega-code-school/js-builder/static/css/main.eb0eb3ff.chunk.css",
+    "main.js": "/bottega-code-school/js-builder/static/js/main.b308d8d9.chunk.js",
+    "main.js.map": "/bottega-code-school/js-builder/static/js/main.b308d8d9.chunk.js.map",
+    "runtime-main.js": "/bottega-code-school/js-builder/static/js/runtime-main.d1854fd5.js",
+    "runtime-main.js.map": "/bottega-code-school/js-builder/static/js/runtime-main.d1854fd5.js.map",
+    "static/js/2.27cf8a89.chunk.js": "/bottega-code-school/js-builder/static/js/2.27cf8a89.chunk.js",
+    "static/js/2.27cf8a89.chunk.js.map": "/bottega-code-school/js-builder/static/js/2.27cf8a89.chunk.js.map",
+    "index.html": "/bottega-code-school/js-builder/index.html",
+    "static/css/main.eb0eb3ff.chunk.css.map": "/bottega-code-school/js-builder/static/css/main.eb0eb3ff.chunk.css.map",
+    "static/js/2.27cf8a89.chunk.js.LICENSE.txt": "/bottega-code-school/js-builder/static/js/2.27cf8a89.chunk.js.LICENSE.txt",
+    "static/media/space.jpg": "/bottega-code-school/js-builder/static/media/space.2f78132b.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.d1854fd5.js",
+    "static/js/2.27cf8a89.chunk.js",
+    "static/css/main.eb0eb3ff.chunk.css",
+    "static/js/main.b308d8d9.chunk.js"
+  ]
+}

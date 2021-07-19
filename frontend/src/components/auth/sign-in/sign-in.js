@@ -29,10 +29,7 @@ class SignIn extends Component {
           {this.props.children}
 
           <Layout />
-          <SignInClouds
-            handleSuccessfulAuth={this.handleSuccessfulAuth}
-            handleUnsuccessfulAuth={this.handleUnsuccessfulAuth}
-          />
+          <SignInClouds />
 
           <Footer />
         </div>

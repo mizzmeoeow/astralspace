@@ -1,4 +1,8 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { logoutUser } from "../../actions/action.auth";
+
 import ProfileSpace from "../body/space/profileSpace";
 import ProfileFooter from "../footer/profileFooter";
 import ProfileNavbar from "../headernavbar/profileNavbar";
@@ -9,6 +13,7 @@ class Dashboard extends Component {
   constructor() {
     super();
   }
+
   render() {
     return (
       <div className="profile-page header">

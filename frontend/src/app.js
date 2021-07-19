@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Switch, Route } from "react-router-dom";
+import axios from "axios";
 
 import Layout from "./components/layout";
 import LandingPage from "./components/pages/landingPage";
@@ -10,7 +11,6 @@ import Shop from "./components/pages/shop";
 import Connect from "./components/pages/connect";
 import Blog from "./components/pages/blog";
 import LoginContainer from "./components/auth/login/loginContainer";
-import PrivateRoute from "./components/routing/privateRoute";
 
 import { Provider } from "react-redux";
 import store from "./store";
@@ -22,6 +22,38 @@ export default class App extends Component {
       loggedIn: false,
       email: null,
     };
+
+    this.getUser = this.getUser.bind(this);
+    this.componentDidMount = this.componentDidMount.bind(this);
+    this.updateUser = this.updateUser.bind(this);
+  }
+
+  componentDidMount() {
+    this.getUser();
+  }
+
+  updateUser(userObject) {
+    this.setState(userObject);
+  }
+
+  getUser() {
+    axios.get("http://localhost:5000/api/auth/loggedIn").then((response) => {
+      console.log("Get user response: ");
+      console.log(response.data);
+      if (response.data.user) {
+        console.log("Get User: There is a user saved in the server session: ");
+        this.setState({
+          loggedIn: true,
+          email: response.data.user.email,
+        });
+      } else {
+        console.log("Get user: no user");
+        this.setState({
+          loggedIn: false,
+          email: null,
+        });
+      }
+    });
   }
 
   render() {
@@ -31,10 +63,9 @@ export default class App extends Component {
           <Provider store={store}>
             <Switch>
               <Layout>
-                <PrivateRoute exact path="/dashboard" component={Dashboard} />
+                <Route exact path="/dashboard" component={Dashboard} />
                 <Route path="/" exact component={LandingPage} />
                 <Route path="/contact" exact component={Contact} />
-                {/* <Route exact path="/dashboard" component={Dashboard} /> */}
                 <Route path="/shop" exact component={Shop} />
                 <Route path="/connect" exact component={Connect} />
                 <Route path="/blog" exact component={Blog} />

@@ -1,13 +1,6 @@
 import axios from "axios";
-import {
-  LOGIN_SUCCESS,
-  LOGIN_FAILED,
-  AUTHENTICATION_SUCCESS,
-  AUTHENTICATION_FAILED,
-  SIGNUP_FAILED,
-  SIGNUP_SUCCESS,
-  LOGOUT_USER,
-} from "../actions/action.types";
+import setAuthToken from "../utils/setAuthToken";
+import jwt_decode from "jwt-decode";
 
 export const check_authenticated = () => async (dispatch) => {
   if (localStorage.getItem("access")) {
@@ -42,7 +35,7 @@ export const login = (email, password) => async (dispatch) => {
 
   try {
     const res = await axios.post(
-      "https://localhost:5000/api/auth/login",
+      "http://localhost:5000/api/auth/login",
       body,
       config
     );
