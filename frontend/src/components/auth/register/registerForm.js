@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
+import history from "../../../history";
 import axios from "axios";
 import {
   showErrMsg,
@@ -101,7 +102,6 @@ function RegisterForm() {
           value={username}
           onChange={handleChangeInput}
         />
-        {/* {errors.username && <h4 className="error">{errors.username}</h4>} */}
       </div>
       <div className="sign-in-form">
         <label htmlFor="email">Email</label>
@@ -114,7 +114,6 @@ function RegisterForm() {
           value={email}
           onChange={handleChangeInput}
         />
-        {/* {errors.email && <h4 className="error">{errors.email}</h4>} */}
       </div>
       <div className="sign-in-form">
         <label htmlFor="password">Password</label>
@@ -127,7 +126,6 @@ function RegisterForm() {
           value={password}
           onChange={handleChangeInput}
         />
-        {/* {errors.password && <h4 className="error">{errors.password}</h4>} */}
       </div>
       <div className="sign-in-form">
         <label htmlFor="confirm">Confirm Password</label>
@@ -140,7 +138,6 @@ function RegisterForm() {
           value={cf_password}
           onChange={handleChangeInput}
         />
-        {/* {errors.confirm && <h4 className="error">{errors.confirm}</h4>} */}
       </div>
       <div className="sign-in-form birthday">
         <label htmlFor="birthday">Birthday</label>
@@ -155,7 +152,6 @@ function RegisterForm() {
           value={birthday}
           onChange={handleChangeInput}
         />
-        {/* {errors.birthday && <h4 className="error">{errors.birthday}</h4>} */}
       </div>
       <div className="sign-in-form question">
         <label htmlFor="question">What art field interests you?</label>
@@ -168,20 +164,14 @@ function RegisterForm() {
           value={question}
           onChange={handleChangeInput}
         />
-        {/* {errors.question && <h4 className="error">{errors.question}</h4>} */}
       </div>
-      <button
-        type="submit"
-        className="login-btn register-btn"
-        // value="Validate"
-        // onClick={handleClick}
-      >
+      <button type="submit" className="login-btn register-btn">
         Register
       </button>
       <button
         type="button"
         className="login-btn register-btn"
-        // onClick="window.location.href='/'"
+        onClick={() => history.push("/")}
       >
         Go Back
       </button>

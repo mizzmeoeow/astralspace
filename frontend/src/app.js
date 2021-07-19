@@ -64,7 +64,7 @@ export default class App extends Component {
             <Switch>
               <Layout>
                 <Route exact path="/dashboard" component={Dashboard} />
-                <Route path="/" exact component={LandingPage} />
+                <Route exact path="/" exact component={LandingPage} />
                 <Route path="/contact" exact component={Contact} />
                 <Route path="/shop" exact component={Shop} />
                 <Route path="/connect" exact component={Connect} />
