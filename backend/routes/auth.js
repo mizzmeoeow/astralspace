@@ -1,6 +1,12 @@
 const router = require("express").Router();
 const User = require("../dbSchema/models/user");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const config = require("../config/keys");
+
+const { JWT_SECRET } = config;
+
+const validateLoginInput = require("../../frontend/validation/login");
 
 //REGISTER
 router.post("/register", async (req, res, next) => {
@@ -26,17 +32,63 @@ router.post("/register", async (req, res, next) => {
 
 //LOGIN
 router.post("/login", async (req, res) => {
+  const { email, password } = req.body;
+
+  // Simple validation
+  if (!email || !password) {
+    return res.status(400).json({ msg: "Please enter all fields" });
+  }
+
   try {
-    const user = await User.findOne({ username: req.body.username });
-    !user && res.status(400).json("Wrong credentials!");
+    // Check for existing user
+    const user = await User.findOne({ email });
+    if (!user) throw Error("User does not exist");
 
-    const validated = await bcrypt.compare(req.body.password, user.password);
-    !validated && res.status(400).json("Wrong credentials!");
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) throw Error("Invalid credentials");
 
-    const { password, ...others } = user._doc;
-    res.status(200).json(others);
+    const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: 3600 });
+    if (!token) throw Error("Couldnt sign the token");
+
+    res.status(200).json({
+      token,
+      user: {
+        id: user._id,
+        username: user.username,
+        email: user.email,
+
+        auth: true,
+        msg: "Login Successful",
+        httpOnly: true,
+        secure: true,
+      },
+    });
+  } catch (e) {
+    res.status(400).json({ msg: e.message });
+  }
+});
+
+router.get("/logout", (req, res) => {
+  res
+    .cookie("token", "", {
+      httpOnly: true,
+      expires: new Date(0),
+      secure: true,
+      sameSite: "none",
+    })
+    .send();
+});
+
+router.get("/loggedIn", (req, res) => {
+  try {
+    const token = req.cookies.token;
+    if (!token) return res.json(false);
+
+    jwt.verify(token, process.env.JWT_SECRET);
+
+    res.send(true);
   } catch (err) {
-    res.status(500).json(err);
+    res.json(false);
   }
 });
 

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { logoutUser } from "../../actions/action.auth";
+import { getUser } from "../auth/login/userActions";
+import axios from "axios";
 
 import ProfileSpace from "../body/space/profileSpace";
 import ProfileFooter from "../footer/profileFooter";
@@ -10,8 +10,35 @@ import Hero from "../Hero/hero";
 import TypingEffect from "new-react-typing-effect";
 
 class Dashboard extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+
+    this.updateUser = this.updateUser.bind(this);
+  }
+
+  updateUser() {
+    this.setState({
+      loggedIn: true,
+    });
+  }
+
+  componentDidMount() {
+    const config = {
+      headers: {
+        authorization: localStorage.getItem("token"),
+      },
+    };
+
+    axios.get("loggedIn", config).then(
+      (res) => {
+        console.log(res);
+        console.log(config);
+        console.log(localStorage);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 
   render() {
@@ -56,4 +83,8 @@ class Dashboard extends Component {
   }
 }
 
-export default Dashboard;
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps, { getUser })(Dashboard);

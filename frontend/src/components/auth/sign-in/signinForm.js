@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
 
-import history from "../../../history";
-
 class LoginForm extends Component {
   constructor(props) {
     super(props);
@@ -12,6 +10,8 @@ class LoginForm extends Component {
       password: "",
       errorText: "",
       redirect: null,
+      isAuth: false,
+      token: null,
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -29,19 +29,28 @@ class LoginForm extends Component {
   handleSubmit(event) {
     event.preventDefault();
 
+    const data = {
+      email: this.state.email,
+      password: this.state.password,
+    };
+
     axios
-      .post("http://localhost:5000/api/auth/login", {
-        email: this.state.email,
-        password: this.state.password,
-      })
+      .post("login", data)
       .then((response) => {
         console.log("login response: ");
         console.log("response", response);
+        localStorage.setItem("token", response.data.token);
         if (response.data.status === 200) {
           this.props.updateUser({
+            isAuth: true,
+            token: response.token,
             loggedIn: true,
             email: response.data.email,
+            withCredentials: true,
+            userId: response.userId,
           });
+          localStorage.setItem("token", response.token);
+          localStorage.setItem("userId", response.userId);
           console.log("login response: ");
           console.log("response", response);
         }
@@ -51,6 +60,7 @@ class LoginForm extends Component {
         this.setState({
           errorText: "An error occurred",
           errorText: "Wrong email or password, please try again.",
+          isAuth: false,
         });
         console.log("login error: ");
         console.log(error);

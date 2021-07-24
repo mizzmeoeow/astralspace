@@ -17,11 +17,12 @@ import { Provider } from "react-redux";
 import store from "./store";
 
 export default class App extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       loggedIn: false,
       email: null,
+      token: null,
     };
 
     this.getUser = this.getUser.bind(this);
@@ -34,11 +35,13 @@ export default class App extends Component {
   }
 
   updateUser(userObject) {
-    this.setState(userObject);
+    this.setState({
+      loggedIn: true,
+    });
   }
 
   getUser() {
-    axios.get("http://localhost:5000/api/auth/loggedIn").then((response) => {
+    axios.get("loggedIn").then((response) => {
       console.log("Get user response: ");
       console.log(response.data);
       if (response.data.user) {
