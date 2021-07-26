@@ -19,10 +19,15 @@ export default function (state = initialState, action) {
 
   switch (type) {
     case AUTHENTICATION_SUCCESS:
+      const { token, refreshToken } = response.data;
+      localStorage.setItem("refreshToken", refreshToken);
+      localStorage.setItem("token", token);
       return {
         ...state,
         isAuthenticated: true,
         access: payload.token,
+        auth: { tokens: action.payload },
+        redirect: "/dashboard",
       };
     case AUTHENTICATION_FAILED:
       return {
@@ -32,6 +37,8 @@ export default function (state = initialState, action) {
       };
     case LOGIN_SUCCESS:
       localStorage.setItem("access", payload.token);
+      // localStorage.setItem("user", JSON.stringify(response.data));
+
       return {
         ...state,
         isAuthenticated: true,

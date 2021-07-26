@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getUser } from "../auth/login/userActions";
 import axios from "axios";
 
 import ProfileSpace from "../body/space/profileSpace";
@@ -12,6 +11,12 @@ import TypingEffect from "new-react-typing-effect";
 class Dashboard extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      loggedIn: true,
+      email: "",
+      token: "",
+    };
 
     this.updateUser = this.updateUser.bind(this);
   }
@@ -30,13 +35,30 @@ class Dashboard extends Component {
     };
 
     axios.get("loggedIn", config).then(
-      (res) => {
-        console.log(res);
+      (response) => {
+        console.log(response);
         console.log(config);
         console.log(localStorage);
+        console.log("Get user response: ");
+        if (response.config.user) {
+          console.log(
+            "Get User: There is a user saved in the server session: "
+          );
+          this.setState({
+            loggedIn: true,
+            email: response.data.user.email,
+            token: data,
+            authToken: data,
+          });
+        }
       },
       (err) => {
         console.log(err);
+        console.log("Get user: no user");
+        this.setState({
+          loggedIn: false,
+          email: null,
+        });
       }
     );
   }
@@ -83,8 +105,4 @@ class Dashboard extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  auth: state.auth,
-});
-
-export default connect(mapStateToProps, { getUser })(Dashboard);
+export default Dashboard;

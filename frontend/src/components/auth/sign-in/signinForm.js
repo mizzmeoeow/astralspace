@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
+import Cookie from "js-cookie";
 
 class LoginForm extends Component {
   constructor(props) {
@@ -16,6 +17,16 @@ class LoginForm extends Component {
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleProtected(event) {
+    const headers = {
+      authorization: `Bearer ${Cookie.get("jwt")}`,
+    };
+    const response = axios.get("/loggedIn", {
+      headers,
+    });
+    console.log(response.data);
   }
 
   handleChange(event) {
@@ -39,8 +50,9 @@ class LoginForm extends Component {
       .then((response) => {
         console.log("login response: ");
         console.log("response", response);
-        localStorage.setItem("token", response.data.token);
-        if (response.data.status === 200) {
+        console.log(localStorage);
+        let accessToken = localStorage.getItem("accessToken");
+        if (response.data.accessToken) {
           this.props.updateUser({
             isAuth: true,
             token: response.token,
@@ -54,7 +66,11 @@ class LoginForm extends Component {
           console.log("login response: ");
           console.log("response", response);
         }
-        this.setState({ redirect: "/dashboard" });
+        const { token, refreshToken } = response.data;
+        localStorage.getItem("token", token);
+        localStorage.getItem("refreshToken", refreshToken);
+        // this.setState({ redirect: "/dashboard" });
+        // window.location.reload();
       })
       .catch((error) => {
         this.setState({
@@ -106,7 +122,7 @@ class LoginForm extends Component {
                 <div className="">
                   <button
                     className="login-btn"
-                    onClick={this.handleSubmit}
+                    onClick={this.handleProtected}
                     type="submit"
                   >
                     Launch
