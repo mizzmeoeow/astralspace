@@ -6,6 +6,8 @@ const config = require("../config/keys");
 const session = require("express-session");
 const tokenList = {};
 const refreshToken = require("../dbSchema/models/refreshToken");
+const ErrorResponse = require("../middleware/error");
+const rtCookieName = "refreshToken";
 
 const validateLoginInput = require("../../frontend/validation/login");
 const RefreshToken = require("../dbSchema/models/refreshToken");
@@ -33,84 +35,55 @@ router.post("/register", async (req, res, next) => {
 });
 
 //LOGIN
-router.post("/login", async (req, res) => {
-  const { email, password } = req.body;
-  const postData = req.body;
+router.post("/login", (req, res) => {
+  const { errors, isValid } = validateLoginInput(req.body);
+  console.log(isValid);
+  if (!isValid) {
+    return res.status(400).json({ errors });
+  }
 
-  const user = {
-    email: postData.email,
-    password: postData.password,
-  };
+  const email = req.body.email;
+  const password = req.body.password;
+  // refreshToken = req.cookies[rtCookieName];
 
-  const token = jwt.sign(user, config.JWT_SECRET, {
-    expiresIn: config.tokenLife,
+  User.findOne({ email }).then((user) => {
+    if (!user) {
+      errors.email = "User not found";
+      res.status(404).json({ errors });
+    }
+
+    bcrypt.compare(password, user.password).then((isMatch) => {
+      //returns a bool values in isMatch
+      if (isMatch) {
+        //User matched
+        //res.json({ msg: "Success" });
+        const payload = {
+          id: user.id,
+          name: user.name,
+          // avatar: user.avatar
+        };
+
+        jwt.sign(
+          payload,
+          config.JWT_SECRET,
+          { expiresIn: config.tokenLife },
+          (err, token) => {
+            //
+            res.json({
+              success: true,
+              token: "Bearer " + token,
+              refreshToken: refreshToken,
+            });
+          }
+        );
+      } else {
+        //Incorrect Password
+        errors.password = "Invalid Login Credentials";
+        return res.status(400).json({ errors });
+      }
+    });
   });
-  const refreshToken = await RefreshToken.createToken(user);
-  // refreshTokens.push(refreshToken)
-  const response = {
-    status: "Logged in",
-    accessToken: token,
-    refreshToken: refreshToken,
-  };
-  tokenList[refreshToken] = response;
-  // Simple validation
-  if (!email || !password) {
-    return res.status(400).json({ msg: "Please enter all fields" });
-  }
-  try {
-    // Check for existing user
-    const user = await User.findOne({ email });
-    if (!user) throw Error("User does not exist");
-
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) throw Error("Invalid credentials");
-
-    if (!token) throw Error("Couldnt sign the token");
-
-    res.status(200).json({
-      response,
-      user: {
-        id: user._id,
-        username: user.username,
-        email: user.email,
-      },
-      headers: {
-        "Content-Type": "application/json",
-      },
-      sameSite: "strict",
-      // httpOnly: true,
-      secure: true,
-      auth: true,
-      msg: "Login Successful",
-      authToken: user,
-      redirect: true,
-    });
-    res.cookie("accessToken", accessToken, {
-      maxAge: 300000, // 5 minutes
-      httpOnly: true,
-    });
-
-    res.cookie("refreshToken", refreshToken, {
-      maxAge: 3.154e10, // 1 year
-      httpOnly: true,
-    });
-    req.session.user = user;
-    req.session.save();
-    return res.send(user);
-  } catch (e) {
-    res.status(400).json({ msg: e.message });
-  }
 });
-
-// router.get("/login", (req, res) => {
-//   const user = {
-//     email: req.body.email,
-//     password: req.body.password,
-//   };
-//   req.session.user = user;
-//   req.session.save();
-//   return res.send("User logged in");
-// });
 
 router.post("/token", (req, res) => {
   // refresh the damn token
@@ -165,13 +138,10 @@ function isAuthenticated(req, res, next) {
 
 router.get("/loggedIn", isAuthenticated, (req, res) => {
   try {
-    return res.send({ message: "This is a protected route" });
-    //   const token = req.cookies.token;
-    //   if (!token) return res.json(false);
-
-    //   jwt.verify(token, process.env.JWT_SECRET);
-
-    //   res.send(true);
+    return res.json({
+      id: req.user.id,
+      username: req.user.username,
+    });
   } catch (err) {
     res.json(false);
   }

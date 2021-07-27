@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import LoginForm from "../../auth/sign-in/signinForm";
+import SignInForm from "../../auth/sign-in/signinForm";
 
 class SignInClouds extends Component {
   render() {
@@ -35,7 +35,7 @@ class SignInClouds extends Component {
           </filter>
           <rect width="100%" height="100%" filter="url(#filter)" />
           <foreignObject x="130" y="180" width="600" height="300">
-            <LoginForm className="sign-in__form" />
+            <SignInForm className="sign-in__form" />
           </foreignObject>
         </svg>
       </div>

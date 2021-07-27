@@ -1,12 +1,14 @@
+import { GET_ERRORS } from "../actions/action.types";
+
 const initialState = {
   isAuthenticated: false,
   user: {},
 };
 
 export default function (state = initialState, action) {
-  const { type, payload } = action;
-
-  switch (type) {
+  switch (action.type) {
+    case GET_ERRORS:
+      return action.payload;
     default:
       return state;
   }

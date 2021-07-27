@@ -11,7 +11,7 @@ import Unsuccess from "./components/auth/login/formUnSuccess";
 import Shop from "./components/pages/shop";
 import Connect from "./components/pages/connect";
 import Blog from "./components/pages/blog";
-import LoginContainer from "./components/auth/login/loginContainer";
+import SignIn from "./components/auth/sign-in/sign-in";
 
 import { Provider } from "react-redux";
 import store from "./store";
@@ -27,26 +27,28 @@ export default class App extends Component {
 
     this.getUser = this.getUser.bind(this);
     this.componentDidMount = this.componentDidMount.bind(this);
+    this.updateUser = this.updateUser.bind(this);
   }
 
   componentDidMount() {
     this.getUser();
   }
 
+  updateUser(userObject) {
+    this.setState({
+      loggedIn: true,
+    });
+  }
+
   getUser() {
     axios.get("loggedIn").then((response) => {
       console.log("Get user response: ");
       console.log(response.data);
-      console.log(response.cookie);
-
       if (response.data.user) {
         console.log("Get User: There is a user saved in the server session: ");
         this.setState({
           loggedIn: true,
           email: response.data.user.email,
-          token: data,
-          authToken: data,
-          redirect: "/dashboard",
         });
       } else {
         console.log("Get user: no user");
@@ -75,7 +77,7 @@ export default class App extends Component {
 
                 <Route
                   path="/login"
-                  render={() => <LoginContainer user={this.props.user} />}
+                  render={() => <SignIn user={this.props.user} />}
                 />
                 <Route
                   path="/register"

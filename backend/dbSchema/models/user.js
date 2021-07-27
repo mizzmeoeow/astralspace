@@ -4,17 +4,18 @@ const UserSchema = new mongoose.Schema(
   {
     username: {
       type: String,
-      required: true,
+      required: [true, "Please provide a username"],
       unique: true,
     },
     email: {
       type: String,
-      required: true,
+      required: [true, "Please provide an email"],
       unique: true,
     },
     password: {
       type: String,
       required: true,
+      minlength: 6,
     },
     birthday: {
       type: Date,
@@ -35,6 +36,8 @@ const UserSchema = new mongoose.Schema(
     token: {
       type: String,
     },
+    resetPasswordToken: String,
+    resetPasswordExpire: Date,
   },
   { timestamps: true, collection: "Users" }
 );

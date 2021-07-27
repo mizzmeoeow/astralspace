@@ -2,21 +2,15 @@ const jwt = require("jsonwebtoken");
 
 const config = process.env;
 
-const verifyToken = (req, res, next) => {
-  const token = req.header("x-access-token");
-
-  // Check for token
-  if (!token)
-    return res.status(401).json({ msg: "No token, authorization denied" });
-
+module.exports = (req, res, next) => {
   try {
-    // Verify token
-    const decoded = jwt.verify(token, JWT_SECRET);
-    // Add user from payload
-    req.user = decoded;
+    const token = req.headers.authorization.split(" ")[1];
+    const decoded = jwt.verify(token, process.env.JWT_KEY);
+    req.userData = decoded;
     next();
-  } catch (e) {
-    res.status(400).json({ msg: "Token is not valid" });
+  } catch (error) {
+    return res.status(401).json({
+      message: "Auth failed",
+    });
   }
 };
-module.exports = verifyToken;

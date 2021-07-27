@@ -4,36 +4,33 @@ import axios from "axios";
 import Cookie from "js-cookie";
 
 class LoginForm extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       email: "",
       password: "",
-      errorText: "",
-      redirect: null,
-      isAuth: false,
-      token: null,
+      errors: {},
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
 
-  handleProtected(event) {
-    const headers = {
-      authorization: `Bearer ${Cookie.get("jwt")}`,
-    };
-    const response = axios.get("/loggedIn", {
-      headers,
-    });
-    console.log(response.data);
-  }
+  // handleProtected(event) {
+  //   const headers = {
+  //     authorization: `Bearer ${Cookie.get("jwt")}`,
+  //   };
+  //   const response = axios.get("/loggedIn", {
+  //     headers,
+  //   });
+  //   console.log(response.data);
+  // }
 
   handleChange(event) {
     console.log("working so far"),
       this.setState({
         [event.target.name]: event.target.value,
-        errorText: "",
+        errors: "",
       });
   }
 
@@ -50,27 +47,9 @@ class LoginForm extends Component {
       .then((response) => {
         console.log("login response: ");
         console.log("response", response);
+        localStorage.setItem(localStorage, response.data);
         console.log(localStorage);
-        let accessToken = localStorage.getItem("accessToken");
-        if (response.data.accessToken) {
-          this.props.updateUser({
-            isAuth: true,
-            token: response.token,
-            loggedIn: true,
-            email: response.data.email,
-            withCredentials: true,
-            userId: response.userId,
-          });
-          localStorage.setItem("token", response.token);
-          localStorage.setItem("userId", response.userId);
-          console.log("login response: ");
-          console.log("response", response);
-        }
-        const { token, refreshToken } = response.data;
-        localStorage.getItem("token", token);
-        localStorage.getItem("refreshToken", refreshToken);
-        // this.setState({ redirect: "/dashboard" });
-        // window.location.reload();
+        return response;
       })
       .catch((error) => {
         this.setState({
@@ -81,6 +60,10 @@ class LoginForm extends Component {
         console.log("login error: ");
         console.log(error);
       });
+  }
+
+  if(response) {
+    return <Redirect to="/dashboard" />;
   }
 
   render() {

@@ -13,15 +13,14 @@ class Navbar extends Component {
     event.preventDefault();
     console.log("logging out");
     axios
-      .post("http://localhost:5000/logout")
+      .post("logout")
       .then((response) => {
         console.log(response.data);
         if (response.status === 200) {
-          this.props.updateUser({
-            loggedIn: false,
-            username: null,
-          });
+          props.history.push("/");
+          props.handleSuccessfulLogout();
         }
+        return response.data;
       })
       .catch((error) => {
         console.log("Logout error");
