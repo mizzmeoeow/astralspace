@@ -3,14 +3,12 @@ const User = require("../dbSchema/models/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const config = require("../config/keys");
-const session = require("express-session");
 const tokenList = {};
-const refreshToken = require("../dbSchema/models/refreshToken");
 const ErrorResponse = require("../middleware/error");
-const rtCookieName = "refreshToken";
+const passport = require("passport");
 
 const validateLoginInput = require("../../frontend/validation/login");
-const RefreshToken = require("../dbSchema/models/refreshToken");
+// const RefreshToken = require("../dbSchema/models/refreshToken");
 
 //REGISTER
 router.post("/register", async (req, res, next) => {
@@ -44,7 +42,6 @@ router.post("/login", (req, res) => {
 
   const email = req.body.email;
   const password = req.body.password;
-  // refreshToken = req.cookies[rtCookieName];
 
   User.findOne({ email }).then((user) => {
     if (!user) {
@@ -60,7 +57,6 @@ router.post("/login", (req, res) => {
         const payload = {
           id: user.id,
           name: user.name,
-          // avatar: user.avatar
         };
 
         jwt.sign(
@@ -72,7 +68,9 @@ router.post("/login", (req, res) => {
             res.json({
               success: true,
               token: "Bearer " + token,
-              refreshToken: refreshToken,
+              httpOnly: true,
+              secure: true,
+              sameSite: true,
             });
           }
         );

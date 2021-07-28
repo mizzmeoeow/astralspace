@@ -1,128 +1,119 @@
 import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
-import axios from "axios";
-import Cookie from "js-cookie";
+import { withRouter } from "react-router";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { loginUser } from "../../../actions/action.auth";
 
 class LoginForm extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       email: "",
       password: "",
       errors: {},
     };
-
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
   }
 
-  // handleProtected(event) {
-  //   const headers = {
-  //     authorization: `Bearer ${Cookie.get("jwt")}`,
-  //   };
-  //   const response = axios.get("/loggedIn", {
-  //     headers,
-  //   });
-  //   console.log(response.data);
-  // }
+  componentDidMount() {
+    if (this.props.auth.isAuthenticated) {
+      this.props.history.push("/dashboard");
+    }
+  }
 
-  handleChange(event) {
-    console.log("working so far"),
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.auth.isAuthenticated) {
+      this.props.history.push("/dashboard");
+    }
+
+    if (nextProps.errors) {
       this.setState({
-        [event.target.name]: event.target.value,
-        errors: "",
+        errors: nextProps.errors,
       });
+    }
   }
 
-  handleSubmit(event) {
-    event.preventDefault();
+  onChange = (e) => {
+    this.setState({ [e.target.id]: e.target.value });
+  };
 
-    const data = {
+  onSubmit = (e) => {
+    e.preventDefault();
+
+    const userData = {
       email: this.state.email,
       password: this.state.password,
     };
-
-    axios
-      .post("login", data)
-      .then((response) => {
-        console.log("login response: ");
-        console.log("response", response);
-        localStorage.setItem(localStorage, response.data);
-        console.log(localStorage);
-        return response;
-      })
-      .catch((error) => {
-        this.setState({
-          errorText: "An error occurred",
-          errorText: "Wrong email or password, please try again.",
-          isAuth: false,
-        });
-        console.log("login error: ");
-        console.log(error);
-      });
-  }
-
-  if(response) {
-    return <Redirect to="/dashboard" />;
-  }
+    this.props.loginUser(userData);
+  };
 
   render() {
-    if (this.state.redirect) {
-      return <Redirect to={this.state.redirect} />;
-    } else {
-      return (
-        <div id="login">
-          <div className="sign-in-form">
-            <div className="input-group">
-              <form onSubmit={this.handleSubmit}>
-                <div className="error-text">{this.state.errorText}</div>
+    const { errors } = this.state;
 
+    return (
+      <div id="login">
+        <div className="sign-in-form">
+          <div className="input-group">
+            <form onSubmit={this.onSubmit}>
+              <div className="error-text">{this.state.errorText}</div>
+
+              <input
+                className="login-input"
+                type="email"
+                id="email"
+                name="email"
+                error={errors.email}
+                placeholder="Email"
+                value={this.state.email}
+                onChange={this.onChange}
+                autoComplete="none"
+                required
+              />
+
+              <div>
                 <input
                   className="login-input"
-                  type="email"
-                  id="email"
-                  name="email"
-                  placeholder="Email"
-                  value={this.state.email}
-                  onChange={this.handleChange}
+                  type="password"
+                  id="password"
+                  name="password"
+                  placeholder="Password"
+                  onChange={this.onChange}
+                  value={this.state.password}
+                  error={errors.password}
                   autoComplete="none"
                   required
                 />
-
-                <div>
-                  <input
-                    className="login-input"
-                    type="password"
-                    id="password"
-                    name="password"
-                    placeholder="Password"
-                    value={this.state.password}
-                    onChange={this.handleChange}
-                    autoComplete="none"
-                    required
-                  />
-                </div>
-                <div className="">
-                  <button
-                    className="login-btn"
-                    onClick={this.handleProtected}
-                    type="submit"
-                  >
-                    Launch
+              </div>
+              <div className="">
+                <button
+                  className="login-btn"
+                  onClick={this.handleProtected}
+                  type="submit"
+                >
+                  Launch
+                </button>
+                <a href="/">
+                  <button type="button" className="back-btn">
+                    Go Back
                   </button>
-                  <a href="/">
-                    <button type="button" className="back-btn">
-                      Go Back
-                    </button>
-                  </a>
-                </div>
-              </form>
-            </div>
+                </a>
+              </div>
+            </form>
           </div>
         </div>
-      );
-    }
+      </div>
+    );
   }
 }
 
-export default LoginForm;
+LoginForm.propTypes = {
+  loginUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+  errors: state.errors,
+});
+
+export default withRouter(connect(mapStateToProps, { loginUser })(LoginForm));

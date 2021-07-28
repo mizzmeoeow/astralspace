@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import axios from "axios";
+import PropTypes from "prop-types";
+import { logoutUser } from "../../actions/action.auth";
 
 import ProfileSpace from "../body/space/profileSpace";
 import ProfileFooter from "../footer/profileFooter";
@@ -9,60 +10,6 @@ import Hero from "../Hero/hero";
 import TypingEffect from "new-react-typing-effect";
 
 class Dashboard extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      loggedIn: true,
-      email: "",
-      token: "",
-    };
-
-    this.updateUser = this.updateUser.bind(this);
-  }
-
-  updateUser() {
-    this.setState({
-      loggedIn: true,
-    });
-  }
-
-  componentDidMount() {
-    const config = {
-      headers: {
-        authorization: localStorage.getItem("token"),
-      },
-    };
-
-    axios.get("loggedIn", config).then(
-      (response) => {
-        console.log(response);
-        console.log(config);
-        console.log(localStorage);
-        console.log("Get user response: ");
-        if (response.config.user) {
-          console.log(
-            "Get User: There is a user saved in the server session: "
-          );
-          this.setState({
-            loggedIn: true,
-            email: response.data.user.email,
-            token: data,
-            authToken: data,
-          });
-        }
-      },
-      (err) => {
-        console.log(err);
-        console.log("Get user: no user");
-        this.setState({
-          loggedIn: false,
-          email: null,
-        });
-      }
-    );
-  }
-
   render() {
     return (
       <div className="profile-page header">
@@ -105,4 +52,13 @@ class Dashboard extends Component {
   }
 }
 
-export default Dashboard;
+Dashboard.propTypes = {
+  logoutUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps, { logoutUser })(Dashboard);

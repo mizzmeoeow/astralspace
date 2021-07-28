@@ -65,6 +65,19 @@ app.post("/api/upload", upload.single("file"), (req, res) => {
   res.status(200).json("File has been uploaded");
 });
 
+app.use((req, res, next) => {
+  const {
+    headers: { cookie },
+  } = req;
+  if (cookie) {
+    const values = cookie.split(";").reduce((res, item) => {
+      const data = item.trim().split("=");
+      return { ...res, [data[0]]: data[1] };
+    }, {});
+    res.locals.cookie = values;
+  } else res.locals.cookie = {};
+  next();
+});
 app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
 app.use("/api/posts", postRoute);
@@ -79,7 +92,7 @@ if (process.env.NODE_ENV === "production") {
 }
 
 app.get("/", function (req, res, next) {
-  res.sendFile(__dirname + "/public/index.html");
+  res.cookie("user", username, { maxAge: 10800 }).send("cookie set");
 });
 
 app.use(errorHandler);

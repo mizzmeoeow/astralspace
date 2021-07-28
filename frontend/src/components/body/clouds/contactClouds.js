@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-// import ContactForm from "../../auth/contact/contactForm";
+import ContactForm from "../../auth/contact/contactForm";
 
 class ContactClouds extends Component {
   render() {
@@ -35,8 +35,8 @@ class ContactClouds extends Component {
             </feComponentTransfer>
           </filter>
           <rect width="100%" height="100%" filter="url(#filter)" />
-          <foreignObject x="800" y="200" width="200" height="150">
-            {/* <ContactForm /> */}
+          <foreignObject x="500" y="200" width="500" height="350">
+            <ContactForm />
           </foreignObject>
         </svg>
       </div>

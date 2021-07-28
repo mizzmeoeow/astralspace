@@ -6,7 +6,10 @@ import axios from "axios";
 
 import "./style/main.scss";
 
+import * as serviceWorker from "./serviceWorker";
+
 axios.defaults.baseURL = "http://localhost:5000/api/auth/";
+
 axios.interceptors.request.use((request) => {
   console.log(request);
   request.headers.channelName = "DevTime";
@@ -44,3 +47,5 @@ ReactDOM.render(
   </Router>,
   document.getElementById("root")
 );
+
+serviceWorker.unregister();
