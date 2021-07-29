@@ -83,66 +83,11 @@ router.post("/login", (req, res) => {
   });
 });
 
-router.post("/token", (req, res) => {
-  // refresh the damn token
-  const postData = req.body;
-  // if refresh token exists
-  if (postData.refreshToken && postData.refreshToken in tokenList) {
-    const user = {
-      email: postData.email,
-      name: postData.name,
-    };
-    const token = jwt.sign(user, config.JWT_SECRET, {
-      expiresIn: config.tokenLife,
-    });
-    const response = {
-      token: token,
-    };
-    // update the token in the list
-    tokenList[postData.refreshToken].token = token;
-    res.status(200).json(response);
-  } else {
-    res.status(404).send("Invalid request");
-  }
-});
-
-// router.use(require("../middleware/tokenChecker"));
+router.post("/contact", (req, res) => {});
 
 router.get("/secure", (req, res) => {
   // all secured routes goes here
   res.send("I am secured...");
-});
-
-router.get("/logout", (req, res) => {
-  res
-    .cookie("token", "", {
-      httpOnly: true,
-      expires: new Date(0),
-      secure: true,
-      sameSite: "none",
-    })
-    .send();
-});
-
-function isAuthenticated(req, res, next) {
-  if (req.headers.authorization) {
-    const token = req.headers.authorization.split(" ")[1];
-    jwt.verify(token, config.JWT_SECRET, (err, user) => {
-      if (!user) return res.json({ message: "User not authenticated" });
-      else next();
-    });
-  }
-}
-
-router.get("/loggedIn", isAuthenticated, (req, res) => {
-  try {
-    return res.json({
-      id: req.user.id,
-      username: req.user.username,
-    });
-  } catch (err) {
-    res.json(false);
-  }
 });
 
 module.exports = router;

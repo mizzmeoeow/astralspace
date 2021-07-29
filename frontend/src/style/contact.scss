@@ -1,0 +1,17 @@
+.contact-form {
+  text-align: left;
+  justify-items: center;
+  .email {
+    transform: translateX(5px);
+  }
+  .full-name {
+    transform: translateX(10px);
+  }
+  .contact-btn {
+    transform: translateX(165px);
+  }
+}
+
+textarea {
+  border-radius: 5%;
+}
