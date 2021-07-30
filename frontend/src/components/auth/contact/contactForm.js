@@ -1,109 +1,151 @@
-import React, { Component } from "react";
-import axios from "axios";
+import React, { useState } from "react";
+import emailjs from "emailjs-com";
 
-class ContactForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      email: "",
-      name: "",
-      message: "",
-    };
-  }
+const Result = () => {
+  return (
+    <h2 className="successful-message">
+      Your message has been sent successfully. I will contact you soon!
+    </h2>
+  );
+};
 
-  handleSubmit(event) {
-    event.preventDefault();
-    console.log(this.state);
+function ContactForm(props) {
+  const [result, showResult] = useState(false);
+  const sendEmail = (e) => {
+    e.preventDefault();
 
-    axios({
-      method: "POST",
-      url: "contact",
-      data: this.state,
-    }).then((response) => {
-      if (response.data.status === "success") {
-        alert("Message Sent.");
-        this.resetForm();
-      } else if (response.data.status === "fail") {
-        alert("Message failed to send.");
-      }
-    });
-  }
+    emailjs
+      .sendForm(
+        "service_vw1i1rf",
+        "template_flbzx4k",
+        e.target,
+        "user_hZ1PCrWMwntja2qXcVqqZ"
+      )
+      .then(
+        (result) => {
+          console.log(result.text);
+        },
+        (error) => {
+          console.log(error.text);
+        }
+      );
+    e.target.reset();
+    showResult(true);
+  };
 
-  resetForm() {
-    this.setState({ name: "", email: "", message: "" });
-  }
+  return (
+    <form
+      className="sign-in-form contact-form"
+      onSubmit={sendEmail}
+      method="POST"
+    >
+      <div className="input-group">
+        <label htmlFor="email">Your Email:</label>
+        <input
+          autoComplete="none"
+          type="text"
+          name="email"
+          className="login-input email"
+          placeholder="Email"
+          // value={this.state.email}
+          // onChange={this.onEmailChange.bind(this)}
+          required
+        />
+      </div>
 
-  render() {
-    return (
-      <form
-        className="sign-in-form contact-form"
-        onSubmit={this.handleSubmit.bind(this)}
-        method="POST"
+      <div className="input-group">
+        <label htmlFor="name" className="your-name">
+          Your Name:
+        </label>
+        <input
+          autoComplete="none"
+          type="text"
+          name="name"
+          className="login-input full-name"
+          placeholder="Full Name"
+          // value={this.state.name}
+          // onChange={this.onNameChange.bind(this)}
+          required
+        />
+      </div>
+
+      <div className="input-group">
+        <label htmlFor="input">
+          Please, let me know how I can help you today:
+        </label>
+        <textarea
+          name="message"
+          type="text"
+          className="login-input help"
+          placeholder="How can I help?"
+          cols="68"
+          rows="6"
+          // value={this.state.message}
+          // onChange={this.onMessageChange.bind(this)}
+          required
+        />
+      </div>
+
+      <button
+        type="submit"
+        className="login-btn contact-btn"
+        // onClick={this.handleSubmit}
       >
-        <div className="input-group">
-          <label htmlFor="email">Your Email:</label>
-          <input
-            autoComplete="none"
-            type="email"
-            name="email"
-            className="login-input email"
-            placeholder="Email"
-          />
-        </div>
-
-        <div className="input-group">
-          <label htmlFor="name" className="your-name">
-            Your name:
-          </label>
-          <input
-            autoComplete="none"
-            type="text"
-            name="name"
-            className="login-input full-name"
-            placeholder="Full Name"
-          />
-        </div>
-
-        <div className="input-group">
-          <label htmlFor="input">
-            Please, let me know how I can help you today:
-          </label>
-          <textarea
-            name="message"
-            type="text"
-            className="login-input help"
-            placeholder="How can I help?"
-            cols="68"
-            rows="6"
-          />
-        </div>
-
-        <button
-          type="button"
-          className="login-btn contact-btn"
-          onClick={this.props.onClick}
-        >
-          Launch
+        Launch
+      </button>
+      <a href="/">
+        <button type="button" className="back-btn contact-btn">
+          Go Back
         </button>
-        <a href="/">
-          <button type="button" className="back-btn contact-btn">
-            Go Back
-          </button>
-        </a>
-      </form>
-    );
-  }
-  onNameChange(event) {
-    this.setState({ name: event.target.value });
-  }
-
-  onEmailChange(event) {
-    this.setState({ email: event.target.value });
-  }
-
-  onMessageChange(event) {
-    this.setState({ message: event.target.value });
-  }
+      </a>
+      <div className="row">{result ? <Result /> : null}</div>
+    </form>
+  );
 }
+// onNameChange(event) {
+//   this.setState({ name: event.target.value });
+// }
+
+// onEmailChange(event) {
+//   this.setState({ email: event.target.value });
+// }
+
+// onMessageChange(event) {
+//   this.setState({ message: event.target.value });
+// }
+
+// handleChange(event) {
+//   this.setState({ message: event.target.value });
+// }
+
+// handleSubmit(event) {
+//   event.preventDefault();
+//   const templateId = "template_id";
+
+//   this.sendMessage(templateId, {
+//     reply_to: this.state.email,
+//     from_name: this.state.name,
+//     message_html: this.state.message,
+//   });
+// }
+
+// sendMessage(templateId, variables) {
+//   window.emailjs
+//     .send("gmail", templateId, variables)
+//     .then((res) => {
+//       console.log("Email successfully sent!");
+//     })
+//     // Handle errors here however you like, or use a React error boundary
+//     .catch((err) =>
+//       console.error(
+//         "Oh well, you failed. Here some thoughts on the error that occured:",
+//         err
+//       )
+//     );
+// }
+
+// resetForm() {
+//   this.setState({ name: "", email: "", message: "" });
+// }
 
 export default ContactForm;

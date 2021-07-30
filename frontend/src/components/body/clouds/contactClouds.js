@@ -35,7 +35,7 @@ class ContactClouds extends Component {
             </feComponentTransfer>
           </filter>
           <rect width="100%" height="100%" filter="url(#filter)" />
-          <foreignObject x="400" y="100" width="900" height="450">
+          <foreignObject x="400" y="100" width="900" height="550">
             <ContactForm />
           </foreignObject>
         </svg>

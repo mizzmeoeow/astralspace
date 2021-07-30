@@ -7,6 +7,7 @@ const authRoute = require("./routes/auth");
 const userRoute = require("./routes/users");
 const postRoute = require("./routes/posts");
 const categoryRoute = require("./routes/categories");
+const contactRoute = require("./routes/contactRoute");
 const multer = require("multer");
 const path = require("path");
 const errorHandler = require("./middleware/error");
@@ -82,6 +83,7 @@ app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
 app.use("/api/posts", postRoute);
 app.use("/api/categories", categoryRoute);
+app.use("/api/contact", contactRoute);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));

@@ -83,8 +83,6 @@ router.post("/login", (req, res) => {
   });
 });
 
-router.post("/contact", (req, res) => {});
-
 router.get("/secure", (req, res) => {
   // all secured routes goes here
   res.send("I am secured...");
