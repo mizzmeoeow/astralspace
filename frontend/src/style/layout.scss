@@ -1,11 +1,5 @@
 .layout {
-  display: flex;
-  overflow-x: hidden;
-
-  p {
-    grid-row: p-s/p-e;
-    transform: translateX(200px);
-  }
+  @include layoutheader;
 }
 
 .header {

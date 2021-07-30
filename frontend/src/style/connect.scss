@@ -1,0 +1,32 @@
+.connect-header {
+  flex-direction: column;
+  font-size: 60px;
+  font-family: "Tangerine", cursive;
+  margin: 0;
+  background-color: black;
+  color: white;
+
+  p::first-letter {
+    font-size: 80px;
+  }
+}
+
+.connect-footer {
+  position: absolute;
+  height: 100px;
+  width: 98.75vw;
+  background-color: black;
+
+  .connect-contact,
+  .connect-lmp {
+    text-decoration: none;
+    margin-left: 150px;
+    font-size: 25px;
+    display: inline;
+    color: white;
+    @include connect-footer;
+  }
+  .connect-contact:hover {
+    color: #b535fc;
+  }
+}
