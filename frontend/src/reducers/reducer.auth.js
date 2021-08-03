@@ -1,13 +1,8 @@
-import {
-  SET_CURRENT_USER,
-  USER_LOADING,
-  SET_SEARCH_TERM,
-} from "../actions/action.types";
+import { SET_CURRENT_USER, USER_LOADING } from "../actions/action.types";
 
 const isEmpty = require("is-empty");
 
 export const initialState = {
-  term: null,
   isAuthenticated: false,
   user: {},
   loading: false,
@@ -30,17 +25,3 @@ export default function (state = initialState, action) {
       return state;
   }
 }
-
-export const reducer = (state, action) => {
-  console.log(action);
-  switch (action.type) {
-    case SET_SEARCH_TERM:
-      return {
-        ...state,
-        term: action.term,
-      };
-
-    default:
-      return state;
-  }
-};

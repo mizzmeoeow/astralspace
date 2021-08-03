@@ -8,7 +8,6 @@ const ErrorResponse = require("../middleware/error");
 const passport = require("passport");
 
 const validateLoginInput = require("../../frontend/validation/login");
-// const RefreshToken = require("../dbSchema/models/refreshToken");
 
 //REGISTER
 router.post("/register", async (req, res, next) => {
