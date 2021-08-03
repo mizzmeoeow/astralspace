@@ -30,3 +30,43 @@
     color: #b535fc;
   }
 }
+
+.connect-search {
+  float: right;
+}
+
+.connect-searchbar {
+  width: 100vw;
+  background-color: black;
+  color: white;
+}
+
+.nav-connect {
+  text-decoration: none;
+  color: white;
+}
+
+.nav-connect:hover {
+  color: #b535fc;
+}
+
+.connect-nav {
+  background-color: black;
+  color: white;
+}
+
+.category-nav {
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.category {
+  font-family: "Tangerine", cursive;
+  font-size: 25px;
+  margin: 10px;
+}
+
+.category:hover {
+  color: #b535fc;
+}

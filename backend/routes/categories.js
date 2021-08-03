@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const Category = require("../dbSchema/models/category");
 
-router.post("/", async (req, res) => {
+router.post("/categories", async (req, res) => {
   const newCat = new Category(req.body);
   try {
     const savedCat = await newCat.save();
@@ -11,7 +11,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.get("/", async (req, res) => {
+router.get("/categories", async (req, res) => {
   try {
     const cats = await Category.find();
     res.status(200).json(cats);
