@@ -6,7 +6,7 @@ import {
 
 const isEmpty = require("is-empty");
 
-const initialState = {
+export const initialState = {
   term: null,
   isAuthenticated: false,
   user: {},
@@ -31,7 +31,7 @@ export default function (state = initialState, action) {
   }
 }
 
-const reducer = (state, action) => {
+export const reducer = (state, action) => {
   console.log(action);
   switch (action.type) {
     case SET_SEARCH_TERM:
@@ -44,5 +44,3 @@ const reducer = (state, action) => {
       return state;
   }
 };
-
-export default reducer;

@@ -7,6 +7,8 @@ import axios from "axios";
 import "./style/main.scss";
 
 import * as serviceWorker from "./serviceWorker";
+import reducer, { initialState } from "./reducers/reducer.auth";
+import { StateProvider } from "./components/stateProvider";
 
 axios.defaults.baseURL = "http://localhost:5000/api/auth/";
 
@@ -42,7 +44,9 @@ axios.interceptors.response.use(
 ReactDOM.render(
   <Router>
     <React.StrictMode>
-      <App />
+      <StateProvider initialState={initialState} reducer={reducer}>
+        <App />
+      </StateProvider>
     </React.StrictMode>
   </Router>,
   document.getElementById("root")
