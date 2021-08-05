@@ -12,7 +12,6 @@ class Categories extends React.Component {
       searchTerm: "",
     };
     this.handleFilter = this.handleFilter.bind(this);
-    this.submitForm = this.submitForm.bind(this);
   }
 
   submitForm(values) {
@@ -28,11 +27,11 @@ class Categories extends React.Component {
   }
 
   getSearchItems(filter = null) {
-    Category.call({ value: filter.target.value }, (error, result) => {
-      if (result) {
-        this.props.onDataFetched(result);
-      }
-    });
+    // Category.call({ value: filter.target.value }, (error, result) => {
+    //   if (result) {
+    //     this.props.onDataFetched(result);
+    //   }
+    // });
   }
 
   searchItems() {

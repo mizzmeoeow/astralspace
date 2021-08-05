@@ -1,6 +1,7 @@
 import React, { Component, useState, useEffect } from "react";
 import SearchBar from "./searchBar";
 import Categories from "../categories/categories";
+import Truncate from "react-truncate";
 
 const categories = [
   {
@@ -8,47 +9,52 @@ const categories = [
     name: "Large Metal Sculpture",
     description:
       "Whether you display this abstract metal sculpture in your living room, office, or outdoors, it makes a stunning statement piece. Crafted from post-consumer recycled aluminum that will not rust or corrode, this modern metal sculpture will last for years to come and is suitable for indoor or outdoor display.",
-    price: 295,
+    price: 295.0,
     countInStock: 2,
     category: "Sculpture",
     imageURL:
       "https://i.etsystatic.com/5133928/r/il/28d64b/2165095231/il_794xN.2165095231_5wuv.jpg",
+    URL: "https://www.etsy.com/listing/761025671/large-metal-sculpture-abstract-indoor?ga_order=most_relevant&ga_search_type=all&ga_view_type=gallery&ga_search_query=Large+Metal+Sculpture&ref=sr_gallery-1-1&organic_search_click=1&frs=1&bes=1",
   },
   {
     id: 2,
     name: "Tap Vinyl Sticker",
     description:
       "⭐️⭐️ATTENTION- We are taking a short break! All orders placed Friday, May 14th to Sunday, May 16th will be shipped on Monday the 17th. Thank you for your patience! ⭐️",
-    price: 3,
+    price: 3.0,
     countInStock: 10,
     category: "Performing",
     imageURL:
       "https://i.etsystatic.com/17436017/r/il/854015/2102723173/il_794xN.2102723173_i6p8.jpg",
+    URL: "https://www.etsy.com/listing/649883323/tap-vinyl-sticker-dance-sticker-tap?ga_order=most_relevant&ga_search_type=all&ga_view_type=gallery&ga_search_query=Tap+Vinyl+Sticker&ref=sr_gallery-1-2&organic_search_click=1",
   },
   {
     id: 3,
-    name: "NYC Spring Cherry Blossom Flowers New York City by Joy Laforme Paint Anywhere Collective Kit Adult Paint by Number",
+    name: "Sakura painting",
     description:
-      "This original image is turned into a paint by numbers kit. Each kit includes a great quality template printed canvas, a 4 brush set, and 30 handy little pots of acrylic paint. Each of our projects is about 12 hours. Paint however you would like. Enjoy!",
-    price: 36,
-    countInStock: 2,
+      "This artwork is one of a kind bright colorful painting. I make really vibrant colors. And I use harmony absolutely stunning textures.",
+    price: 88.5,
+    countInStock: 1,
     category: "Painting",
     imageURL:
-      "https://i.etsystatic.com/25572722/r/il/c3bf5b/3049388755/il_794xN.3049388755_hiax.jpg",
+      "https://i.etsystatic.com/29150889/r/il/6274f2/3274739519/il_1140xN.3274739519_4hqn.jpg",
+    URL: "https://www.etsy.com/listing/1043564272/sakura-painting-cherry-blossom-tree?ga_order=most_relevant&ga_search_type=all&ga_view_type=gallery&ga_search_query=NYC+Spring+Cherry+Blossom+Flowers+by+Joy+Laforme&ref=sr_gallery-1-33&organic_search_click=1&pro=1&frs=1",
   },
+
   {
     id: 4,
     name: "The Conan Chronicles by Robert Jordan",
     description: "Hardcover 1st Edition, 1st Printing (1995)",
-    price: 40.5,
+    price: 45.0,
     countInStock: 1,
     category: "Literature",
     imageURL:
       "https://i.etsystatic.com/29469133/r/il/260682/3079948896/il_794xN.3079948896_6v3a.jpg",
+    URL: "https://www.etsy.com/listing/1018675175/1st-edition-the-conan-chronicles-by?ga_order=most_relevant&ga_search_type=all&ga_view_type=gallery&ga_search_query=The+Conan+Chronicles+by+Robert+Jordan&ref=sr_gallery-1-2&organic_search_click=1&frs=1",
   },
   {
     id: 5,
-    name: "Music Note Ring-Sterling Silver-Hammered Texture-Symbol Ring-Symbolic Jewelry-Musician Music Gift-Christmas Gift-Graduation Gift-Handmade",
+    name: "Music Note Ring-Sterling Silver",
     description:
       "This solid sterling silver music note ring is part of my Musical Motifs Collection!",
     price: 39.25,
@@ -56,10 +62,11 @@ const categories = [
     category: "Music",
     imageURL:
       "https://i.etsystatic.com/13736855/r/il/df385f/1856946869/il_794xN.1856946869_1vde.jpg",
+    URL: "https://www.etsy.com/listing/676235450/music-note-ring-sterling-silver-hammered?ga_order=most_relevant&ga_search_type=all&ga_view_type=gallery&ga_search_query=Music+Note+Ring-Sterling+Silver&ref=sc_gallery-1-1&plkey=46d3e3ba9d099043cb75d8502f7a8c560421be52%3A676235450&pro=1&frs=1",
   },
   {
     id: 6,
-    name: "18th c. Architectural Prints | Buy 2 Get 1 Free | Six Neoclassical Italian Architectural Etchings",
+    name: "18th c. Architectural Prints",
     description:
       "Restoration Style Architecture Artwork. 18th Century Neoclassical Italian Architectural Etchings. An examination of the Five Orders of Architecture: Doric, Ionic, Roman, Tuscan, and Corinthian. Five prints represent the ornaments of each order, and a sixth print compares them.",
     price: 15,
@@ -67,6 +74,7 @@ const categories = [
     category: "Architecture",
     imageURL:
       "https://i.etsystatic.com/7608365/r/il/c4ff30/2488325416/il_794xN.2488325416_q4eu.jpg",
+    URL: "https://www.etsy.com/listing/860435941/18th-c-architectural-prints-buy-2-get-1?ga_order=most_relevant&ga_search_type=all&ga_view_type=gallery&ga_search_query=18th+c.+Architectural+Prints&ref=sc_gallery-1-1&plkey=a181456a6cf870210528251d62267d66cbd391b1%3A860435941",
   },
 ];
 
@@ -76,8 +84,8 @@ const filterCategories = (categories, query) => {
   }
 
   return categories.filter((category) => {
-    const categoryName = category.name.toLowerCase();
-    return categoryName.includes(query);
+    const categoryType = category.category.toLowerCase();
+    return categoryType.includes(query);
   });
 };
 
@@ -90,10 +98,21 @@ const SearchPage = () => {
   return (
     <div>
       <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-      <Categories onDataFetched={searchQuery} />
-      <ul>
+      <Categories searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+      <ul className="wrapper">
         {filteredCategories.map((category) => (
-          <li key={category.id}>{category.name}</li>
+          <a href={category.URL} className="search-results" key={category.id}>
+            <div className="card">
+              <img src={category.imageURL} className="card__img" />
+              <div className="card__body">
+                <h3 className="card__title">{category.name}</h3>
+                <Truncate lines={1} ellipsis={<span>...view more</span>}>
+                  <h4 className="card__description">{category.description}</h4>
+                </Truncate>
+                <h4 className="card__price">{category.price}</h4>
+              </div>
+            </div>
+          </a>
         ))}
       </ul>
     </div>

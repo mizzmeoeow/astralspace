@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import Categories from "../categories/categories";
+import React from "react";
 import { useHistory } from "react-router-dom";
 
 const SearchBar = ({ searchQuery, setSearchQuery }) => {
@@ -20,7 +19,7 @@ const SearchBar = ({ searchQuery, setSearchQuery }) => {
       >
         <input
           type="text"
-          placeholder="Search for Art/Creations on Google"
+          placeholder="Search for Art/Creations"
           value={searchQuery}
           onInput={(e) => setSearchQuery(e.target.value)}
           className="connect-searchbar"
@@ -30,8 +29,6 @@ const SearchBar = ({ searchQuery, setSearchQuery }) => {
         <button type="submit" className="connect-search">
           Submit
         </button>
-
-        {/* <SearchBarResults /> */}
       </form>
     </div>
   );
