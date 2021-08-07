@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken";
+import "bootstrap/dist/css/bootstrap.css";
 
 import { setCurrentUser, logoutUser } from "./actions/action.auth";
 
@@ -16,6 +17,14 @@ import Unsuccess from "./components/auth/login/formUnSuccess";
 import Shop from "./components/pages/shop";
 import Connect from "./components/pages/connect";
 import Blog from "./components/pages/blog";
+import Literature from "./components/categories/pages/literature";
+import Architecture from "./components/categories/pages/architecture";
+import Cinema from "./components/categories/pages/cinema";
+import GraphicDesign from "./components/categories/pages/graphicDesign";
+import Music from "./components/categories/pages/music";
+import Painting from "./components/categories/pages/painting";
+import PerformingArts from "./components/categories/pages/performing";
+import Sculpting from "./components/categories/pages/sculpting";
 
 import { Provider } from "react-redux";
 import store from "./store";
@@ -62,7 +71,26 @@ export default class App extends Component {
               <Switch>
                 <PrivateRoute exact path="/dashboard" component={Dashboard} />
                 <PrivateRoute path="/connect" exact component={Connect} />
-                <PrivateRoute path="/blog" exact component={Blog} />
+                <PrivateRoute path="/literature" exact component={Literature} />
+                <PrivateRoute
+                  path="/architecture"
+                  exact
+                  component={Architecture}
+                />
+                <PrivateRoute path="/cinema" exact component={Cinema} />
+                <PrivateRoute
+                  path="/graphic-design"
+                  exact
+                  component={GraphicDesign}
+                />
+                <PrivateRoute path="/music" exact component={Music} />
+                <PrivateRoute path="/painting" exact component={Painting} />
+                <PrivateRoute
+                  path="/performing"
+                  exact
+                  component={PerformingArts}
+                />
+                <PrivateRoute path="/sculpting" exact component={Sculpting} />
               </Switch>
             </Layout>
           </Provider>

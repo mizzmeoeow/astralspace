@@ -63,8 +63,11 @@
 
 .category {
   font-family: "Tangerine", cursive;
+  text-decoration: none;
+  color: white;
   font-size: 25px;
-  margin: 10px;
+  margin: 4px 20px;
+  padding: 10px;
 }
 
 .category:hover {

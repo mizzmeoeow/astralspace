@@ -26,9 +26,6 @@ const SearchBar = ({ searchQuery, setSearchQuery }) => {
           name="s"
           id="header-search"
         />
-        <button type="submit" className="connect-search">
-          Submit
-        </button>
       </form>
     </div>
   );
