@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { withRouter } from "react-router";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { loginUser } from "../../../actions/action.auth";
+import { loginUser } from "../../../actions/actionAuth";
 
 class LoginForm extends Component {
   constructor(props) {

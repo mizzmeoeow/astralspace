@@ -1,4 +1,4 @@
-import { GET_ERRORS, SET_CURRENT_USER, USER_LOADING } from "./action.types";
+import { GET_ERRORS, SET_CURRENT_USER, USER_LOADING } from "./actionTypes";
 import axios from "axios";
 import setAuthToken from "../utils/setAuthToken";
 import jwt_decode from "jwt-decode";
@@ -7,7 +7,7 @@ import jwt_decode from "jwt-decode";
 
 export const registerUser = (userData, history) => (dispatch) => {
   axios
-    .post("/register", userData)
+    .post("auth/register", userData)
     .then((res) => history.push("/login"))
     .catch((err) =>
       dispatch({
@@ -20,7 +20,7 @@ export const registerUser = (userData, history) => (dispatch) => {
 // Login - get user token
 export const loginUser = (userData) => (dispatch) => {
   axios
-    .post("/login", userData)
+    .post("auth/login", userData)
     .then((res) => {
       // Save to localStorage
 
@@ -68,3 +68,16 @@ export const logoutUser = () => (dispatch) => {
   // Set current user to empty object {} which will set isAuthenticated to false
   dispatch(setCurrentUser({}));
 };
+
+export const UpdateStart = (userCredentials) => ({
+  type: "UPDATE_START",
+});
+
+export const UpdateSuccess = (user) => ({
+  type: "UPDATE_SUCCESS",
+  payload: user,
+});
+
+export const UpdateFailure = () => ({
+  type: "UPDATE_FAILURE",
+});

@@ -1,4 +1,4 @@
-import { GET_ERRORS } from "../actions/action.types";
+import { GET_ERRORS } from "../actions/actionTypes";
 
 const initialState = {};
 

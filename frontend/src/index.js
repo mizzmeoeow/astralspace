@@ -7,8 +7,9 @@ import axios from "axios";
 import "./style/main.scss";
 
 import * as serviceWorker from "./serviceWorker";
+import { ContextProvider } from "./reducers/reducerAuth";
 
-axios.defaults.baseURL = "http://localhost:5000/api/auth/";
+axios.defaults.baseURL = "http://localhost:5000/api/";
 
 axios.interceptors.request.use((request) => {
   console.log(request);
@@ -42,7 +43,9 @@ axios.interceptors.response.use(
 ReactDOM.render(
   <Router>
     <React.StrictMode>
-      <App />
+      <ContextProvider>
+        <App />
+      </ContextProvider>
     </React.StrictMode>
   </Router>,
   document.getElementById("root")

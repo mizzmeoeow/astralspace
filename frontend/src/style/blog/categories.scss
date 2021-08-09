@@ -1,0 +1,88 @@
+.category-header {
+  width: 100vw;
+  font-size: 60px;
+  font-family: "Tangerine", cursive;
+  background-color: black;
+  color: white;
+
+  p::first-letter {
+    font-size: 80px;
+  }
+}
+
+.addImage {
+  color: white;
+}
+
+.writeImg {
+  margin-left: 150px;
+  width: 80vw;
+  height: 250px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.writeForm {
+  position: relative;
+}
+
+.writeFormGroup {
+  margin-left: 150px;
+  display: flex;
+  align-items: center;
+}
+
+.writeIcon {
+  // width: 25px;
+  // height: 25px;
+  border-radius: 50%;
+  border: 1.5px solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  color: #b535fc;
+  cursor: pointer;
+}
+
+.writeInput {
+  font-size: 1rem;
+  border: none;
+  padding: 20px;
+  width: 70vw;
+}
+
+.writeTitle {
+  width: 61vw;
+  border-radius: 10px;
+}
+
+.writeInput:focus {
+  outline: none;
+}
+
+.writeText {
+  font-size: 1rem;
+  height: 90vh;
+}
+
+.writeSubmit {
+  position: absolute;
+  top: 20px;
+  right: 50px;
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.writeSubmit:hover {
+  background-image: linear-gradient(180deg, rgb(47, 0, 255), rgb(255, 0, 234));
+}
+
+.writeSubmit:active {
+  background-color: #3e8e41;
+  box-shadow: 0 3px transparent;
+  transform: translateY(2px);
+}

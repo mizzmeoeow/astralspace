@@ -1,9 +1,19 @@
-import React, { Component } from "react";
+import { useLocation } from "react-router";
+import ArcHeader from "../../headernavbar/catHeaders/arcHeader";
+import CategorySpace from "../../body/space/categorySpace";
+import ConnectFooter from "../../footer/connectFooter";
 
-class Architecture extends Component {
-  render() {
-    return <div>Architecture</div>;
-  }
+export default function Architecture() {
+  const location = useLocation();
+  console.log(location);
+  return (
+    <div>
+      <ArcHeader />
+      <div className="home">
+        <CategorySpace />
+        {/* <Sidebar /> */}
+        <ConnectFooter />
+      </div>
+    </div>
+  );
 }
-
-export default Architecture;

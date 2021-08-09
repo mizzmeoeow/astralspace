@@ -2,9 +2,8 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken";
-import "bootstrap/dist/css/bootstrap.css";
 
-import { setCurrentUser, logoutUser } from "./actions/action.auth";
+import { setCurrentUser, logoutUser } from "./actions/actionAuth";
 
 import Layout from "./components/layout";
 import LandingPage from "./components/pages/landingPage";
@@ -28,6 +27,7 @@ import Sculpting from "./components/categories/pages/sculpting";
 
 import { Provider } from "react-redux";
 import store from "./store";
+import { Context } from "./reducers/reducerAuth";
 
 if (localStorage.jwtToken) {
   // Set auth token header auth
