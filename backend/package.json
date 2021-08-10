@@ -35,6 +35,7 @@
     "path": "^0.12.7",
     "react-request": "^3.2.0",
     "request": "^2.88.2",
+    "uuid": "^8.3.2",
     "uuidv4": "^6.2.11"
   },
   "devDependencies": {

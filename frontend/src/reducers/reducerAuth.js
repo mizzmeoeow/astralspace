@@ -9,10 +9,6 @@ export const initialState = {
   // user: {},
   user: JSON.parse(localStorage.getItem("user")) || null,
   loading: false,
-};
-
-const INITIAL_STATE = {
-  user: JSON.parse(localStorage.getItem("user")) || null,
   isFetching: false,
   error: false,
 };
@@ -35,10 +31,10 @@ export default function (state = initialState, action) {
   }
 }
 
-export const Context = createContext(INITIAL_STATE);
+export const Context = createContext(initialState);
 
 export const ContextProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(Reducer, INITIAL_STATE);
+  const [state, dispatch] = useReducer(Reducer, initialState);
 
   useEffect(() => {
     localStorage.setItem("user", JSON.stringify(state.user));

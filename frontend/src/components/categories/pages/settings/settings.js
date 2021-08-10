@@ -74,11 +74,13 @@ export default function Settings() {
             type="email"
             placeholder={user.email}
             onChange={(e) => setEmail(e.target.value)}
+            autoComplete="none"
           />
           <label>Password</label>
           <input
             type="password"
             onChange={(e) => setPassword(e.target.value)}
+            autoComplete="none"
           />
           <button className="settingsSubmit" type="submit">
             Update

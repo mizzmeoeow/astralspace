@@ -86,3 +86,71 @@
   box-shadow: 0 3px transparent;
   transform: translateY(2px);
 }
+
+.posts {
+  margin: 20px;
+  position: relative;
+}
+
+.post {
+  width: 385px;
+  margin: 0px 25px 40px 25px;
+}
+
+.postImg {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  border-radius: 7px;
+}
+
+.postInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.postCat {
+  font-family: "Tangerine", cursive;
+  font-size: 11px;
+  color: #b535fc;
+  line-height: 20px;
+  margin-top: 15px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.postTitle {
+  font-family: "Old Standard TT", serif;
+  font-size: 24px;
+  font-weight: 700;
+  margin-top: 15px;
+  cursor: pointer;
+  color: white;
+}
+
+.cat-link {
+  text-decoration: none;
+}
+
+.postDate {
+  font-family: "Tangerine", cursive;
+  // font-style: italic;
+  font-size: 18px;
+  color: #999;
+  margin-top: 15px;
+  transform: translateY(-24px) translateX(15px);
+}
+
+.postDesc {
+  font-family: "Old Standard TT", serif;
+  font-size: 14px;
+  color: white;
+  line-height: 20px;
+  margin-top: 15px;
+  overflow: hidden;
+  // text-overflow: ellipsis;
+  // display: -webkit-box;
+  // -webkit-line-clamp: 4;
+  // -webkit-box-orient: vertical;
+}

@@ -11,6 +11,8 @@ const contactRoute = require("./routes/contactRoute");
 const multer = require("multer");
 const path = require("path");
 const errorHandler = require("./middleware/error");
+const { v4: uuidv4 } = require("uuid");
+const { nextTick } = require("process");
 
 dotenv.config();
 app.use(express.json());
@@ -33,6 +35,7 @@ app.use(function (req, res, next) {
     "x-access-token, x-refresh-token"
   );
 
+  uuidv4();
   next();
 });
 
@@ -95,6 +98,7 @@ if (process.env.NODE_ENV === "production") {
 
 app.get("/", function (req, res, next) {
   res.cookie("user", username, { maxAge: 10800 }).send("cookie set");
+  next();
 });
 
 app.use(errorHandler);

@@ -28,6 +28,7 @@ import Sculpting from "./components/categories/pages/sculpting";
 import { Provider } from "react-redux";
 import store from "./store";
 import { Context } from "./reducers/reducerAuth";
+import Settings from "./components/categories/pages/settings/settings";
 
 if (localStorage.jwtToken) {
   // Set auth token header auth
@@ -70,6 +71,7 @@ export default class App extends Component {
               />
               <Switch>
                 <PrivateRoute exact path="/dashboard" component={Dashboard} />
+                <PrivateRoute path="/settings" exact component={Settings} />
                 <PrivateRoute path="/connect" exact component={Connect} />
                 <PrivateRoute path="/literature" exact component={Literature} />
                 <PrivateRoute

@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const User = require("../dbSchema/models/user");
 const Post = require("../dbSchema/models/blog");
+const { v4: uuidv4 } = require("uuid");
 
 //CREATE POST
 router.post("/", async (req, res, next) => {
@@ -8,6 +9,7 @@ router.post("/", async (req, res, next) => {
   try {
     const savedPost = await newPost.save();
     res.status(200).json(savedPost);
+    uuidv4();
     next();
   } catch (err) {
     res.status(500).json("there is an error");
@@ -63,6 +65,7 @@ router.get("/:id", async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
     res.status(200).json(post);
+    uuidv4();
   } catch (err) {
     res.status(500).json(err);
   }
@@ -86,6 +89,7 @@ router.get("/", async (req, res) => {
       posts = await Post.find();
     }
     res.status(200).json(posts);
+    uuidv4();
   } catch (err) {
     res.status(500).json(err);
   }

@@ -12,7 +12,7 @@ import { ContextProvider } from "./reducers/reducerAuth";
 axios.defaults.baseURL = "http://localhost:5000/api/";
 
 axios.interceptors.request.use((request) => {
-  console.log(request);
+  // console.log(request);
   request.headers.channelName = "DevTime";
   return request;
 });

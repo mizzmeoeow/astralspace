@@ -87,45 +87,91 @@
   margin: 1rem;
 }
 
-.card {
+// .card {
+//   box-shadow: 0 0 10px 5px white;
+//   // border-radius: ;
+//   min-width: 28rem;
+//   display: flex;
+
+//   &__img {
+//     width: 10rem;
+//     height: 6.3rem;
+//     object-fit: cover;
+//   }
+
+//   &__body {
+//     margin: 1rem;
+//     flex-grow: 1;
+//   }
+
+//   &__title {
+//     line-height: 1.4rem;
+//     margin-bottom: 0.5rem;
+//     float: left;
+//     width: 10rem;
+//   }
+//   &__description {
+//     width: 8rem;
+//     text-decoration: none;
+//   }
+
+//   &__price {
+//     font-size: 1.4rem;
+//     margin-top: 0.6rem;
+//     float: right;
+
+//     &::before {
+//       content: "$";
+//       font-size: 1rem;
+//       position: relative;
+//       top: -0.4rem;
+//       padding-right: 0.2rem;
+//     }
+//   }
+// }
+
+.search-results {
   box-shadow: 0 0 10px 5px white;
   // border-radius: ;
-  min-width: 28rem;
+  min-width: 25rem;
   display: flex;
+  min-height: 8rem;
 
-  &__img {
-    width: 10rem;
-    height: 6.3rem;
-    object-fit: cover;
-  }
-
-  &__body {
-    margin: 1rem;
-    flex-grow: 1;
-  }
-
-  &__title {
-    line-height: 1.4rem;
-    margin-bottom: 0.5rem;
-    float: left;
-    width: 10rem;
-  }
-  &__description {
-    width: 8rem;
-    text-decoration: none;
-  }
-
-  &__price {
-    font-size: 1.4rem;
-    margin-top: 0.6rem;
-    float: right;
-
-    &::before {
-      content: "$";
-      font-size: 1rem;
-      position: relative;
-      top: -0.4rem;
-      padding-right: 0.2rem;
+  .card {
+    &__img {
+      width: 10rem;
+      height: 6.3rem;
+      object-fit: cover;
     }
+
+    &__body {
+      margin: 1rem;
+      flex-grow: 1;
+    }
+
+    &__title {
+      line-height: 1.4rem;
+      margin-bottom: 0.5rem;
+      // float: left;
+      width: 10rem;
+    }
+    &__description {
+      width: 8rem;
+      text-decoration: none;
+    }
+
+    // &__price {
+    //   font-size: 1.4rem;
+    //   margin-top: 0.6rem;
+    //   float: right;
+
+    //   &::before {
+    //     content: "$";
+    //     font-size: 1rem;
+    //     position: relative;
+    //     top: -0.4rem;
+    //     padding-right: 0.2rem;
+    //   }
+    // }
   }
 }

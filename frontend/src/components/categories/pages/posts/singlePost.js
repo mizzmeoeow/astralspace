@@ -13,13 +13,16 @@ export default function SinglePost() {
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [updateMode, setUpdateMode] = useState(false);
+  const [key, setKey] = SomeLibrary.generateUniqueID();
 
   useEffect(() => {
     const getPost = async () => {
       const res = await axios.get("/posts/" + path);
+      // console.log(res);
       setPost(res.data);
       setTitle(res.data.title);
       setDesc(res.data.desc);
+      setKey(res.data.key);
     };
     getPost();
   }, [path]);
@@ -28,6 +31,8 @@ export default function SinglePost() {
     try {
       await axios.delete(`/posts/${post._id}`, {
         data: { username: user.username },
+        index,
+        key,
       });
       window.location.replace("/");
     } catch (err) {}
@@ -39,16 +44,22 @@ export default function SinglePost() {
         username: user.username,
         title,
         desc,
+        key,
       });
       setUpdateMode(false);
     } catch (err) {}
   };
 
   return (
-    <div className="singlePost">
-      <div className="singlePostWrapper">
+    <div key={index} className="singlePost">
+      <div key={post.name} className="singlePostWrapper">
         {post.photo && (
-          <img src={PF + post.photo} alt="" className="singlePostImg" />
+          <img
+            src={PF + post.photo}
+            alt=""
+            className="singlePostImg"
+            key={index}
+          />
         )}
         {updateMode ? (
           <input
@@ -57,9 +68,10 @@ export default function SinglePost() {
             className="singlePostTitleInput"
             autoFocus
             onChange={(e) => setTitle(e.target.value)}
+            key={title}
           />
         ) : (
-          <h1 className="singlePostTitle">
+          <h1 className="singlePostTitle" key={post.username}>
             {title}
             {post.username === user?.username && (
               <div className="singlePostEdit">
@@ -75,14 +87,14 @@ export default function SinglePost() {
             )}
           </h1>
         )}
-        <div className="singlePostInfo">
-          <span className="singlePostAuthor">
+        <div className="singlePostInfo" key={index}>
+          <span className="singlePostAuthor" key={post._id}>
             Author:
             <Link to={`/?user=${post.username}`} className="link">
               <b> {post.username}</b>
             </Link>
           </span>
-          <span className="singlePostDate">
+          <span className="singlePostDate" key={post.createdAt}>
             {new Date(post.createdAt).toDateString()}
           </span>
         </div>
@@ -91,9 +103,12 @@ export default function SinglePost() {
             className="singlePostDescInput"
             value={desc}
             onChange={(e) => setDesc(e.target.value)}
+            key={index}
           />
         ) : (
-          <p className="singlePostDesc">{desc}</p>
+          <p key={index} className="singlePostDesc">
+            {desc}
+          </p>
         )}
         {updateMode && (
           <button className="singlePostButton" onClick={handleUpdate}>
