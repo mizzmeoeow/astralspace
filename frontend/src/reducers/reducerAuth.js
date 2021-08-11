@@ -53,3 +53,41 @@ export const ContextProvider = ({ children }) => {
     </Context.Provider>
   );
 };
+
+// some test data:
+// Logged in
+// export const authUser = (userData) => (dispatch) =>
+//   API.auth(userData).then(
+//     (res) => {
+//       const token = res.data;
+//       localStorage.setItem("jwtToken", token);
+//       API.setAuthToken(token);
+//       const decoded = jwt.verify(token, "Secret");
+//       dispatch(receiveCurrentUser(decoded));
+//     },
+//     (err) =>
+//       dispatch({
+//         type: GET_ERRORS,
+//         payload: err.response.data,
+//       })
+//   );
+
+// Check login
+// export const authSuccess = (token) => (dispatch) => {
+//   if (token) {
+//     API.setAuthToken(token);
+//     const decoded = jwt.verify(token, "Secret");
+//     console.log("decoded", decoded);
+//     dispatch(setCurrentUser(decoded));
+//   } else {
+//     dispatch(logoutCurrentUser());
+//   }
+// };
+
+// Set logged in user
+// export const setCurrentUser = (decoded) => {
+//   return {
+//     type: RECEIVE_CURRENT_USER,
+//     payload: decoded,
+//   };
+// };

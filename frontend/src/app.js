@@ -36,6 +36,7 @@ if (localStorage.jwtToken) {
   setAuthToken(token);
   // Decode token and get user info and exp
   const decoded = jwt_decode(token);
+  console.log(decoded);
   // Set user and isAuthenticated
   store.dispatch(setCurrentUser(decoded));
   // Check for expired token
@@ -93,6 +94,7 @@ export default class App extends Component {
                   component={PerformingArts}
                 />
                 <PrivateRoute path="/sculpting" exact component={Sculpting} />
+                <Route path="/post/:postId"></Route>
               </Switch>
             </Layout>
           </Provider>

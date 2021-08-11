@@ -27,12 +27,21 @@ export default function Settings() {
       data.append("name", filename);
       data.append("file", file);
       updatedUser.profilePic = filename;
+      const config = {
+        headers: {
+          "content-type": "multipart/form-data",
+        },
+      };
       try {
-        await axios.post("/upload", data);
+        await axios.post("/upload", data, config);
       } catch (err) {}
     }
     try {
-      const res = await axios.put("/users/" + user._id, updatedUser);
+      const res = await axios.put("/users/" + user._id, updatedUser, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
       setSuccess(true);
       dispatch({ type: "UPDATE_SUCCESS", payload: res.data });
     } catch (err) {
@@ -46,7 +55,11 @@ export default function Settings() {
           <span className="settingsUpdateTitle">Update Your Account</span>
           <span className="settingsDeleteTitle">Delete Account</span>
         </div>
-        <form className="settingsForm" onSubmit={handleSubmit}>
+        <form
+          className="settingsForm"
+          onSubmit={handleSubmit}
+          encType="multipart/form-data"
+        >
           <label>Profile Picture</label>
           <div className="settingsPP">
             <img
@@ -59,6 +72,7 @@ export default function Settings() {
             <input
               type="file"
               id="fileInput"
+              accept=".png, .jpg, .jpeg"
               style={{ display: "none" }}
               onChange={(e) => setFile(e.target.files[0])}
             />

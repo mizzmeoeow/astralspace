@@ -11,7 +11,6 @@ export default function ConnectSpace() {
   useEffect(() => {
     const fetchPosts = async () => {
       const res = await axios.get("/posts");
-
       setPosts(res.data);
     };
     fetchPosts();

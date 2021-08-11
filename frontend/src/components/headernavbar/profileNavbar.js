@@ -26,4 +26,3 @@ export default function ProfileNavbar() {
     </div>
   );
 }
-// }
