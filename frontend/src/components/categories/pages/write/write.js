@@ -4,16 +4,16 @@ import { Context } from "../../../../reducers/reducerAuth";
 
 export default function Write() {
   const [title, setTitle] = useState("");
-  const [desc, setDesc] = useState("");
+  const [description, setDesc] = useState("");
   const [file, setFile] = useState(null);
   const { user } = useContext(Context);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const newPost = {
-      username: { user }.username,
       title,
-      desc,
+      description,
+      username: user.username,
     };
     if (file) {
       const data = new FormData();
@@ -26,7 +26,7 @@ export default function Write() {
       } catch (err) {}
     }
     try {
-      const res = await axios.post("/posts/", newPost);
+      const res = await axios.post("/posts", newPost);
       window.location.replace("/post/" + res.data._id);
     } catch (err) {}
   };

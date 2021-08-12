@@ -1,4 +1,5 @@
 const express = require("express");
+const morgan = require("morgan");
 const app = express();
 const cors = require("cors");
 const dotenv = require("dotenv");
@@ -11,11 +12,13 @@ const contactRoute = require("./routes/contactRoute");
 const multer = require("multer");
 const path = require("path");
 const errorHandler = require("./middleware/error");
+const Image = require("./dbSchema/models/image");
 
 dotenv.config();
 app.use(express.json());
 app.use("/images", express.static(path.join(__dirname, "/images")));
 app.use(cors());
+app.use(morgan("dev"));
 
 const port = 5000;
 
@@ -38,14 +41,37 @@ const storage = multer.diskStorage({
     cb(null, "uploads");
   },
   filename: (req, file, cb) => {
-    cb(null, file.fieldname + "-" + Date.now());
+    cb(null, file.fieldname);
   },
 });
 
-const upload = multer({ storage: storage });
+const upload = multer({
+  storage: storage,
+  dest: "images",
+  limits: {
+    fileSize: 1000000,
+  },
+  fileFilter(req, file, cb) {
+    if (!file.originalname.match(/\.(png|jpg|jpeg)$/)) {
+      cb(new Error("Please upload an image."));
+    }
+    cb(undefined, true);
+  },
+});
 
-app.post("/api/upload", upload.single("file"), (req, res) => {
-  res.status(200).json("File has been uploaded");
+app.post("/api/upload", upload.single("file"), async (req, res) => {
+  const newImage = new Image(req.body);
+  // res.status(200).json("File has been uploaded");
+  if (!req.file) {
+    console.log("No file received");
+    return res.send({
+      success: false,
+    });
+  } else {
+    console.log("file received");
+    const savedImage = await newImage.save();
+    return res.status(200).json(savedImage);
+  }
 });
 
 app.use("/api/auth", authRoute);

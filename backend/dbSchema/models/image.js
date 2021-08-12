@@ -1,13 +1,14 @@
 var mongoose = require("mongoose");
 
-var imageSchema = new mongoose.Schema({
-  name: String,
-  desc: String,
-  img: {
-    data: Buffer,
-    contentType: String,
+var imageSchema = new mongoose.Schema(
+  {
+    image: {
+      data: Buffer,
+      contentType: String,
+    },
   },
-});
+  { timestamps: true, collection: "Images" }
+);
 
 //Image is a model which has a schema imageSchema
 

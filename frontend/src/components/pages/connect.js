@@ -3,7 +3,6 @@ import ConnectHeader from "../headernavbar/connectHeader";
 import ConnectSpace from "../body/space/connectSpace";
 import ConnectFooter from "../footer/connectFooter";
 import SearchPage from "../connect/searchPage";
-import Single from "../categories/pages/single/single";
 
 class Connect extends Component {
   render() {
@@ -12,7 +11,6 @@ class Connect extends Component {
         <ConnectHeader />
         <SearchPage />
         <ConnectSpace />
-        <Single />
         <ConnectFooter />
       </div>
     );

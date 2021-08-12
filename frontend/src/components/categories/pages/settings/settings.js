@@ -1,8 +1,12 @@
 import { useContext, useState } from "react";
 import { Context } from "../../../../reducers/reducerAuth";
 import axios from "axios";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
-export default function Settings() {
+import { logoutUser } from "../../../../actions/actionAuth";
+
+function Settings() {
   const [file, setFile] = useState(null);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -14,7 +18,6 @@ export default function Settings() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch({ type: "UPDATE_START" });
     const updatedUser = {
       userId: user._id,
       username,
@@ -34,6 +37,8 @@ export default function Settings() {
       };
       try {
         await axios.post("/upload", data, config);
+        dispatch({ type: "UPDATE_START" });
+        dispatch({ type: "UPDATE_SUCCESS", payload: res.data });
       } catch (err) {}
     }
     try {
@@ -43,10 +48,7 @@ export default function Settings() {
         },
       });
       setSuccess(true);
-      dispatch({ type: "UPDATE_SUCCESS", payload: res.data });
-    } catch (err) {
-      dispatch({ type: "UPDATE_FAILURE" });
-    }
+    } catch (err) {}
   };
   return (
     <div className="settings">
@@ -56,6 +58,8 @@ export default function Settings() {
           <span className="settingsDeleteTitle">Delete Account</span>
         </div>
         <form
+          action="/upload"
+          method="POST"
           className="settingsForm"
           onSubmit={handleSubmit}
           encType="multipart/form-data"
@@ -111,3 +115,14 @@ export default function Settings() {
     </div>
   );
 }
+
+Settings.propTypes = {
+  logoutUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps, { logoutUser })(Settings);

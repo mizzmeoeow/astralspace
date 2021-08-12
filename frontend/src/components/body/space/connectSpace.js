@@ -3,8 +3,11 @@ import background from "../../../images/space.jpg";
 import Posts from "../../categories/pages/posts/posts";
 import axios from "axios";
 import { useLocation } from "react-router";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { logoutUser } from "../../../actions/actionAuth";
 
-export default function ConnectSpace() {
+function ConnectSpace() {
   const [posts, setPosts] = useState([]);
   const { search } = useLocation();
 
@@ -28,3 +31,14 @@ export default function ConnectSpace() {
     </div>
   );
 }
+
+ConnectSpace.propTypes = {
+  logoutUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps, { logoutUser })(ConnectSpace);

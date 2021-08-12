@@ -29,6 +29,7 @@ import { Provider } from "react-redux";
 import store from "./store";
 import { Context } from "./reducers/reducerAuth";
 import Settings from "./components/categories/pages/settings/settings";
+import Single from "./components/categories/pages/single/single";
 
 if (localStorage.jwtToken) {
   // Set auth token header auth
@@ -94,7 +95,7 @@ export default class App extends Component {
                   component={PerformingArts}
                 />
                 <PrivateRoute path="/sculpting" exact component={Sculpting} />
-                <Route path="/post/:postId"></Route>
+                <Route path="/post/:postId" exact component={Single} />
               </Switch>
             </Layout>
           </Provider>

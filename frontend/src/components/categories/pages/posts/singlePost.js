@@ -3,10 +3,12 @@ import { useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
 import { Context } from "../../../../reducers/reducerAuth";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { logoutUser } from "../../../../actions/actionAuth";
 
-export default function SinglePost() {
+function SinglePost() {
   const location = useLocation();
-  console.log(location);
   const path = location.pathname.split("/")[2];
   const [post, setPost] = useState({});
   const PF = "http://localhost:5000/images/";
@@ -18,11 +20,9 @@ export default function SinglePost() {
   useEffect(() => {
     const getPost = async () => {
       const res = await axios.get("/posts/" + path);
-      console.log(res);
       setPost(res.data);
       setTitle(res.data.title);
       setDesc(res.data.desc);
-      setKey(res.data.key);
     };
     getPost();
   }, [path]);
@@ -31,8 +31,6 @@ export default function SinglePost() {
     try {
       await axios.delete(`/posts/${post._id}`, {
         data: { username: user.username },
-        index,
-        key,
       });
       window.location.replace("/");
     } catch (err) {}
@@ -44,7 +42,6 @@ export default function SinglePost() {
         username: user.username,
         title,
         desc,
-        key,
       });
       setUpdateMode(false);
     } catch (err) {}
@@ -52,14 +49,9 @@ export default function SinglePost() {
 
   return (
     <div className="singlePost">
-      <div key={post.name} className="singlePostWrapper">
+      <div className="singlePostWrapper">
         {post.photo && (
-          <img
-            src={PF + post.photo}
-            alt=""
-            className="singlePostImg"
-            key={index}
-          />
+          <img src={PF + post.photo} alt="" className="singlePostImg" />
         )}
         {updateMode ? (
           <input
@@ -68,10 +60,9 @@ export default function SinglePost() {
             className="singlePostTitleInput"
             autoFocus
             onChange={(e) => setTitle(e.target.value)}
-            key={title}
           />
         ) : (
-          <h1 className="singlePostTitle" key={post.username}>
+          <h1 className="singlePostTitle">
             {title}
             {post.username === user?.username && (
               <div className="singlePostEdit">
@@ -88,13 +79,13 @@ export default function SinglePost() {
           </h1>
         )}
         <div className="singlePostInfo">
-          <span className="singlePostAuthor" key={post._id}>
+          <span className="singlePostAuthor">
             Author:
             <Link to={`/?user=${post.username}`} className="link">
               <b> {post.username}</b>
             </Link>
           </span>
-          <span className="singlePostDate" key={post.createdAt}>
+          <span className="singlePostDate">
             {new Date(post.createdAt).toDateString()}
           </span>
         </div>
@@ -103,7 +94,6 @@ export default function SinglePost() {
             className="singlePostDescInput"
             value={desc}
             onChange={(e) => setDesc(e.target.value)}
-            key={index}
           />
         ) : (
           <p className="singlePostDesc">{desc}</p>
@@ -117,3 +107,14 @@ export default function SinglePost() {
     </div>
   );
 }
+
+SinglePost.propTypes = {
+  logoutUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps, { logoutUser })(SinglePost);

@@ -1,4 +1,11 @@
-import { GET_ERRORS, SET_CURRENT_USER, USER_LOADING } from "./actionTypes";
+import {
+  GET_ERRORS,
+  SET_CURRENT_USER,
+  USER_LOADING,
+  UPDATE_START,
+  UPDATE_SUCCESS,
+  UPDATE_FAILURE,
+} from "./actionTypes";
 import axios from "axios";
 import setAuthToken from "../utils/setAuthToken";
 import jwt_decode from "jwt-decode";
@@ -59,6 +66,25 @@ export const setUserLoading = () => {
   };
 };
 
+export const UpdateStart = (decoded) => {
+  return {
+    type: "UPDATE_START",
+  };
+};
+
+export const UpdateSuccess = (user) => {
+  return {
+    type: UPDATE_SUCCESS,
+    payload: user,
+  };
+};
+
+export const UpdateFailure = () => {
+  return {
+    type: UPDATE_FAILURE,
+  };
+};
+
 // Log user out
 export const logoutUser = () => (dispatch) => {
   // Remove token from local storage
@@ -68,16 +94,3 @@ export const logoutUser = () => (dispatch) => {
   // Set current user to empty object {} which will set isAuthenticated to false
   dispatch(setCurrentUser({}));
 };
-
-export const UpdateStart = (userCredentials) => ({
-  type: "UPDATE_START",
-});
-
-export const UpdateSuccess = (user) => ({
-  type: "UPDATE_SUCCESS",
-  payload: user,
-});
-
-export const UpdateFailure = () => ({
-  type: "UPDATE_FAILURE",
-});
