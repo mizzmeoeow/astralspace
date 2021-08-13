@@ -36,7 +36,11 @@ function Settings() {
         },
       };
       try {
-        await axios.post("/upload", data, config);
+        await axios.post("/upload", data, config, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
         dispatch({ type: "UPDATE_START" });
         dispatch({ type: "UPDATE_SUCCESS", payload: res.data });
       } catch (err) {}

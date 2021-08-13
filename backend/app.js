@@ -74,6 +74,17 @@ app.post("/api/upload", upload.single("file"), async (req, res) => {
   }
 });
 
+// app.get("/images", (req, res) => {
+//   imgModel.find({}, (err, items) => {
+//     if (err) {
+//       console.log(err);
+//       res.status(500).send("An error occurred", err);
+//     } else {
+//       res.render("imagesPage", { items: items });
+//     }
+//   });
+// });
+
 app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
 app.use("/api/posts", postRoute);

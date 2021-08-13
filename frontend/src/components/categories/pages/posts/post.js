@@ -26,7 +26,7 @@ export default function Post({ post }) {
         </span>
       </div>
       <p className="postDesc" key={post.desc}>
-        {post.desc}
+        {post.description}
       </p>
     </div>
   );

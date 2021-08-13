@@ -4,7 +4,7 @@ import { Context } from "../../reducers/reducerAuth";
 
 export default function ProfileNavbar() {
   const { user } = useContext(Context);
-  const PF = "http://localhost:5000/images/";
+  const PF = "http://localhost:3000/static/images";
 
   // render() {
   return (

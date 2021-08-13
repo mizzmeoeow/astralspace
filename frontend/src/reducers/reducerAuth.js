@@ -6,8 +6,8 @@ const isEmpty = require("is-empty");
 
 export const initialState = {
   isAuthenticated: false,
-  // user: {},
-  user: JSON.parse(localStorage.getItem("user")) || null,
+  user: {},
+  // user: JSON.parse(localStorage.getItem("user")) || null,
   loading: false,
   isFetching: false,
   error: false,

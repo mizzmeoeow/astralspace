@@ -38,7 +38,8 @@ export const loginUser = (userData) => (dispatch) => {
       setAuthToken(token);
       // Decode token to get user data
       const decoded = jwt_decode(token);
-      console.log(localStorage);
+      console.log(token);
+      console.log(decoded);
 
       // Set current user
       dispatch(setCurrentUser(decoded));
@@ -68,7 +69,7 @@ export const setUserLoading = () => {
 
 export const UpdateStart = (decoded) => {
   return {
-    type: "UPDATE_START",
+    type: UPDATE_START,
   };
 };
 
