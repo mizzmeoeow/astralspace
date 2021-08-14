@@ -83,14 +83,14 @@ export default class App extends Component {
                 />
                 <PrivateRoute path="/cinema" exact component={Cinema} />
                 <PrivateRoute
-                  path="/graphic-design"
+                  path="/Graphic-Design"
                   exact
                   component={GraphicDesign}
                 />
                 <PrivateRoute path="/music" exact component={Music} />
                 <PrivateRoute path="/painting" exact component={Painting} />
                 <PrivateRoute
-                  path="/performing"
+                  path="/Performing-Arts"
                   exact
                   component={PerformingArts}
                 />

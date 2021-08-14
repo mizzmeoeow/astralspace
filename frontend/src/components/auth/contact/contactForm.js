@@ -102,50 +102,5 @@ function ContactForm(props) {
     </form>
   );
 }
-// onNameChange(event) {
-//   this.setState({ name: event.target.value });
-// }
-
-// onEmailChange(event) {
-//   this.setState({ email: event.target.value });
-// }
-
-// onMessageChange(event) {
-//   this.setState({ message: event.target.value });
-// }
-
-// handleChange(event) {
-//   this.setState({ message: event.target.value });
-// }
-
-// handleSubmit(event) {
-//   event.preventDefault();
-//   const templateId = "template_id";
-
-//   this.sendMessage(templateId, {
-//     reply_to: this.state.email,
-//     from_name: this.state.name,
-//     message_html: this.state.message,
-//   });
-// }
-
-// sendMessage(templateId, variables) {
-//   window.emailjs
-//     .send("gmail", templateId, variables)
-//     .then((res) => {
-//       console.log("Email successfully sent!");
-//     })
-//     // Handle errors here however you like, or use a React error boundary
-//     .catch((err) =>
-//       console.error(
-//         "Oh well, you failed. Here some thoughts on the error that occured:",
-//         err
-//       )
-//     );
-// }
-
-// resetForm() {
-//   this.setState({ name: "", email: "", message: "" });
-// }
 
 export default ContactForm;

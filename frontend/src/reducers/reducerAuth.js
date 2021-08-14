@@ -1,6 +1,6 @@
 import { SET_CURRENT_USER, USER_LOADING } from "../actions/actionTypes";
 import { createContext, useEffect, useReducer } from "react";
-import Reducer from "./contextReducer";
+import Reducer from "./reducer";
 
 const isEmpty = require("is-empty");
 

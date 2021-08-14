@@ -6,6 +6,7 @@ import { useLocation } from "react-router";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { logoutUser } from "../../../actions/actionAuth";
+import Sidebar from "../../categories/pages/sidebar/sidebar";
 
 function ConnectSpace() {
   const [posts, setPosts] = useState([]);
@@ -13,11 +14,11 @@ function ConnectSpace() {
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const res = await axios.get("/posts");
+      const res = await axios.get("/posts" + search);
       setPosts(res.data);
     };
     fetchPosts();
-  });
+  }, [search]);
   return (
     <div
       className="background"

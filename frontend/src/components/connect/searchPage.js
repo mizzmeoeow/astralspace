@@ -1,10 +1,10 @@
 import React, { Component, useState, useEffect } from "react";
 import SearchBar from "./searchBar";
-import Categories from "../categories/categories";
 import Truncate from "react-truncate";
+import Sidebar from "../categories/pages/sidebar/sidebar";
 // import { categories } from "./data";
 
-// const filterCategories = (categories, query) => {
+// const filterCategories = (query) => {
 //   if (!query) {
 //     return categories;
 //   }
@@ -19,13 +19,13 @@ const SearchPage = () => {
   const { search } = window.location;
   const query = new URLSearchParams(search).get("s");
   const [searchQuery, setSearchQuery] = useState(query || "");
-  // const filteredCategories = filterCategories(categories, searchQuery);
-  const category = [];
+  // const filteredCategories = filterCategories(searchQuery);
+  // const category = [];
 
   return (
     <div>
       <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-      <Categories searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+      <Sidebar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
     </div>
   );
 };
