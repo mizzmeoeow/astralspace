@@ -4,7 +4,7 @@ import { Context } from "../../reducers/reducerAuth";
 
 export default function ProfileNavbar() {
   const { user } = useContext(Context);
-  const PF = "http://localhost:3000/static/images";
+  // const PF = "http://localhost:5000/images/";
 
   // render() {
   return (
@@ -12,7 +12,7 @@ export default function ProfileNavbar() {
       {user ? (
         <Link to="/settings">
           Click Me
-          <img className="topImg" src={PF + user.profilePic} alt="" />
+          <img className="topImg" src={user.profilePic} alt="" />
         </Link>
       ) : (
         <h1>not set up for some reason</h1>

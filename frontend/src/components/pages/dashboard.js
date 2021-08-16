@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { logoutUser } from "../../actions/actionAuth";
+import { logoutUser, setCurrentUser } from "../../actions/actionAuth";
 
 import ProfileSpace from "../body/space/profileSpace";
 import ProfileFooter from "../footer/profileFooter";
@@ -10,10 +10,33 @@ import Hero from "../Hero/hero";
 import TypingEffect from "new-react-typing-effect";
 
 class Dashboard extends Component {
+  state = {
+    username: "",
+  };
+
+  // componentDidMount() {
+  //   userService.getAll().then((users) => this.setState({ users }));
+  // }
+
   render() {
+    // const { currentUser, users } = this.state;
+    let name = null;
+    if (this.props.confirm) {
+      name = this.props.confirm.username;
+    }
+
+    console.log("Rendering App.js!");
     return (
       <div className="profile-page header">
         <div>
+          {/* <h1>Hi, {currentUser.username}!</h1>
+          {users && (
+            <ul>
+              {users.map((user) => (
+                <li key={user.id}>{user.username}</li>
+              ))}
+            </ul>
+          )} */}
           <TypingEffect
             messages={[
               "Welcome, you have arrived to AstralServers.",
@@ -55,10 +78,13 @@ class Dashboard extends Component {
 Dashboard.propTypes = {
   logoutUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
+  setCurrentUser: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, { logoutUser })(Dashboard);
+export default connect(mapStateToProps, { logoutUser, setCurrentUser })(
+  Dashboard
+);

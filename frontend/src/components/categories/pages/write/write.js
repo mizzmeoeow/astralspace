@@ -24,7 +24,7 @@ export default function Write() {
       try {
         await axios.post("/upload", data, {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
           },
         });
       } catch (err) {}
@@ -32,7 +32,7 @@ export default function Write() {
     try {
       const res = await axios.post("/posts", newPost, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
         },
       });
       window.location.replace("/post/" + res.data._id);

@@ -14,7 +14,7 @@ function Settings() {
   const [success, setSuccess] = useState(false);
 
   const { user, dispatch } = useContext(Context);
-  const PF = "http://localhost:5000/images/";
+  // const PF = "http://localhost:5000/images/";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -36,23 +36,28 @@ function Settings() {
         },
       };
       try {
-        await axios.post("/upload", data, config, {
+        await axios.post("upload", data, config, {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
           },
+          body: JSON.stringify(updatedUser),
         });
         dispatch({ type: "UPDATE_START" });
         dispatch({ type: "UPDATE_SUCCESS", payload: res.data });
       } catch (err) {}
     }
     try {
-      const res = await axios.put("/users/" + user._id, updatedUser, {
+      const res = await axios.put("users/" + user._id, updatedUser, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
         },
       });
       setSuccess(true);
-    } catch (err) {}
+    } catch (err) {
+      ("There is an error with images");
+    }
   };
   return (
     <div className="settings">
@@ -71,7 +76,7 @@ function Settings() {
           <label>Profile Picture</label>
           <div className="settingsPP">
             <img
-              src={file ? URL.createObjectURL(file) : PF + user.profilePic}
+              src={file ? URL.createObjectURL(file) : user.profilePic}
               alt=""
             />
             <label htmlFor="fileInput">

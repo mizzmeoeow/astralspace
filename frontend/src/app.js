@@ -27,13 +27,12 @@ import Sculpting from "./components/categories/pages/sculpting";
 
 import { Provider } from "react-redux";
 import store from "./store";
-import { Context } from "./reducers/reducerAuth";
 import Settings from "./components/categories/pages/settings/settings";
 import Single from "./components/categories/pages/single/single";
 
-if (localStorage.jwtToken) {
+if (sessionStorage.jwtToken != null) {
   // Set auth token header auth
-  const token = localStorage.jwtToken;
+  const token = sessionStorage.jwtToken;
   setAuthToken(token);
   // Decode token and get user info and exp
   const decoded = jwt_decode(token);
@@ -52,10 +51,25 @@ if (localStorage.jwtToken) {
 }
 
 export default class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      currentUser: null,
+    };
+  }
+
+  // componentDidMount() {
+  //     this.setState({ currentUser })
+  //   );
+  // }
+
   render() {
+    const { currentUser } = this.state;
     return (
       <div className="container">
         <div>
+          {currentUser && <Link to="/dashboard">HomeSpace</Link>}
           <Provider store={store}>
             <Layout>
               <Route exact path="/" exact component={LandingPage} />

@@ -5,7 +5,6 @@ const jwt = require("jsonwebtoken");
 const config = require("../config/keys");
 const tokenList = {};
 const ErrorResponse = require("../middleware/error");
-const passport = require("passport");
 
 const validateLoginInput = require("../../frontend/validation/login");
 
@@ -32,7 +31,7 @@ router.post("/register", async (req, res, next) => {
 });
 
 //LOGIN
-router.post("/login", (req, res) => {
+router.post("/login", (req, res, next) => {
   const { errors, isValid } = validateLoginInput(req.body);
   console.log(isValid);
   if (!isValid) {
@@ -54,8 +53,10 @@ router.post("/login", (req, res) => {
         //User matched
         //res.json({ msg: "Success" });
         const payload = {
-          id: user.id,
-          name: user.name,
+          id: user._id.toString(),
+          username: user.username,
+          admin: user.admin,
+          image: user.image,
         };
 
         jwt.sign(
@@ -63,20 +64,20 @@ router.post("/login", (req, res) => {
           config.JWT_SECRET,
           { expiresIn: config.tokenLife },
           (err, token) => {
-            //
             res.json({
               success: true,
               token: "Bearer " + token,
               httpOnly: true,
               secure: true,
               sameSite: true,
+              user: user,
             });
           }
         );
       } else {
         //Incorrect Password
         errors.password = "Invalid Login Credentials";
-        return res.status(400).json({ errors });
+        return res.status(400).json({ errors, token: null, success: false });
       }
     });
   });

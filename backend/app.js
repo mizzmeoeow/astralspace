@@ -13,12 +13,17 @@ const multer = require("multer");
 const path = require("path");
 const errorHandler = require("./middleware/error");
 const Image = require("./dbSchema/models/image");
+const config = require("./config/keys");
 
 dotenv.config();
 app.use(express.json());
 app.use("/images", express.static(path.join(__dirname, "/images")));
 app.use(cors());
 app.use(morgan("dev"));
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Headers", "Content-type,Authorization");
+  next();
+});
 
 const port = 5000;
 
@@ -74,16 +79,16 @@ app.post("/api/upload", upload.single("file"), async (req, res) => {
   }
 });
 
-// app.get("/images", (req, res) => {
-//   imgModel.find({}, (err, items) => {
-//     if (err) {
-//       console.log(err);
-//       res.status(500).send("An error occurred", err);
-//     } else {
-//       res.render("imagesPage", { items: items });
-//     }
-//   });
-// });
+app.get("/images", (req, res) => {
+  imgModel.find({}, (err, items) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send("An error occurred", err);
+    } else {
+      res.render("imagesPage", { items: items });
+    }
+  });
+});
 
 app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
@@ -100,5 +105,25 @@ if (process.env.NODE_ENV === "production") {
 }
 
 app.use(errorHandler);
+
+app.use(function (req, res, next) {
+  // check header or url parameters or post parameters for token
+  var token = req.headers["authorization"];
+  if (!token) return next(); //if no token, continue
+
+  token = token.replace("Bearer ", "");
+
+  jwt.verify(token, process.env.JWT_SECRET, function (err, user) {
+    if (err) {
+      return res.status(401).json({
+        success: false,
+        message: "Please register Log in using a valid email to submit posts",
+      });
+    } else {
+      req.user = user; //set the user to req so other routes can use it
+      next();
+    }
+  });
+});
 
 app.listen(port, () => console.log(`app listening on port ${port}!`));

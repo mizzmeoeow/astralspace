@@ -1,13 +1,18 @@
 import { SET_CURRENT_USER, USER_LOADING } from "../actions/actionTypes";
 import { createContext, useEffect, useReducer } from "react";
 import Reducer from "./reducer";
+import { getToken } from "../reducers/common";
 
 const isEmpty = require("is-empty");
 
 export const initialState = {
   isAuthenticated: false,
-  user: {},
-  // user: JSON.parse(localStorage.getItem("user")) || null,
+  isLoggedIn: false,
+  userId: "",
+  // role: "user",
+  token: getToken,
+  // user: {},
+  user: JSON.parse(sessionStorage.getItem("user")) || null,
   loading: false,
   isFetching: false,
   error: false,
@@ -31,14 +36,14 @@ export default function (state = initialState, action) {
   }
 }
 
-export const Context = createContext(initialState);
+export const Context = createContext(null);
 
 export const ContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(Reducer, initialState);
 
-  // useEffect(() => {
-  //   localStorage.setItem("user", JSON.stringify(state.user));
-  // }, [state.user]);
+  useEffect(() => {
+    sessionStorage.setItem("user", JSON.stringify(state.user));
+  }, [state.user]);
 
   return (
     <Context.Provider
@@ -60,7 +65,7 @@ export const ContextProvider = ({ children }) => {
 //   API.auth(userData).then(
 //     (res) => {
 //       const token = res.data;
-//       localStorage.setItem("jwtToken", token);
+//       sessionStorage.setItem("jwtToken", token);
 //       API.setAuthToken(token);
 //       const decoded = jwt.verify(token, "Secret");
 //       dispatch(receiveCurrentUser(decoded));
