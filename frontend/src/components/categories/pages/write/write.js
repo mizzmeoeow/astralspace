@@ -22,14 +22,16 @@ export default function Write() {
       data.append("file", file);
       newPost.photo = filename;
       try {
+        console.log("inside try1");
         await axios.post("/upload", data, {
-          headers: {
-            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
-          },
+          // headers: {
+          //   Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+          // },
         });
       } catch (err) {}
     }
     try {
+      console.log("inside try2");
       const res = await axios.post("/posts", newPost, {
         headers: {
           Authorization: `Bearer ${sessionStorage.getItem("token")}`,

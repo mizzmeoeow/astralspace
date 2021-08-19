@@ -18,6 +18,8 @@ function Settings() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    dispatch({ type: "UPDATE_START" });
+
     const updatedUser = {
       userId: user._id,
       username,
@@ -30,31 +32,27 @@ function Settings() {
       data.append("name", filename);
       data.append("file", file);
       updatedUser.profilePic = filename;
-      const config = {
-        headers: {
-          "content-type": "multipart/form-data",
-        },
-      };
+      // const config = {
+      //   headers: {
+      //     "content-type": "multipart/form-data",
+      //   },
+      // };
       try {
-        await axios.post("upload", data, config, {
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
-          },
-          body: JSON.stringify(updatedUser),
-        });
-        dispatch({ type: "UPDATE_START" });
-        dispatch({ type: "UPDATE_SUCCESS", payload: res.data });
-      } catch (err) {}
+        console.log("inside try");
+
+        await axios.post("upload", data);
+        console.log("done");
+      } catch (err) {
+        console.log("catch error");
+      }
     }
     try {
-      const res = await axios.put("users/" + user._id, updatedUser, {
-        headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
-        },
-      });
+      console.log("inside try2");
+      const res = await axios.put("users/" + decoded._id, updatedUser);
+      console.log("inside try3");
+      handleSubmit(res.data);
       setSuccess(true);
+      dispatch({ type: "UPDATE_SUCCESS", payload: res.data });
     } catch (err) {
       ("There is an error with images");
     }
@@ -110,7 +108,7 @@ function Settings() {
             autoComplete="none"
           />
           <button className="settingsSubmit" type="submit">
-            Update
+            Update2
           </button>
           {success && (
             <span

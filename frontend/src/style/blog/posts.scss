@@ -59,3 +59,11 @@
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
 }
+
+.topImg {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+}

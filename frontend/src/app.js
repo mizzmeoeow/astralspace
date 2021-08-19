@@ -36,7 +36,12 @@ if (sessionStorage.jwtToken != null) {
   setAuthToken(token);
   // Decode token and get user info and exp
   const decoded = jwt_decode(token);
+  // console.log(decoded);
+  // console.log(token);
+  // console.log(sessionStorage);
+  sessionStorage.setItem("userData", JSON.stringify(decoded));
   console.log(decoded);
+
   // Set user and isAuthenticated
   store.dispatch(setCurrentUser(decoded));
   // Check for expired token
@@ -109,7 +114,12 @@ export default class App extends Component {
                   component={PerformingArts}
                 />
                 <PrivateRoute path="/sculpting" exact component={Sculpting} />
-                <Route path="/post/:postId" exact component={Single} />
+                <Route
+                  path="/post/:postId"
+                  render={(props) => (
+                    <Single {...props} handleUpdate={this.updateMode} />
+                  )}
+                />
               </Switch>
             </Layout>
           </Provider>

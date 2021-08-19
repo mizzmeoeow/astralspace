@@ -55,16 +55,17 @@ router.post("/login", (req, res, next) => {
         const payload = {
           id: user._id.toString(),
           username: user.username,
-          admin: user.admin,
-          image: user.image,
+          // admin: user.admin,
+          profilePic: user.profilePic,
         };
 
         jwt.sign(
           payload,
           config.JWT_SECRET,
           { expiresIn: config.tokenLife },
+
           (err, token) => {
-            res.json({
+            res.send({
               success: true,
               token: "Bearer " + token,
               httpOnly: true,

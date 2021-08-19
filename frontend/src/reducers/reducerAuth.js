@@ -1,18 +1,15 @@
 import { SET_CURRENT_USER, USER_LOADING } from "../actions/actionTypes";
 import { createContext, useEffect, useReducer } from "react";
 import Reducer from "./reducer";
-import { getToken } from "../reducers/common";
+import { getUser } from "./common";
+// import { initialAuthState } from "@auth0/auth0-react/dist/auth-state";
 
 const isEmpty = require("is-empty");
 
 export const initialState = {
   isAuthenticated: false,
-  isLoggedIn: false,
-  userId: "",
-  // role: "user",
-  token: getToken,
-  // user: {},
-  user: JSON.parse(sessionStorage.getItem("user")) || null,
+  user: sessionStorage.getItem("userData"),
+  // user: JSON.parse(sessionStorage.getItem("user")) || null,
   loading: false,
   isFetching: false,
   error: false,
@@ -36,14 +33,33 @@ export default function (state = initialState, action) {
   }
 }
 
-export const Context = createContext(null);
+export const Context = createContext(initialState);
 
 export const ContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(Reducer, initialState);
 
-  useEffect(() => {
-    sessionStorage.setItem("user", JSON.stringify(state.user));
-  }, [state.user]);
+  // useEffect(() => {
+  //   sessionStorage.setItem("user", JSON.stringify(state.user));
+  // }, [state.user]);
+
+  // const loadData = () => {
+  //   isAuthenticated().then((data) => {
+  //     if (data.error) {
+  //       console.log("Error", data.error);
+  //     } else {
+  //       setauthState({
+  //         ...authState,
+  //         _id: data.user._id,
+  //         email: data.user.email,
+  //         role: data.user.role,
+  //       });
+  //     }
+  //   });
+  // };
+
+  // useEffect(() => {
+  //   loadData();
+  // }, []);
 
   return (
     <Context.Provider

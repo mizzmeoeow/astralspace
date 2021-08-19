@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const User = require("../dbSchema/models/user");
-const Post = require("../dbSchema/models/blog");
+const Post = require("../dbSchema/models/post");
 const { v4: uuidv4 } = require("uuid");
 
 //CREATE POST
