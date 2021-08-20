@@ -4,7 +4,7 @@ export default function Posts({ posts }) {
   return (
     <div className="posts" key={posts}>
       {posts.map((p) => (
-        <Post post={p} key={p.uniqueID} />
+        <Post post={p} key={p.id} />
       ))}
     </div>
   );

@@ -23,23 +23,21 @@ export default function Write() {
       newPost.photo = filename;
       try {
         console.log("inside try1");
-        await axios.post("/upload", data, {
-          // headers: {
-          //   Authorization: `Bearer ${sessionStorage.getItem("token")}`,
-          // },
-        });
+        await axios.post("/upload", data);
       } catch (err) {}
     }
     try {
       console.log("inside try2");
       const res = await axios.post("/posts", newPost, {
         headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+          Authorization: `Bearer ${sessionStorage.getItem(decoded)}`,
         },
       });
-      window.location.replace("/post/" + res.data._id);
+      window.location.replace("/post/" + res.decoded._id);
     } catch (err) {}
   };
+
+  console.log(user.username);
   return (
     <div className="write">
       {file && (

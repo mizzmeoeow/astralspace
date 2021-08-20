@@ -17,7 +17,7 @@ export default function Sidebar() {
       <div className="">
         <ul className="category-nav nav-connect">
           {cats.map((c) => (
-            <Link to={`/${c.name}`} className="category">
+            <Link to={`/${c.name}`} className="category" key={c.id}>
               {c.name}
             </Link>
           ))}

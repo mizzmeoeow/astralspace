@@ -9,12 +9,11 @@ import { logoutUser } from "../../../../actions/actionAuth";
 function Settings() {
   const [file, setFile] = useState(null);
   const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [success, setSuccess] = useState(false);
 
   const { user, dispatch } = useContext(Context);
-  // const PF = "http://localhost:5000/images/";
+  const PF = "http://localhost:5000/images/";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,7 +22,6 @@ function Settings() {
     const updatedUser = {
       userId: user._id,
       username,
-      email,
       password,
     };
     if (file) {
@@ -32,11 +30,11 @@ function Settings() {
       data.append("name", filename);
       data.append("file", file);
       updatedUser.profilePic = filename;
-      // const config = {
-      //   headers: {
-      //     "content-type": "multipart/form-data",
-      //   },
-      // };
+      const config = {
+        headers: {
+          "content-type": "multipart/form-data",
+        },
+      };
       try {
         console.log("inside try");
 
@@ -48,15 +46,16 @@ function Settings() {
     }
     try {
       console.log("inside try2");
-      const res = await axios.put("users/" + decoded._id, updatedUser);
+      const res = await axios.put("users/" + decoded._id, config, updatedUser);
       console.log("inside try3");
-      handleSubmit(res.data);
       setSuccess(true);
       dispatch({ type: "UPDATE_SUCCESS", payload: res.data });
     } catch (err) {
-      ("There is an error with images");
+      dispatch({ type: "UPDATE_FAILURE" });
     }
   };
+
+  console.log(user);
   return (
     <div className="settings">
       <div className="settingsWrapper">
@@ -64,17 +63,11 @@ function Settings() {
           <span className="settingsUpdateTitle">Update Your Account</span>
           <span className="settingsDeleteTitle">Delete Account</span>
         </div>
-        <form
-          action="/upload"
-          method="POST"
-          className="settingsForm"
-          onSubmit={handleSubmit}
-          encType="multipart/form-data"
-        >
+        <form action="/upload" className="settingsForm" onSubmit={handleSubmit}>
           <label>Profile Picture</label>
           <div className="settingsPP">
             <img
-              src={file ? URL.createObjectURL(file) : user.profilePic}
+              src={file ? URL.createObjectURL(file) : PF + user.profilePic}
               alt=""
             />
             <label htmlFor="fileInput">
@@ -83,7 +76,6 @@ function Settings() {
             <input
               type="file"
               id="fileInput"
-              accept=".png, .jpg, .jpeg"
               style={{ display: "none" }}
               onChange={(e) => setFile(e.target.files[0])}
             />
@@ -93,13 +85,6 @@ function Settings() {
             type="text"
             placeholder={user.username}
             onChange={(e) => setUsername(e.target.value)}
-          />
-          <label>Email</label>
-          <input
-            type="email"
-            placeholder={user.email}
-            onChange={(e) => setEmail(e.target.value)}
-            autoComplete="none"
           />
           <label>Password</label>
           <input

@@ -12,7 +12,6 @@ export default function ProfileNavbar() {
       {user ? (
         <Link to="/settings">
           <img className="topImg" src={user.profilePic} alt="" />
-          Settings
         </Link>
       ) : (
         <h1>not set up for some reason</h1>

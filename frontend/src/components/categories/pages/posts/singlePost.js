@@ -3,9 +3,6 @@ import { useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
 import { Context } from "../../../../reducers/reducerAuth";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
-import { logoutUser } from "../../../../actions/actionAuth";
 
 function SinglePost() {
   const location = useLocation();
@@ -32,28 +29,33 @@ function SinglePost() {
       await axios.delete("posts/" + path, {
         data: { username: user.username },
       });
-      window.location.replace("/");
+      window.location.replace("/connect");
     } catch (err) {}
   };
 
   const handleUpdate = async () => {
     try {
+      console.log("try");
       await axios.put(`posts/${post._id}`, {
         username: user.username,
         title,
         description,
       });
+      console.log("try2");
       setUpdateMode(false);
     } catch (err) {}
   };
-
-  console.log(user);
 
   return (
     <div className="singlePost">
       <div className="singlePostWrapper">
         {post.photo && (
-          <img src={PF + post.photo} alt="" className="singlePostImg" />
+          <img
+            key={photo.toString()}
+            src={PF + post.photo}
+            alt=""
+            className="singlePostImg"
+          />
         )}
         {updateMode ? (
           <input
@@ -83,8 +85,11 @@ function SinglePost() {
         <div className="singlePostInfo">
           <span className="singlePostAuthor">
             Author:
-            <Link to={`/?user=${post.username}`} className="link">
-              <b> {post.username}</b>
+            <Link
+              to={`/?user=${post.username}`}
+              className="singlePostUsernamelink"
+            >
+              <b className="singlePostUsername"> {post.username}</b>
             </Link>
           </span>
           <span className="singlePostDate">
@@ -94,11 +99,11 @@ function SinglePost() {
         {updateMode ? (
           <textarea
             className="singlePostDescInput"
-            value={desc}
+            value={post.desc}
             onChange={(e) => setDesc(e.target.value)}
           />
         ) : (
-          <p className="singlePostDesc">{desc}</p>
+          <p className="singlePostDesc">{post.description}</p>
         )}
         {updateMode && (
           <button className="singlePostButton" onClick={handleUpdate}>
@@ -110,13 +115,4 @@ function SinglePost() {
   );
 }
 
-SinglePost.propTypes = {
-  logoutUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  auth: state.auth,
-});
-
-export default connect(mapStateToProps, { logoutUser })(SinglePost);
+export default SinglePost;

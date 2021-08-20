@@ -5,17 +5,12 @@ export default function Post({ post }) {
   return (
     <div className="search-results" key={post.photo}>
       {post.photo && (
-        <img
-          className="card__img"
-          src={PF + post.photo}
-          alt=""
-          key={post.photo}
-        />
+        <img className="card__img" src={PF + post.photo} alt="" key={post.id} />
       )}
       <div className="postInfo" key={post.name}>
         <div className="postCats">
           {post.categories.map((c) => (
-            <span className="postCat" key={c.uniqueId}>
+            <span className="postCat" key={c.id}>
               {c.name}
             </span>
           ))}

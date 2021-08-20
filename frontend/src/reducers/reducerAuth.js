@@ -1,15 +1,12 @@
 import { SET_CURRENT_USER, USER_LOADING } from "../actions/actionTypes";
 import { createContext, useEffect, useReducer } from "react";
 import Reducer from "./reducer";
-import { getUser } from "./common";
-// import { initialAuthState } from "@auth0/auth0-react/dist/auth-state";
 
 const isEmpty = require("is-empty");
 
 export const initialState = {
   isAuthenticated: false,
-  user: sessionStorage.getItem("userData"),
-  // user: JSON.parse(sessionStorage.getItem("user")) || null,
+  user: JSON.parse(sessionStorage.getItem("userData")) || null,
   loading: false,
   isFetching: false,
   error: false,
@@ -38,28 +35,9 @@ export const Context = createContext(initialState);
 export const ContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(Reducer, initialState);
 
-  // useEffect(() => {
-  //   sessionStorage.setItem("user", JSON.stringify(state.user));
-  // }, [state.user]);
-
-  // const loadData = () => {
-  //   isAuthenticated().then((data) => {
-  //     if (data.error) {
-  //       console.log("Error", data.error);
-  //     } else {
-  //       setauthState({
-  //         ...authState,
-  //         _id: data.user._id,
-  //         email: data.user.email,
-  //         role: data.user.role,
-  //       });
-  //     }
-  //   });
-  // };
-
-  // useEffect(() => {
-  //   loadData();
-  // }, []);
+  useEffect(() => {
+    sessionStorage.setItem("user", JSON.stringify(state.user));
+  }, [state.user]);
 
   return (
     <Context.Provider
