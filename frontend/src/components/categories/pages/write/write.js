@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import axios from "axios";
-import { Context } from "../../../../reducers/reducerAuth";
+import { Context } from "../../../../hooks/reducerAuth";
 
 export default function Write() {
   const [title, setTitle] = useState("");

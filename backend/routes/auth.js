@@ -31,7 +31,7 @@ router.post("/register", async (req, res, next) => {
 });
 
 //LOGIN
-router.post("/login", (req, res, next) => {
+router.post("/login", (req, res) => {
   const { errors, isValid } = validateLoginInput(req.body);
   console.log(isValid);
   if (!isValid) {
@@ -51,9 +51,8 @@ router.post("/login", (req, res, next) => {
       //returns a bool values in isMatch
       if (isMatch) {
         //User matched
-        //res.json({ msg: "Success" });
         const payload = {
-          id: user._id.toString(),
+          id: user._id,
           username: user.username,
           // admin: user.admin,
           profilePic: user.profilePic,
@@ -63,15 +62,13 @@ router.post("/login", (req, res, next) => {
           payload,
           config.JWT_SECRET,
           { expiresIn: config.tokenLife },
-
           (err, token) => {
-            res.send({
+            res.json({
               success: true,
               token: "Bearer " + token,
               httpOnly: true,
               secure: true,
               sameSite: true,
-              user: user,
             });
           }
         );

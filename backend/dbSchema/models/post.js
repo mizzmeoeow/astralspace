@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { ObjectId } = mongoose.Schema.Types;
 
 const PostSchema = new mongoose.Schema(
   {
@@ -6,7 +7,7 @@ const PostSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    description: {
+    body: {
       type: String,
       required: true,
     },
@@ -15,9 +16,9 @@ const PostSchema = new mongoose.Schema(
       default: "",
       required: false,
     },
-    username: {
-      type: String,
-      required: true,
+    postedBy: {
+      type: ObjectId,
+      ref: "User",
     },
     categories: {
       type: [String],

@@ -2,7 +2,7 @@ import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
-import { Context } from "../../../../reducers/reducerAuth";
+import { Context } from "../../../../hooks/reducerAuth";
 
 function SinglePost() {
   const location = useLocation();

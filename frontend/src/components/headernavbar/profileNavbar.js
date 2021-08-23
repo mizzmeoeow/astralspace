@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { Context } from "../../reducers/reducerAuth";
+import { Context } from "../../hooks/reducerAuth";
 
 export default function ProfileNavbar() {
   const { user } = useContext(Context);

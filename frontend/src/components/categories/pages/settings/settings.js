@@ -1,10 +1,6 @@
 import { useContext, useState } from "react";
-import { Context } from "../../../../reducers/reducerAuth";
+import { Context } from "../../../../hooks/reducerAuth";
 import axios from "axios";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
-
-import { logoutUser } from "../../../../actions/actionAuth";
 
 function Settings() {
   const [file, setFile] = useState(null);
@@ -13,14 +9,15 @@ function Settings() {
   const [success, setSuccess] = useState(false);
 
   const { user, dispatch } = useContext(Context);
-  const PF = "http://localhost:5000/images/";
+  // const PF = "http://localhost:5000/static/images/";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(user);
     dispatch({ type: "UPDATE_START" });
 
     const updatedUser = {
-      userId: user._id,
+      userId: user.id,
       username,
       password,
     };
@@ -30,32 +27,36 @@ function Settings() {
       data.append("name", filename);
       data.append("file", file);
       updatedUser.profilePic = filename;
-      const config = {
-        headers: {
-          "content-type": "multipart/form-data",
-        },
-      };
       try {
         console.log("inside try");
 
         await axios.post("upload", data);
         console.log("done");
+        console.log(data);
+        console.log(filename);
+        console.log(file.name);
+        console.log(updatedUser);
       } catch (err) {
         console.log("catch error");
       }
     }
     try {
       console.log("inside try2");
-      const res = await axios.put("users/" + decoded._id, config, updatedUser);
-      console.log("inside try3");
+
+      const res = await axios.put("users/" + user.id, updatedUser);
+
       setSuccess(true);
+
       dispatch({ type: "UPDATE_SUCCESS", payload: res.data });
+      console.log(res);
+      console.log(res.data);
+
+      console.log(updatedUser);
     } catch (err) {
       dispatch({ type: "UPDATE_FAILURE" });
     }
   };
 
-  console.log(user);
   return (
     <div className="settings">
       <div className="settingsWrapper">
@@ -63,11 +64,11 @@ function Settings() {
           <span className="settingsUpdateTitle">Update Your Account</span>
           <span className="settingsDeleteTitle">Delete Account</span>
         </div>
-        <form action="/upload" className="settingsForm" onSubmit={handleSubmit}>
+        <form className="settingsForm" onSubmit={handleSubmit}>
           <label>Profile Picture</label>
           <div className="settingsPP">
             <img
-              src={file ? URL.createObjectURL(file) : PF + user.profilePic}
+              src={file ? URL.createObjectURL(file) : user.profilePic}
               alt=""
             />
             <label htmlFor="fileInput">
@@ -89,7 +90,7 @@ function Settings() {
           <label>Password</label>
           <input
             type="password"
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => setPassword(e.target.value) || null}
             autoComplete="none"
           />
           <button className="settingsSubmit" type="submit">
@@ -108,13 +109,4 @@ function Settings() {
   );
 }
 
-Settings.propTypes = {
-  logoutUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  auth: state.auth,
-});
-
-export default connect(mapStateToProps, { logoutUser })(Settings);
+export default Settings;

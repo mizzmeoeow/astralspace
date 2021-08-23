@@ -7,10 +7,11 @@ import axios from "axios";
 import "./style/main.scss";
 
 import * as serviceWorker from "./serviceWorker";
-import { ContextProvider } from "./reducers/reducerAuth";
+import { ContextProvider } from "./hooks/reducerAuth";
 import history from "./history";
 
 axios.defaults.baseURL = "http://localhost:5000/api/";
+// axios.defaults.headers.post["Content-Type"] = "application/json";
 
 // axios.interceptors.request.use((request) => {
 //   // console.log(request);

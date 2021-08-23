@@ -2,18 +2,40 @@ const router = require("express").Router();
 const User = require("../dbSchema/models/user");
 const Post = require("../dbSchema/models/post");
 const { v4: uuidv4 } = require("uuid");
+// const verifyToken = require("../middleware/auth");
 
 //CREATE POST
-router.post("/", async (req, res, next) => {
+router.post("/", verifyToken, async (req, res) => {
   const newPost = new Post(req.body);
   try {
     const savedPost = await newPost.save();
     res.status(200).json(savedPost);
     uuidv4();
-    next();
   } catch (err) {
     res.status(500).json("there is an error");
   }
+});
+
+router.post("/createpost", verifyToken, (req, res) => {
+  const { title, body, pic } = req.body;
+  if (!title || !body || !pic) {
+    return res.status(422).json({ error: "Plase add all the fields" });
+  }
+  req.user.password = undefined;
+  const post = new Post({
+    title,
+    body,
+    photo: pic,
+    postedBy: req.user,
+  });
+  post
+    .save()
+    .then((result) => {
+      res.json({ post: result });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 });
 
 //UPDATE POST
@@ -60,6 +82,26 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
+router.delete("/deletepost/:postId", verifyToken, (req, res) => {
+  Post.findOne({ _id: req.params.postId })
+    .populate("postedBy", "_id")
+    .exec((err, post) => {
+      if (err || !post) {
+        return res.status(422).json({ error: err });
+      }
+      if (post.postedBy._id.toString() === req.user._id.toString()) {
+        post
+          .remove()
+          .then((result) => {
+            res.json(result);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    });
+});
+
 //GET POST
 router.get("/:id", async (req, res) => {
   try {
@@ -68,6 +110,17 @@ router.get("/:id", async (req, res) => {
   } catch (err) {
     res.status(500).json(err);
   }
+});
+
+router.get("/mypost", (req, res) => {
+  Post.find({ postedBy: req.user._id })
+    .populate("PostedBy", "_id name")
+    .then((mypost) => {
+      res.json({ mypost });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 });
 
 //GET ALL POSTS
@@ -93,5 +146,46 @@ router.get("/", async (req, res) => {
     res.status(500).json(err);
   }
 });
+
+router.get("/allpost", verifyToken, (req, res) => {
+  Post.find()
+    .populate("postedBy", "_id name")
+    .populate("comments.postedBy", "_id name")
+    .sort("-createdAt")
+    .then((posts) => {
+      res.json({ posts });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
+//update image
+router.put("/updatepic", verifyToken, (req, res) => {
+  User.findByIdAndUpdate(
+    req.user._id,
+    { $set: { pic: req.body.pic } },
+    { new: true },
+    (err, result) => {
+      if (err) {
+        return res.status(422).json({ error: "pic canot post" });
+      }
+      res.json(result);
+    }
+  );
+});
+
+//VERIFY TOKEN
+function verifyToken(req, res, next) {
+  const bearerHeader = req.headers["authorization"];
+  if (typeof bearerHeader !== "undefined") {
+    const bearer = bearerHeader.split(" ");
+    const bearerToken = bearer[1];
+    req.token = bearerToken;
+    next();
+  } else {
+    res.sendStatus("error");
+  }
+}
 
 module.exports = router;

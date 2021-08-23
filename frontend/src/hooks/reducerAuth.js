@@ -6,7 +6,8 @@ const isEmpty = require("is-empty");
 
 export const initialState = {
   isAuthenticated: false,
-  user: JSON.parse(sessionStorage.getItem("userData")) || null,
+  user: JSON.parse(sessionStorage.getItem("user")) || null,
+  // user: {},
   loading: false,
   isFetching: false,
   error: false,
@@ -35,13 +36,14 @@ export const Context = createContext(initialState);
 export const ContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(Reducer, initialState);
 
-  useEffect(() => {
-    sessionStorage.setItem("user", JSON.stringify(state.user));
-  }, [state.user]);
+  // useEffect(() => {
+  //   sessionStorage.setItem("user", JSON.stringify(state.user));
+  // }, [state.user]);
 
   return (
     <Context.Provider
       value={{
+        // state,
         user: state.user,
         isFetching: state.isFetching,
         error: state.error,

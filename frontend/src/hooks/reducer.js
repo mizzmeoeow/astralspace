@@ -33,6 +33,11 @@ const Reducer = (state, action) => {
         ...state,
         isFetching: true,
       };
+    case "UPDATE_PIC":
+      return {
+        ...state,
+        pic: action.payload,
+      };
     case "UPDATE_SUCCESS":
       return {
         user: action.payload,

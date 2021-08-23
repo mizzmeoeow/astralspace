@@ -33,13 +33,16 @@ import Single from "./components/categories/pages/single/single";
 if (sessionStorage.jwtToken != null) {
   // Set auth token header auth
   const token = sessionStorage.jwtToken;
-  setAuthToken(token);
+  // setAuthToken(token);
+  console.log(token);
+
   // Decode token and get user info and exp
   const decoded = jwt_decode(token);
   // console.log(decoded);
-  // console.log(token);
+  console.log(token);
   // console.log(sessionStorage);
-  sessionStorage.setItem("userData", JSON.stringify(decoded));
+  sessionStorage.setItem("userData", JSON.stringify(token));
+  sessionStorage.setItem("user", JSON.stringify(decoded));
   console.log(decoded);
 
   // Set user and isAuthenticated
