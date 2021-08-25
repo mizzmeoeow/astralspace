@@ -61,12 +61,10 @@
 }
 
 .topImg {
-  width: 40px;
-  margin-right: 10px;
-  height: 40px;
+  width: 3vw;
   border-radius: 50%;
-  object-fit: cover;
-  cursor: pointer;
+  margin-right: 5px;
+  transform: translateY(-30px);
 }
 
 .singlePost {

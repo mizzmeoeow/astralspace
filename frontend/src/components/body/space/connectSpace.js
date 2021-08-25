@@ -6,16 +6,18 @@ import { useLocation } from "react-router";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { logoutUser } from "../../../actions/actionAuth";
-import Sidebar from "../../categories/pages/sidebar/sidebar";
 
 function ConnectSpace() {
   const [posts, setPosts] = useState([]);
+  const [allData, setAllData] = useState([]);
+  const [filteredData, setFilteredData] = useState(allData);
   const { search } = useLocation();
 
   useEffect(() => {
     const fetchPosts = async () => {
       const res = await axios.get("/posts" + search);
       setPosts(res.data);
+      setFilteredData(res.data);
     };
     fetchPosts();
   }, [search]);

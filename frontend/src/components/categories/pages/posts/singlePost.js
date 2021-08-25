@@ -45,7 +45,7 @@ function SinglePost() {
       setUpdateMode(false);
     } catch (err) {}
   };
-
+  console.log(user);
   return (
     <div className="singlePost">
       <div className="singlePostWrapper">

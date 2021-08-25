@@ -3,14 +3,10 @@ import background from "../../../images/space.jpg";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../../actions/actionAuth";
+import Write from "../../categories/pages/write/write";
 
 class ProfileSpace extends Component {
-  onLogoutClick = (e) => {
-    e.preventDefault();
-    this.props.logoutUser();
-  };
   render() {
-    const { user } = this.props.auth;
     return (
       <div
         className="background"
@@ -18,9 +14,12 @@ class ProfileSpace extends Component {
           backgroundImage: `url(${background})`,
         }}
       >
-        <button onClick={this.onLogoutClick} className="login-btn">
-          Logout
-        </button>
+        <div className="homespace-blog">
+          <h5 className="homepace-header">
+            What would you like to say to your fellow creators?
+          </h5>
+          <Write />
+        </div>
       </div>
     );
   }

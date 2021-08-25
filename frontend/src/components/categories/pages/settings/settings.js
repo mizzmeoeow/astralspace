@@ -43,8 +43,8 @@ function Settings() {
     try {
       console.log("inside try2");
 
-      const res = await axios.put("users/" + user.id, updatedUser);
-
+      const res = await axios.put("users/", updatedUser);
+      console.log(res);
       setSuccess(true);
 
       dispatch({ type: "UPDATE_SUCCESS", payload: res.data });

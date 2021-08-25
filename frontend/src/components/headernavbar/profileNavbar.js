@@ -7,12 +7,11 @@ export default function ProfileNavbar() {
   // const PF = "http://localhost:5000/images/";
 
   // render() {
+  console.log(user);
   return (
     <div className="navbar profile-nav">
       {user ? (
-        <Link to="/settings">
-          <img className="topImg" src={user.profilePic} alt="" />
-        </Link>
+        <img className="topImg" src={user.profilePic} alt="" />
       ) : (
         <h1>not set up for some reason</h1>
       )}

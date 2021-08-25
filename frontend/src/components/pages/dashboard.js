@@ -6,7 +6,6 @@ import { logoutUser, setCurrentUser } from "../../actions/actionAuth";
 import ProfileSpace from "../body/space/profileSpace";
 import ProfileFooter from "../footer/profileFooter";
 import ProfileNavbar from "../headernavbar/profileNavbar";
-import Hero from "../Hero/hero";
 import TypingEffect from "new-react-typing-effect";
 
 class Dashboard extends Component {
@@ -14,12 +13,12 @@ class Dashboard extends Component {
     username: "",
   };
 
-  // componentDidMount() {
-  //   userService.getAll().then((users) => this.setState({ users }));
-  // }
+  onLogoutClick = (e) => {
+    e.preventDefault();
+    this.props.logoutUser();
+  };
 
   render() {
-    // const { currentUser, users } = this.state;
     let name = null;
     if (this.props.confirm) {
       name = this.props.confirm.username;
@@ -66,9 +65,11 @@ class Dashboard extends Component {
             }}
           />
         </div>
+        <button onClick={this.onLogoutClick} className="login-btn logout-btn">
+          Logout
+        </button>
         <ProfileNavbar />
         <ProfileSpace />
-        <Hero />
         <ProfileFooter />
       </div>
     );

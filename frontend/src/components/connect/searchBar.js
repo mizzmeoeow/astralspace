@@ -1,11 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 
 const SearchBar = ({ searchQuery, setSearchQuery }) => {
+  const [allData, setAllData] = useState([]);
+  const [filteredData, setFilteredData] = useState(allData);
   const history = useHistory();
   const onSubmit = (e) => {
     history.push(`?s=${searchQuery}`);
     e.preventDefault();
+  };
+
+  const handleSearch = (event) => {
+    let value = event.target.value.toLowerCase();
+    let result = [];
+    console.log(value);
+    result = allData.filter((data) => {
+      return data.title.search(value) != -1;
+    });
+    setFilteredData(result);
   };
 
   return (
@@ -20,10 +32,10 @@ const SearchBar = ({ searchQuery, setSearchQuery }) => {
         <input
           type="text"
           placeholder="Search for Art/Creations"
-          value={searchQuery}
-          onInput={(e) => setSearchQuery(e.target.value)}
+          // value={searchQuery}
+          onChange={(event) => handleSearch(event)}
           className="connect-searchbar"
-          name="s"
+          // name="s"
           id="header-search"
         />
       </form>

@@ -64,27 +64,6 @@ export const roleChange = (role) => {
   };
 };
 
-// export const mapDispatchToProps = (dispatch) => {
-//   return {
-//     loadUserFromToken: () => {
-//       let token = sessionStorage.getItem("jwtToken");
-//       if (!token || token === "") {
-//         return;
-//       }
-
-//       dispatch(meFromToken(token)).then((response) => {
-//         if (!response.error) {
-//           sessionStorage.setItem("jwtToken", response.payload.data.token);
-//           dispatch(meFromTokenSuccess(response.payload));
-//         } else {
-//           sessionStorage.removeItem("jwtToken");
-//           dispatch(meFromTokenFailure(response.payload));
-//         }
-//       });
-//     },
-//   };
-// };
-
 // Set logged in user
 export const setCurrentUser = (user) => {
   return {

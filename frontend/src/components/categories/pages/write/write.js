@@ -4,16 +4,18 @@ import { Context } from "../../../../hooks/reducerAuth";
 
 export default function Write() {
   const [title, setTitle] = useState("");
-  const [description, setDesc] = useState("");
+  const [body, setDesc] = useState("");
   const [file, setFile] = useState(null);
   const { user } = useContext(Context);
+
+  let parsedUser = JSON.parse(user);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const newPost = {
       title,
-      description,
-      username: user.username,
+      body,
+      username: parsedUser.username,
     };
     if (file) {
       const data = new FormData();
@@ -27,17 +29,19 @@ export default function Write() {
       } catch (err) {}
     }
     try {
+      console.log(newPost);
       console.log("inside try2");
       const res = await axios.post("/posts", newPost, {
-        headers: {
-          Authorization: `Bearer ${sessionStorage.getItem(decoded)}`,
-        },
+        // headers: {
+        //   Authorization: `Bearer ${sessionStorage.getItem(decoded)}`,
+        // },
       });
       window.location.replace("/post/" + res.decoded._id);
     } catch (err) {}
   };
 
-  console.log(user.username);
+  // let a = JSON.parse(user);
+  console.log(parsedUser);
   return (
     <div className="write">
       {file && (

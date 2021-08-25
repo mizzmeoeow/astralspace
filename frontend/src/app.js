@@ -27,7 +27,7 @@ import Sculpting from "./components/categories/pages/sculpting";
 
 import { Provider } from "react-redux";
 import store from "./store";
-import Settings from "./components/categories/pages/settings/settings";
+// import Settings from "./components/categories/pages/settings/settings";
 import Single from "./components/categories/pages/single/single";
 
 if (sessionStorage.jwtToken != null) {
@@ -38,11 +38,10 @@ if (sessionStorage.jwtToken != null) {
 
   // Decode token and get user info and exp
   const decoded = jwt_decode(token);
-  // console.log(decoded);
   console.log(token);
-  // console.log(sessionStorage);
-  sessionStorage.setItem("userData", JSON.stringify(token));
+
   sessionStorage.setItem("user", JSON.stringify(decoded));
+
   console.log(decoded);
 
   // Set user and isAuthenticated
@@ -67,11 +66,6 @@ export default class App extends Component {
     };
   }
 
-  // componentDidMount() {
-  //     this.setState({ currentUser })
-  //   );
-  // }
-
   render() {
     const { currentUser } = this.state;
     return (
@@ -95,7 +89,7 @@ export default class App extends Component {
               />
               <Switch>
                 <PrivateRoute exact path="/dashboard" component={Dashboard} />
-                <PrivateRoute path="/settings" exact component={Settings} />
+                {/* <PrivateRoute path="/settings" exact component={Settings} /> */}
                 <PrivateRoute path="/connect" exact component={Connect} />
                 <PrivateRoute path="/literature" exact component={Literature} />
                 <PrivateRoute

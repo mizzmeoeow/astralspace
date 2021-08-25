@@ -30,6 +30,32 @@ router.put("/:id", verifyToken, async (req, res) => {
   }
 });
 
+router.put("/", verifyToken, async (req, res) => {
+  if (request.method === "PUT" && request.url === "/updateUser") {
+    response.writeHead(200, { "Content-Type": "application/json" });
+    console.log(request);
+
+    let body = [];
+    request
+      .on("data", (chunk) => {
+        body.push(chunk);
+      })
+      .on("end", () => {
+        body = Buffer.concat(body).toString();
+        var custObject = JSON.parse(body);
+        var instOfUser = new User(
+          custObject.username,
+          custObject.password,
+          custObject.profilePic
+        );
+
+        console.log(instOfUser.username);
+        response.write(JSON.stringify(custObject));
+        response.end();
+      });
+  }
+});
+
 //DELETE
 router.delete("/:id", async (req, res) => {
   if (req.body.userId === req.params.id) {
