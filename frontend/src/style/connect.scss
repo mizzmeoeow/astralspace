@@ -139,9 +139,11 @@
 
   .card {
     &__img {
-      width: 10rem;
-      height: 6.3rem;
+      width: 8rem;
+      height: 5.3rem;
       object-fit: cover;
+      transform: translateY(20px);
+      border-radius: 30%;
     }
 
     &__body {

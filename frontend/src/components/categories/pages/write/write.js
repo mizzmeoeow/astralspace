@@ -8,14 +8,16 @@ export default function Write() {
   const [file, setFile] = useState(null);
   const { user } = useContext(Context);
 
-  let parsedUser = JSON.parse(user);
-
   const handleSubmit = async (e) => {
+    let User = JSON.parse(user);
+    console.log(User.username);
+
+    // console.log(newPost);
     e.preventDefault();
     const newPost = {
       title,
       body,
-      username: parsedUser.username,
+      username: User.username,
     };
     if (file) {
       const data = new FormData();
@@ -26,12 +28,14 @@ export default function Write() {
       try {
         console.log("inside try1");
         await axios.post("/upload", data);
+        console.log(data);
       } catch (err) {}
     }
     try {
       console.log(newPost);
       console.log("inside try2");
-      const res = await axios.post("/posts", newPost, {
+      console.log(axios.post("posts/", newPost));
+      const res = await axios.post("posts/", newPost, {
         // headers: {
         //   Authorization: `Bearer ${sessionStorage.getItem(decoded)}`,
         // },
@@ -40,8 +44,7 @@ export default function Write() {
     } catch (err) {}
   };
 
-  // let a = JSON.parse(user);
-  console.log(parsedUser);
+  console.log(user);
   return (
     <div className="write">
       {file && (

@@ -1,16 +1,13 @@
-import React, { Component, useState, useEffect } from "react";
+import React from "react";
 import SearchBar from "./searchBar";
 import Sidebar from "../categories/pages/sidebar/sidebar";
+import Post from "../categories/pages/posts/post";
 
 const SearchPage = () => {
-  const { search } = window.location;
-  const query = new URLSearchParams(search).get("s");
-  const [searchQuery, setSearchQuery] = useState(query || "");
-
   return (
     <div>
-      <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-      <Sidebar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+      <SearchBar data={Post} />
+      <Sidebar />
     </div>
   );
 };

@@ -103,6 +103,7 @@ export const logoutUser = () => (dispatch) => {
   // Remove token from local storage
   sessionStorage.removeItem("jwtToken");
   sessionStorage.removeItem("user");
+  sessionStorage.removeItem("userData");
 
   // Remove auth header for future requests
   setAuthToken(false);

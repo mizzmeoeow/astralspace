@@ -2,25 +2,38 @@ import React, { useEffect, useState } from "react";
 import background from "../../../images/space.jpg";
 import Posts from "../../categories/pages/posts/posts";
 import axios from "axios";
-import { useLocation } from "react-router";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { logoutUser } from "../../../actions/actionAuth";
 
 function ConnectSpace() {
   const [posts, setPosts] = useState([]);
-  const [allData, setAllData] = useState([]);
-  const [filteredData, setFilteredData] = useState(allData);
-  const { search } = useLocation();
+  const [loading, setLoading] = useState(false);
+  const [search, setSearch] = useState("");
+  const [filteredPosts, setFilteredPosts] = useState([]);
 
   useEffect(() => {
+    setLoading(true);
     const fetchPosts = async () => {
-      const res = await axios.get("/posts" + search);
+      const res = await axios.get("posts/" + search);
       setPosts(res.data);
-      setFilteredData(res.data);
+      setLoading(false);
     };
     fetchPosts();
-  }, [search]);
+  }, []);
+
+  useEffect(() => {
+    setFilteredPosts(
+      posts.filter((post) =>
+        post.title.toLowerCase().includes(search.toLowerCase())
+      )
+    );
+  }, [search, posts]);
+
+  if (loading) {
+    return <p>Loading posts...</p>;
+  }
+
   return (
     <div
       className="background"
@@ -29,7 +42,7 @@ function ConnectSpace() {
       }}
     >
       <div className="posts">
-        <Posts posts={posts} key={posts.uniqueID} />
+        <Posts posts={posts} key={posts.uniqueID} search={search} />
       </div>
     </div>
   );

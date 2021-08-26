@@ -1,44 +1,50 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
 
-const SearchBar = ({ searchQuery, setSearchQuery }) => {
-  const [allData, setAllData] = useState([]);
-  const [filteredData, setFilteredData] = useState(allData);
-  const history = useHistory();
-  const onSubmit = (e) => {
-    history.push(`?s=${searchQuery}`);
-    e.preventDefault();
+const SearchBar = ({ placeholder, data }) => {
+  const [filteredData, setFilteredData] = useState([]);
+  const [wordEntered, setWordEntered] = useState("");
+
+  const handleFilter = (event) => {
+    const searchWord = event.target.value;
+    setWordEntered(searchWord);
+    const newFilter = data.filter((value) => {
+      return value.title.toLowerCase().includes(searchWord.toLowerCase());
+    });
+
+    if (searchWord === "") {
+      setFilteredData([]);
+    } else {
+      setFilteredData(newFilter);
+    }
   };
 
-  const handleSearch = (event) => {
-    let value = event.target.value.toLowerCase();
-    let result = [];
-    console.log(value);
-    result = allData.filter((data) => {
-      return data.title.search(value) != -1;
-    });
-    setFilteredData(result);
+  const clearInput = () => {
+    setFilteredData([]);
+    setWordEntered("");
   };
 
   return (
     <div>
-      <form
-        id="form"
-        action="/"
-        method="get"
-        autoComplete="off"
-        onSubmit={onSubmit}
-      >
-        <input
-          type="text"
-          placeholder="Search for Art/Creations"
-          // value={searchQuery}
-          onChange={(event) => handleSearch(event)}
-          className="connect-searchbar"
-          // name="s"
-          id="header-search"
-        />
-      </form>
+      <input
+        type="text"
+        placeholder="Search for Art/Creations"
+        value={wordEntered}
+        onChange={handleFilter}
+        className="connect-searchbar"
+      />
+      <div>
+        {filteredData.length != 0 && (
+          <div className="">
+            {filteredData.slice(0, 15).map((value, key) => {
+              return (
+                <a className="" href={value.link}>
+                  <p>{value.title}</p>
+                </a>
+              );
+            })}
+          </div>
+        )}
+      </div>
     </div>
   );
 };
