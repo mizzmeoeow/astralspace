@@ -1,4 +1,4 @@
-const Reducer = (state, action) => {
+const Reducer = (state = {}, action) => {
   switch (action.type) {
     case "SET_ROLE_STATE":
       return {
@@ -7,15 +7,17 @@ const Reducer = (state, action) => {
       };
     case "LOGIN_START":
       return {
-        ...state,
-        ...action.payload,
-        isLoggedIn: true,
+        // ...state,
+        // ...action.payload,
+        // isLoggedIn: true,
+        loading: true,
       };
     case "LOGIN_SUCCESS":
       return {
-        user: action.payload,
-        isFetching: false,
+        // user: action.payload,
+        // isFetching: false,
         error: false,
+        items: action.users,
       };
     case "LOGIN_FAILURE":
       return {

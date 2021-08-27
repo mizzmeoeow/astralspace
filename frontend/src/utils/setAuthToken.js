@@ -1,11 +1,9 @@
 import axios from "axios";
 
-const setAuthToken = (userData) => {
-  if (userData) {
+const setAuthToken = (token) => {
+  if (token) {
     // Apply authorization token to every request if logged in
-    axios.defaults.headers.common[
-      "Authorization"
-    ] = `Bearer ${sessionStorage.getItem("token")}`;
+    axios.defaults.headers.common["Authorization"] = token;
   } else {
     // Delete auth header
     delete axios.defaults.headers.common["Authorization"];

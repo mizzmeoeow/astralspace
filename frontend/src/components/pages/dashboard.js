@@ -19,26 +19,15 @@ class Dashboard extends Component {
   };
 
   render() {
-    let name = null;
-    if (this.props.confirm) {
-      name = this.props.confirm.username;
-    }
+    const { user } = this.props.auth;
 
-    console.log("Rendering App.js!");
+    console.log(user);
     return (
       <div className="profile-page header">
         <div>
-          {/* <h1>Hi, {currentUser.username}!</h1>
-          {users && (
-            <ul>
-              {users.map((user) => (
-                <li key={user.id}>{user.username}</li>
-              ))}
-            </ul>
-          )} */}
           <TypingEffect
             messages={[
-              "Welcome, you have arrived to AstralServers.",
+              "You have arrived to AstralServers.",
               "You have a few decisions to make today, as always.",
               "Please, check to make sure you have not left anything upon exiting.",
               "Have a great stay. (^-^)/",
@@ -64,12 +53,15 @@ class Dashboard extends Component {
               },
             }}
           />
+          <h4>
+            <b>Welcome back,</b> {user.username}
+          </h4>
         </div>
         <button onClick={this.onLogoutClick} className="login-btn logout-btn">
           Logout
         </button>
-        <ProfileNavbar />
-        <ProfileSpace />
+        <ProfileNavbar user={user} />
+        <ProfileSpace user={user} />
         <ProfileFooter />
       </div>
     );

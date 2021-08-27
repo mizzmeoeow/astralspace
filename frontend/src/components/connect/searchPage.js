@@ -3,11 +3,12 @@ import SearchBar from "./searchBar";
 import Sidebar from "../categories/pages/sidebar/sidebar";
 import Post from "../categories/pages/posts/post";
 
-const SearchPage = () => {
+const SearchPage = (props) => {
+  const user = props.user;
   return (
     <div>
-      <SearchBar data={Post} />
-      <Sidebar />
+      <SearchBar data={Post} user={user} />
+      <Sidebar user={user} />
     </div>
   );
 };

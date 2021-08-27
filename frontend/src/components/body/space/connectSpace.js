@@ -6,11 +6,12 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { logoutUser } from "../../../actions/actionAuth";
 
-function ConnectSpace() {
+function ConnectSpace(props) {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
   const [filteredPosts, setFilteredPosts] = useState([]);
+  const user = props.user;
 
   useEffect(() => {
     setLoading(true);
@@ -42,7 +43,7 @@ function ConnectSpace() {
       }}
     >
       <div className="posts">
-        <Posts posts={posts} key={posts.uniqueID} search={search} />
+        <Posts posts={posts} user={user} key={posts.uniqueID} search={search} />
       </div>
     </div>
   );

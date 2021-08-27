@@ -50,11 +50,14 @@
   border: none;
   padding: 20px;
   width: 70vw;
+  background: transparent;
+  border: 2px solid lightgray;
 }
 
 .writeTitle {
   width: 61vw;
   border-radius: 10px;
+  color: white;
 }
 
 .writeInput:focus {
@@ -63,7 +66,7 @@
 
 .writeText {
   font-size: 1rem;
-  height: 90vh;
+  height: 700vh;
 }
 
 .writeSubmit {

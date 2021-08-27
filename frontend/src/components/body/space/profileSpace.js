@@ -6,7 +6,13 @@ import { logoutUser } from "../../../actions/actionAuth";
 import Write from "../../categories/pages/write/write";
 
 class ProfileSpace extends Component {
+  state = {
+    username: "",
+  };
   render() {
+    const { user } = this.props.auth;
+
+    console.log(user);
     return (
       <div
         className="background"
@@ -18,7 +24,7 @@ class ProfileSpace extends Component {
           <h5 className="homepace-header">
             What would you like to say to your fellow creators?
           </h5>
-          <Write />
+          <Write user={user} />
         </div>
       </div>
     );

@@ -33,14 +33,13 @@ import Single from "./components/categories/pages/single/single";
 if (sessionStorage.jwtToken != null) {
   // Set auth token header auth
   const token = sessionStorage.jwtToken;
-  // setAuthToken(token);
-  console.log(token);
-
+  setAuthToken(token);
   // Decode token and get user info and exp
   const decoded = jwt_decode(token);
   console.log(token);
 
   sessionStorage.setItem("user", JSON.stringify(decoded));
+  sessionStorage.setItem("userData", JSON.stringify(token));
 
   console.log(decoded);
 
@@ -61,6 +60,8 @@ export default class App extends Component {
   constructor(props) {
     super(props);
 
+    const { dispatch } = this.props;
+
     this.state = {
       currentUser: null,
     };
@@ -68,6 +69,7 @@ export default class App extends Component {
 
   render() {
     const { currentUser } = this.state;
+    const { user } = this.state;
     return (
       <div className="container">
         <div>
@@ -90,7 +92,12 @@ export default class App extends Component {
               <Switch>
                 <PrivateRoute exact path="/dashboard" component={Dashboard} />
                 {/* <PrivateRoute path="/settings" exact component={Settings} /> */}
-                <PrivateRoute path="/connect" exact component={Connect} />
+                <PrivateRoute
+                  path="/connect"
+                  exact
+                  component={Connect}
+                  user={user}
+                />
                 <PrivateRoute path="/literature" exact component={Literature} />
                 <PrivateRoute
                   path="/architecture"
@@ -111,10 +118,10 @@ export default class App extends Component {
                   component={PerformingArts}
                 />
                 <PrivateRoute path="/sculpting" exact component={Sculpting} />
-                <Route
+                <PrivateRoute
                   path="/post/:postId"
                   render={(props) => (
-                    <Single {...props} handleUpdate={this.updateMode} />
+                    <Single user={user} handleUpdate={this.updateMode} />
                   )}
                 />
               </Switch>

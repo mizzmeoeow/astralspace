@@ -1,12 +1,8 @@
-import { useContext } from "react";
-import { Link } from "react-router-dom";
-import { Context } from "../../hooks/reducerAuth";
+import React, { useState } from "react";
 
-export default function ProfileNavbar() {
-  const { user } = useContext(Context);
-  // const PF = "http://localhost:5000/images/";
+export default function ProfileNavbar(props) {
+  const user = props.user;
 
-  // render() {
   console.log(user);
   return (
     <div className="navbar profile-nav">

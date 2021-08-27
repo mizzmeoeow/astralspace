@@ -25,18 +25,19 @@ export const registerUser = (userData, history) => (dispatch) => {
 };
 
 // Login - get user token
-export const loginUser = (user) => (dispatch) => {
+export const loginUser = (userData) => (dispatch) => {
   axios
-    .post("auth/login", user)
+    .post("auth/login", userData)
     .then((res) => {
       const { token } = res.data;
+      sessionStorage.setItem("jwtToken", token);
+      // sessionStorage.setItem("user", res.data);
+
       // Set token to Auth header
       setAuthToken(token);
       // Decode token to get user data
       const decoded = jwt_decode(token);
-      sessionStorage.setItem("jwtToken", token);
-      sessionStorage.setItem("user", res.data);
-      sessionStorage.setItem("userData", JSON.stringify(decoded));
+      // sessionStorage.setItem("userData", JSON.stringify(decoded));
 
       console.log(token);
       console.log(decoded);
@@ -45,9 +46,9 @@ export const loginUser = (user) => (dispatch) => {
       // Set current user
       dispatch(setCurrentUser(decoded));
 
-      console.log(token);
-      console.log(decoded);
-      console.log(res);
+      // console.log(token);
+      // console.log(decoded);
+      // console.log(res);
     })
     .catch((err) =>
       dispatch({
@@ -65,10 +66,10 @@ export const roleChange = (role) => {
 };
 
 // Set logged in user
-export const setCurrentUser = (user) => {
+export const setCurrentUser = (decoded) => {
   return {
     type: SET_CURRENT_USER,
-    payload: user,
+    payload: decoded,
   };
 };
 
@@ -109,4 +110,5 @@ export const logoutUser = () => (dispatch) => {
   setAuthToken(false);
   // Set current user to empty object {} which will set isAuthenticated to false
   dispatch(setCurrentUser({}));
+  window.location.href = "./login";
 };
