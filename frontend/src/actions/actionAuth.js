@@ -31,7 +31,7 @@ export const loginUser = (userData) => (dispatch) => {
     .then((res) => {
       const { token } = res.data;
       sessionStorage.setItem("jwtToken", token);
-      // sessionStorage.setItem("user", res.data);
+      sessionStorage.setItem("user", res.data);
 
       // Set token to Auth header
       setAuthToken(token);

@@ -2,8 +2,11 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-export default function Sidebar() {
+export default function Sidebar(props) {
   const [cats, setCats] = useState([]);
+  const user = props.user;
+
+  console.log(user);
 
   useEffect(() => {
     const getCats = async () => {
@@ -17,7 +20,7 @@ export default function Sidebar() {
       <div className="">
         <ul className="category-nav nav-connect">
           {cats.map((c) => (
-            <Link to={`/${c.name}`} className="category" key={c.id}>
+            <Link to={`/${c.name}`} user={user} className="category" key={c.id}>
               {c.name}
             </Link>
           ))}

@@ -5,9 +5,10 @@ import Post from "../categories/pages/posts/post";
 
 const SearchPage = (props) => {
   const user = props.user;
+  console.log(user);
   return (
     <div>
-      <SearchBar data={Post} user={user} />
+      {/* <SearchBar data={Post} user={user} /> */}
       <Sidebar user={user} />
     </div>
   );

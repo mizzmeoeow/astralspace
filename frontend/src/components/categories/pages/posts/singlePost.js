@@ -7,7 +7,6 @@ function SinglePost(props) {
   const location = useLocation();
   const path = location.pathname.split("/")[2];
   const [post, setPost] = useState({});
-  const PF = "http://localhost:5000/images/";
   const user = props.user;
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
@@ -51,7 +50,7 @@ function SinglePost(props) {
         {post.photo && (
           <img
             key={photo.toString()}
-            src={PF + post.photo}
+            src={post.photo}
             alt=""
             className="singlePostImg"
           />

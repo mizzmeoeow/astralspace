@@ -1,9 +1,21 @@
-import React, { Component } from "react";
+import { useLocation } from "react-router";
+import ArcHeader from "../../headernavbar/catHeaders/arcHeader";
+import CategorySpace from "../../body/space/categorySpace";
+import ConnectFooter from "../../footer/connectFooter";
 
-class Cinema extends Component {
-  render() {
-    return <div>Cinema</div>;
-  }
+export default function Cinema(props) {
+  const location = useLocation();
+  console.log(location);
+  const user = props.user;
+
+  console.log(user);
+  return (
+    <div>
+      <ArcHeader />
+      <div className="home">
+        <CategorySpace user={user} />
+        <ConnectFooter />
+      </div>
+    </div>
+  );
 }
-
-export default Cinema;

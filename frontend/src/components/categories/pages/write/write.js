@@ -1,58 +1,49 @@
 import { useContext, useState } from "react";
+import { Redirect } from "react-router-dom";
 import axios from "axios";
 
 export default function Write(props) {
   const [title, setTitle] = useState("");
   const [body, setDesc] = useState("");
   const [file, setFile] = useState(null);
+  const [postCreated, setPostCreated] = useState(false);
   const user = props.user;
 
   console.log(user);
   const handleSubmit = async (e) => {
-    // let User = JSON.parse(user);
-    // console.log(User.username);
-
-    // console.log(newPost);
-    let path = this.props.match.path;
-    let id = this.props.match.params.id;
-    let date = new Date();
     e.preventDefault();
-    // const newPost = {
-    //   title,
-    //   body,
-    //   username: user.username,
-    // };
-
+    const newPost = {
+      title,
+      body,
+      username: user.username,
+    };
     if (file) {
-      let formData = new FormData();
-      formData = new FormData();
-      formData.append("id", this.state.Post.id);
-      formData.append("title", this.state.Post.title);
-      formData.append("content", this.state.Post.content);
-      formData.append("postDate", date.toString());
-      // const filename = Date.now() + file.name;
-      // formData.append("name", filename);
-      // data.append("file", file);
-      // newPost.photo = filename;
-      // try {
-      //   console.log("inside try1");
-      //   await axios.post("upload", data);
-      //   console.log(data);
-      // } catch (err) {}
+      const data = new FormData();
+      const filename = Date.now() + file.name;
+      data.append("name", filename);
+      data.append("file", file);
+      newPost.photo = filename;
+      try {
+        console.log("inside try1");
+        await axios.post("upload", data);
+        console.log(data);
+      } catch (err) {}
     }
     try {
-      console.log(formData);
+      console.log(newPost);
       console.log("inside try2");
-      console.log(axios.post("posts/", formData));
-      e.preventDefault();
-      const res = await axios.post("posts/", formData);
-      window.location.replace("/post/" + res.decoded._id);
-    } catch (err) {
-      console.log("there is an error uploading post.");
-    }
+      console.log(axios.post("posts/", newPost));
+      const res = await axios.post("posts/", newPost);
+      setPostCreated(true);
+    } catch (err) {}
   };
 
+  if (postCreated) {
+    return <Redirect to="/connect" />;
+  }
+
   console.log(user);
+
   return (
     <div className="write">
       {file && (

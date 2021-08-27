@@ -99,10 +99,11 @@ export default class App extends Component {
                   user={user}
                 />
                 <PrivateRoute path="/literature" exact component={Literature} />
+
                 <PrivateRoute
                   path="/architecture"
-                  exact
                   component={Architecture}
+                  render={() => <Architecture user={user} />}
                 />
                 <PrivateRoute path="/cinema" exact component={Cinema} />
                 <PrivateRoute

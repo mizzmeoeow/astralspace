@@ -5,35 +5,22 @@ import axios from "axios";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { logoutUser } from "../../../actions/actionAuth";
+import { useLocation } from "react-router";
 
 function ConnectSpace(props) {
   const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [search, setSearch] = useState("");
-  const [filteredPosts, setFilteredPosts] = useState([]);
+  const { search } = useLocation();
   const user = props.user;
 
   useEffect(() => {
-    setLoading(true);
     const fetchPosts = async () => {
       const res = await axios.get("posts/" + search);
       setPosts(res.data);
-      setLoading(false);
     };
     fetchPosts();
-  }, []);
+  }, [search]);
 
-  useEffect(() => {
-    setFilteredPosts(
-      posts.filter((post) =>
-        post.title.toLowerCase().includes(search.toLowerCase())
-      )
-    );
-  }, [search, posts]);
-
-  if (loading) {
-    return <p>Loading posts...</p>;
-  }
+  console.log(user);
 
   return (
     <div

@@ -52,34 +52,6 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage });
-// const upload = multer({
-//   storage: storage,
-//   dest: "images",
-//   limits: {
-//     fileSize: 1000000,
-//   },
-//   fileFilter(req, file, cb) {
-//     if (!file.originalname.match(/\.(png|jpg|jpeg)$/)) {
-//       cb(new Error("Please upload an image."));
-//     }
-//     cb(undefined, true);
-//   },
-// });
-
-// app.post("/api/upload", upload.single("file"), async (req, res) => {
-//   const newImage = new Image(req.body);
-//   // res.status(200).json("File has been uploaded");
-//   if (!req.file) {
-//     console.log("No file received");
-//     return res.send({
-//       success: false,
-//     });
-//   } else {
-//     console.log("file received");
-//     const savedImage = await newImage.save();
-//     return res.status(200).json(savedImage);
-//   }
-// });
 
 app.post("/api/upload", upload.single("file"), (req, res) => {
   res.status(200).json("File has been uploaded");
