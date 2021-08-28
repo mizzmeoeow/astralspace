@@ -30,7 +30,12 @@ function ConnectSpace(props) {
       }}
     >
       <div className="posts">
-        <Posts posts={posts} user={user} key={posts.uniqueID} search={search} />
+        <Posts
+          posts={posts}
+          user={user}
+          key={"mykey" + posts.id}
+          search={search}
+        />
       </div>
     </div>
   );

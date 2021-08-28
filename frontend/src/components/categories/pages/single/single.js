@@ -1,14 +1,15 @@
 import PostSpace from "../../../body/space/postSpace";
 import ConnectFooter from "../../../footer/connectFooter";
-import SinglePost from "../posts/singlePost";
 import PostHeader from "../../../headernavbar/postHeader";
 
-export default function Single() {
+export default function Single(props) {
+  const post = props.post;
+
+  console.log(props);
   return (
     <div className="single">
       <PostHeader />
-      <SinglePost />
-      <PostSpace />
+      <PostSpace post={post} />
 
       <ConnectFooter />
     </div>

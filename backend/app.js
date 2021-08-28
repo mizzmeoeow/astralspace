@@ -57,7 +57,7 @@ app.post("/api/upload", upload.single("file"), (req, res) => {
   res.status(200).json("File has been uploaded");
 });
 
-app.get("/images", (req, res) => {
+app.get("/uploads", (req, res) => {
   imgModel.find({}, (err, items) => {
     if (err) {
       console.log(err);

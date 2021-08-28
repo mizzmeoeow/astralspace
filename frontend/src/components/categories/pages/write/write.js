@@ -23,6 +23,10 @@ export default function Write(props) {
       data.append("name", filename);
       data.append("file", file);
       newPost.photo = filename;
+      console.log(file.name);
+      console.log(filename);
+      console.log(file);
+
       try {
         console.log("inside try1");
         await axios.post("upload", data);
@@ -41,8 +45,6 @@ export default function Write(props) {
   if (postCreated) {
     return <Redirect to="/connect" />;
   }
-
-  console.log(user);
 
   return (
     <div className="write">

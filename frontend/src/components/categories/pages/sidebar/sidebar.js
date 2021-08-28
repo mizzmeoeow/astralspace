@@ -6,7 +6,7 @@ export default function Sidebar(props) {
   const [cats, setCats] = useState([]);
   const user = props.user;
 
-  console.log(user);
+  console.log(props);
 
   useEffect(() => {
     const getCats = async () => {
@@ -19,8 +19,13 @@ export default function Sidebar(props) {
     <div className="">
       <div className="">
         <ul className="category-nav nav-connect">
-          {cats.map((c) => (
-            <Link to={`/${c.name}`} user={user} className="category" key={c.id}>
+          {cats.map((c, index) => (
+            <Link
+              to={`/${c.name}`}
+              user={user}
+              className="category"
+              key={"mykey" + index}
+            >
               {c.name}
             </Link>
           ))}

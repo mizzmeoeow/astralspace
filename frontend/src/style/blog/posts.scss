@@ -79,7 +79,7 @@
 
 .singlePostImg {
   width: 90vw;
-  height: 200vh;
+  height: 100vh;
   border-radius: 5px;
   object-fit: cover;
 }
@@ -135,6 +135,11 @@
 }
 
 .singlePostUsernamelink {
+  text-decoration: none;
+  color: #b535fc;
+}
+
+.singlePostUsername {
   text-decoration: none;
   color: #b535fc;
 }

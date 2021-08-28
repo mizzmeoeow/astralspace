@@ -24,7 +24,7 @@ function SinglePost(props) {
 
   const handleDelete = async () => {
     try {
-      await axios.delete("posts/" + path, {
+      await axios.delete(`posts/${post._id}`, {
         data: { username: user.username },
       });
       window.location.replace("/connect");
@@ -37,23 +37,21 @@ function SinglePost(props) {
       await axios.put(`posts/${post._id}`, {
         username: user.username,
         title,
-        description,
+        desc,
       });
+
       console.log("try2");
       setUpdateMode(false);
     } catch (err) {}
   };
   console.log(user);
+  console.log(post);
+
   return (
     <div className="singlePost">
       <div className="singlePostWrapper">
         {post.photo && (
-          <img
-            key={photo.toString()}
-            src={post.photo}
-            alt=""
-            className="singlePostImg"
-          />
+          <img src={post.photo} alt="" className="singlePostImg" />
         )}
         {updateMode ? (
           <input
@@ -65,7 +63,7 @@ function SinglePost(props) {
           />
         ) : (
           <h1 className="singlePostTitle">
-            {post.title}
+            {title}
             {post.username === user?.username && (
               <div className="singlePostEdit">
                 <i
@@ -84,7 +82,7 @@ function SinglePost(props) {
           <span className="singlePostAuthor">
             Author:
             <Link
-              to={`/?user=${post.username}`}
+              to={`?user=${post.username}`}
               className="singlePostUsernamelink"
             >
               <b className="singlePostUsername"> {post.username}</b>
@@ -97,11 +95,11 @@ function SinglePost(props) {
         {updateMode ? (
           <textarea
             className="singlePostDescInput"
-            value={post.desc}
+            value={desc}
             onChange={(e) => setDesc(e.target.value)}
           />
         ) : (
-          <p className="singlePostDesc">{post.description}</p>
+          <p className="singlePostDesc">{desc}</p>
         )}
         {updateMode && (
           <button className="singlePostButton" onClick={handleUpdate}>

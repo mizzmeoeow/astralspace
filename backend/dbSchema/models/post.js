@@ -3,6 +3,10 @@ const { ObjectId } = mongoose.Schema.Types;
 
 const PostSchema = new mongoose.Schema(
   {
+    username: {
+      type: String,
+      required: true,
+    },
     title: {
       type: String,
       required: true,
@@ -15,10 +19,6 @@ const PostSchema = new mongoose.Schema(
       type: String,
       default: "",
       required: false,
-    },
-    postedBy: {
-      type: ObjectId,
-      ref: "User",
     },
     categories: {
       type: [String],

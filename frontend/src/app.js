@@ -119,12 +119,9 @@ export default class App extends Component {
                   component={PerformingArts}
                 />
                 <PrivateRoute path="/sculpting" exact component={Sculpting} />
-                <PrivateRoute
-                  path="/post/:postId"
-                  render={(props) => (
-                    <Single user={user} handleUpdate={this.updateMode} />
-                  )}
-                />
+                <Route path="/post/:postId">
+                  <Single />
+                </Route>
               </Switch>
             </Layout>
           </Provider>
