@@ -1,10 +1,9 @@
-.homespace-blog {
-  margin-top: 100px;
-}
-
 .logout-btn {
   float: left;
   margin-right: 20px;
+  @media (max-width: 615px) {
+    transform: translateY(40px) translateX(20px);
+  }
 }
 
 .logout-btn:hover {
@@ -14,4 +13,7 @@
 .homepace-header {
   margin: 10px;
   transform: translateX(280px);
+  @media (max-width: 615px) {
+    transform: translateX(110px);
+  }
 }

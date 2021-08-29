@@ -5,23 +5,34 @@ import axios from "axios";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { logoutUser } from "../../../actions/actionAuth";
-import { useLocation } from "react-router";
 
-function ConnectSpace(props) {
+function ConnectSpace() {
   const [posts, setPosts] = useState([]);
-  const { search } = useLocation();
-  const user = props.user;
+  const [loading, setLoading] = useState(false);
+  const [search, setSearch] = useState("");
+  const [filteredPosts, setFilteredPosts] = useState([]);
 
   useEffect(() => {
+    setLoading(true);
     const fetchPosts = async () => {
       const res = await axios.get("posts/" + search);
       setPosts(res.data);
+      setLoading(false);
     };
     fetchPosts();
-  }, [search]);
+  }, []);
 
-  console.log(user);
+  // useEffect(() => {
+  //   setFilteredPosts(
+  //     posts.filter((post) =>
+  //       post.title.toLowerCase().includes(search.toLowerCase())
+  //     )
+  //   );
+  // }, [search, posts]);
 
+  if (loading) {
+    return <p>Loading posts...</p>;
+  }
   return (
     <div
       className="background"
@@ -30,12 +41,7 @@ function ConnectSpace(props) {
       }}
     >
       <div className="posts">
-        <Posts
-          posts={posts}
-          user={user}
-          key={"mykey" + posts.id}
-          search={search}
-        />
+        <Posts posts={posts} key={posts.uniqueID} />
       </div>
     </div>
   );

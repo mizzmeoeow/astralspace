@@ -21,7 +21,6 @@ class Dashboard extends Component {
   render() {
     const { user } = this.props.auth;
 
-    console.log(user);
     return (
       <div className="profile-page header">
         <div>
@@ -53,7 +52,7 @@ class Dashboard extends Component {
               },
             }}
           />
-          <h4>
+          <h4 className="greeting">
             <b>Welcome back,</b> {user.username}
           </h4>
         </div>

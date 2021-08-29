@@ -11,13 +11,6 @@ class Shop extends Component {
         {this.props.children}
         <Layout />
         <Navbar />
-        {/* <button
-          type="button"
-          className="back-btn"
-          onClick={() => history.push("/profile")}
-        >
-          Home Space
-        </button> */}
         <ShopClouds />
       </div>
     );

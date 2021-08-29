@@ -3,7 +3,6 @@ import React, { useState } from "react";
 export default function ProfileNavbar(props) {
   const user = props.user;
 
-  console.log(user);
   return (
     <div className="navbar profile-nav">
       {user ? (

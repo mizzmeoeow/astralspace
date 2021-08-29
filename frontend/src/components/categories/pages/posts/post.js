@@ -1,8 +1,9 @@
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function Post({ post }) {
   return (
-    <div className="search-results" key={post.photo}>
+    <div className="search-results">
       {post.photo && (
         <img className="card__img" src={post.photo} alt="" key={post.id} />
       )}

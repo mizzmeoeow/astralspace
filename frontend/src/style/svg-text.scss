@@ -12,6 +12,10 @@
     [shop-e];
   grid-template-columns: 1fr;
 
+  @media (max-width: 615px) {
+    transform: translateX(50px);
+  }
+
   a {
     text-decoration: none;
     height: 2px;
@@ -22,5 +26,11 @@
   a:hover {
     color: #521166;
     box-shadow: 5px 5px 50px rgba(3, 2, 3, 0.4);
+  }
+}
+
+foreignObject {
+  @media (max-width: 615px) {
+    transform: translateX(-600px);
   }
 }

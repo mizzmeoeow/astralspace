@@ -8,7 +8,6 @@ import { setCurrentUser } from "../../../actions/actionAuth";
 class PostSpace extends Component {
   render() {
     const { user } = this.props.auth;
-    console.log(user);
     return (
       <div
         className="background"

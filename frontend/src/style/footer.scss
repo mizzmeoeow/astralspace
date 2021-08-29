@@ -1,8 +1,10 @@
 .footer {
   position: absolute;
-  height: 100px;
-  width: 98.75vw;
   @include layout;
+
+  @media (max-width: 715px) {
+    transform: translateY(220px);
+  }
 
   left: 0;
   bottom: 0;
@@ -13,6 +15,9 @@
   .contact {
     @include footer;
     text-decoration: none;
+    @media (max-width: 715px) {
+      margin: 5px;
+    }
   }
 
   .contact:hover {
@@ -31,6 +36,10 @@
   font-size: 25px;
   display: inline;
   color: white;
+  @media (max-width: 715px) {
+    transform: translateX(5px);
+    margin-left: 20px;
+  }
 }
 
 .profile-contact:hover {

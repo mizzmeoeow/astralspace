@@ -44,7 +44,7 @@ mongoose
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "uploads");
+    cb(null, "images");
   },
   filename: (req, file, cb) => {
     cb(null, req.body.name);
@@ -57,7 +57,7 @@ app.post("/api/upload", upload.single("file"), (req, res) => {
   res.status(200).json("File has been uploaded");
 });
 
-app.get("/uploads", (req, res) => {
+app.get("/images", (req, res) => {
   imgModel.find({}, (err, items) => {
     if (err) {
       console.log(err);

@@ -5,7 +5,6 @@ import PostHeader from "../../../headernavbar/postHeader";
 export default function Single(props) {
   const post = props.post;
 
-  console.log(props);
   return (
     <div className="single">
       <PostHeader />

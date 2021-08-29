@@ -12,7 +12,6 @@ class ProfileSpace extends Component {
   render() {
     const { user } = this.props.auth;
 
-    console.log(user);
     return (
       <div
         className="background"

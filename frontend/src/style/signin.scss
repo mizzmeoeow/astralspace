@@ -8,7 +8,6 @@
   margin: 0;
   display: inline;
   float: right;
-  // text-align: center;
 
   .register-btn {
     transform: translateX(220px);
@@ -99,4 +98,16 @@ button {
 
 .error-text {
   display: flex;
+}
+
+.register-fo {
+  @media (max-width: 615px) {
+    transform: translateX(-300px);
+  }
+}
+
+.sign-in-fo {
+  @media (max-width: 615px) {
+    transform: translateX(-400px);
+  }
 }

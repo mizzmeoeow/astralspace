@@ -8,6 +8,7 @@ class Contact extends Component {
     return (
       <div className="contact header">
         <p className="sign-in-page">Contact</p>
+
         <ContactClouds />
         <Footer />
       </div>

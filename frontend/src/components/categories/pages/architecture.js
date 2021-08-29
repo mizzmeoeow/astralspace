@@ -8,7 +8,6 @@ export default function Architecture(props) {
   console.log(location);
   const user = props.user;
 
-  console.log(user);
   return (
     <div>
       <ArcHeader />

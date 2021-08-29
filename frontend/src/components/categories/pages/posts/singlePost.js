@@ -44,8 +44,6 @@ function SinglePost(props) {
       setUpdateMode(false);
     } catch (err) {}
   };
-  console.log(user);
-  console.log(post);
 
   return (
     <div className="singlePost">

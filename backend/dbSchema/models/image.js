@@ -6,6 +6,12 @@ var imageSchema = new mongoose.Schema(
       data: Buffer,
       contentType: String,
     },
+    name: {
+      type: String,
+    },
+    file: {
+      type: String,
+    },
   },
   { timestamps: true, collection: "Images" }
 );

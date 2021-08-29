@@ -1,17 +1,13 @@
-import { useLocation } from "react-router";
-import ArcHeader from "../../headernavbar/catHeaders/arcHeader";
 import CategorySpace from "../../body/space/categorySpace";
 import ConnectFooter from "../../footer/connectFooter";
+import CinemaHeader from "../../headernavbar/catHeaders/cinemaHeader";
 
 export default function Cinema(props) {
-  const location = useLocation();
-  console.log(location);
   const user = props.user;
 
-  console.log(user);
   return (
     <div>
-      <ArcHeader />
+      <CinemaHeader />
       <div className="home">
         <CategorySpace user={user} />
         <ConnectFooter />

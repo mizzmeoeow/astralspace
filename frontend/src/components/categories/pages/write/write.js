@@ -9,7 +9,6 @@ export default function Write(props) {
   const [postCreated, setPostCreated] = useState(false);
   const user = props.user;
 
-  console.log(user);
   const handleSubmit = async (e) => {
     e.preventDefault();
     const newPost = {
@@ -19,7 +18,7 @@ export default function Write(props) {
     };
     if (file) {
       const data = new FormData();
-      const filename = Date.now() + file.name;
+      const filename = "http://localhost:5000/images/" + file.name;
       data.append("name", filename);
       data.append("file", file);
       newPost.photo = filename;
@@ -28,15 +27,10 @@ export default function Write(props) {
       console.log(file);
 
       try {
-        console.log("inside try1");
         await axios.post("upload", data);
-        console.log(data);
       } catch (err) {}
     }
     try {
-      console.log(newPost);
-      console.log("inside try2");
-      console.log(axios.post("posts/", newPost));
       const res = await axios.post("posts/", newPost);
       setPostCreated(true);
     } catch (err) {}
@@ -54,7 +48,7 @@ export default function Write(props) {
       <form className="writeForm" onSubmit={handleSubmit}>
         <div className="writeFormGroup">
           <label htmlFor="fileInput">
-            <i className="writeIcon fas fa-plus addImage">Add Image</i>
+            <i className="writeIcon fas fa-plus addImage">IMG</i>
           </label>
           <br />
           <input

@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 
-class ArcHeader extends Component {
+class SculptingHeader extends Component {
   render() {
     return (
       <div className="category-header">
-        <p className="connect-header">Architecture</p>
+        <p className="category-heading">Sculpting</p>
         <div className="navbar">
           <a href="/dashboard" className="nav-connect">
             Home Space
@@ -19,4 +19,4 @@ class ArcHeader extends Component {
   }
 }
 
-export default ArcHeader;
+export default SculptingHeader;

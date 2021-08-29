@@ -20,6 +20,9 @@
   height: 250px;
   border-radius: 10px;
   object-fit: cover;
+  @media (max-width: 615px) {
+    transform: translateX(-100px);
+  }
 }
 
 .writeForm {
@@ -30,11 +33,12 @@
   margin-left: 150px;
   display: flex;
   align-items: center;
+  @media (max-width: 615px) {
+    transform: translateX(-90px);
+  }
 }
 
 .writeIcon {
-  // width: 25px;
-  // height: 25px;
   border-radius: 50%;
   border: 1.5px solid;
   display: flex;
@@ -43,6 +47,9 @@
   font-size: 20px;
   color: #b535fc;
   cursor: pointer;
+  @media (max-width: 615px) {
+    transform: translateX(-17px);
+  }
 }
 
 .writeInput {
@@ -50,15 +57,18 @@
   color: white;
   border: none;
   padding: 20px;
-  width: 70vw;
+  width: 60vw;
   background: transparent;
   border: 2px solid lightgray;
 }
 
 .writeTitle {
-  width: 61vw;
+  width: 52vw;
   border-radius: 10px;
   color: white;
+  @media (max-width: 615px) {
+    transform: translateX(-17px);
+  }
 }
 
 .writeInput:focus {
@@ -67,17 +77,23 @@
 
 .writeText {
   font-size: 1rem;
-  height: 700vh;
+  height: 130vh;
+  @media (max-width: 615px) {
+    height: 98vh;
+  }
 }
 
 .writeSubmit {
   position: absolute;
   top: 5px;
-  right: 130px;
+  right: 200px;
   padding: 10px;
   border-radius: 10px;
   cursor: pointer;
   font-size: 16px;
+  @media (max-width: 615px) {
+    right: 20px;
+  }
 }
 
 .writeSubmit:hover {

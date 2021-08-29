@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken";
 
@@ -36,12 +36,9 @@ if (sessionStorage.jwtToken != null) {
   setAuthToken(token);
   // Decode token and get user info and exp
   const decoded = jwt_decode(token);
-  console.log(token);
 
   sessionStorage.setItem("user", JSON.stringify(decoded));
   sessionStorage.setItem("userData", JSON.stringify(token));
-
-  console.log(decoded);
 
   // Set user and isAuthenticated
   store.dispatch(setCurrentUser(decoded));
@@ -105,20 +102,20 @@ export default class App extends Component {
                   component={Architecture}
                   render={() => <Architecture user={user} />}
                 />
-                <PrivateRoute path="/cinema" exact component={Cinema} />
+                <PrivateRoute path="/Cinema" exact component={Cinema} />
                 <PrivateRoute
-                  path="/Graphic-Design"
+                  path="/GraphicDesign"
                   exact
                   component={GraphicDesign}
                 />
-                <PrivateRoute path="/music" exact component={Music} />
-                <PrivateRoute path="/painting" exact component={Painting} />
+                <PrivateRoute path="/Music" exact component={Music} />
+                <PrivateRoute path="/Painting" exact component={Painting} />
                 <PrivateRoute
-                  path="/Performing-Arts"
+                  path="/PerformingArts"
                   exact
                   component={PerformingArts}
                 />
-                <PrivateRoute path="/sculpting" exact component={Sculpting} />
+                <PrivateRoute path="/Sculpting" exact component={Sculpting} />
                 <Route path="/post/:postId">
                   <Single />
                 </Route>

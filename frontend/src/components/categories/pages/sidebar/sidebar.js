@@ -6,8 +6,6 @@ export default function Sidebar(props) {
   const [cats, setCats] = useState([]);
   const user = props.user;
 
-  console.log(props);
-
   useEffect(() => {
     const getCats = async () => {
       const res = await axios.get("/categories");
