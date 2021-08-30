@@ -8,8 +8,7 @@
   },
   "scripts": {
     "build": "react-scripts build",
-    "heroku-prebuild": "npm i -f",
-    "heroku-postbuild": "npm run build"
+    "heroku-postbuild": "cd frontend && npm install && npm run build"
   },
   "repository": {
     "type": "git",
@@ -22,6 +21,34 @@
   },
   "homepage": "https://github.com/mizzmeoeow/astralspace#readme",
   "dependencies": {
-    "react-scripts": "^4.0.3"
+    "react-scripts": "^4.0.3",
+    "bcrypt": "^5.0.1",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "concurrently": "^6.2.0",
+    "connect-mongo": "^4.4.1",
+    "cookie-session": "^1.4.0",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-form-data": "^2.0.17",
+    "express-jwt": "^6.1.0",
+    "express-session": "^1.17.2",
+    "express-validator": "^6.12.0",
+    "google-auth-library": "^7.1.2",
+    "handlebars": "^4.7.7",
+    "jsonwebtoken": "^8.5.1",
+    "mongodb": "^3.6.9",
+    "mongoose": "^5.12.12",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.2",
+    "multer-gridfs-storage": "^5.0.1",
+    "nodemailer": "^6.6.3",
+    "path": "^0.12.7",
+    "react-request": "^3.2.0",
+    "request": "^2.88.2",
+    "sharp": "^0.28.3",
+    "uuid": "^8.3.2",
+    "uuidv4": "^6.2.11"
   }
 }
