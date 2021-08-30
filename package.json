@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "react-scripts build"
+    "build": "react-scripts build",
+    "heroku-prebuild": "npm i -f",
+    "heroku-postbuild": "npm run build"
   },
   "repository": {
     "type": "git",
