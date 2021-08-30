@@ -15,11 +15,16 @@ const errorHandler = require("./middleware/error");
 const Image = require("./dbSchema/models/image");
 const config = require("./config/keys");
 const jwt = require("jsonwebtoken");
+const corsOptions = {
+  origin: "http://localhost:3000",
+  credentials: true, //access-control-allow-credentials:true
+  optionSuccessStatus: 200,
+};
 
 dotenv.config();
 app.use(express.json());
 app.use("/images", express.static(path.join(__dirname, "/images")));
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(morgan("dev"));
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Headers", "Content-type,Authorization");

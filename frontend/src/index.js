@@ -9,7 +9,7 @@ import "./style/main.scss";
 import * as serviceWorker from "./serviceWorker";
 import history from "./history";
 
-axios.defaults.baseURL = "http://localhost:5000/api/";
+axios.defaults.baseURL = "https://astralspacebackend.herokuapp.com/";
 
 let userData = JSON.parse(localStorage.getItem("userData"));
 let token;
