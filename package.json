@@ -2,7 +2,7 @@
   "name": "astralspace",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "frontend/index.js",
   "engines": {
     "node": "14.17.5"
   },
