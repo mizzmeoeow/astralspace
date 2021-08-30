@@ -31,7 +31,7 @@ app.use((req, res, next) => {
   next();
 });
 
-const port = 5000;
+const port = process.env.PORT || 5000;
 
 mongoose
   .connect(process.env.DATABASE_LOCAL, {
