@@ -97,7 +97,7 @@ function SinglePost(props) {
             onChange={(e) => setDesc(e.target.value)}
           />
         ) : (
-          <p className="singlePostDesc">{desc}</p>
+          <p className="singlePostDesc">{post.body}</p>
         )}
         {updateMode && (
           <button className="singlePostButton" onClick={handleUpdate}>

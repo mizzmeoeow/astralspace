@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/mizzmeoeow/astralspace/issues"
   },
-  "homepage": "https://github.com/mizzmeoeow/astralspace#readme"
+  "homepage": "https://github.com/mizzmeoeow/astralspace#readme",
+  "dependencies": {
+    "react-scripts": "^4.0.3"
+  }
 }
