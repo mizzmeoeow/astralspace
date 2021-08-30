@@ -1,21 +1,21 @@
 {
   "files": {
-    "main.css": "/bottega-code-school/js-builder/static/css/main.66444222.chunk.css",
-    "main.js": "/bottega-code-school/js-builder/static/js/main.64246132.chunk.js",
-    "main.js.map": "/bottega-code-school/js-builder/static/js/main.64246132.chunk.js.map",
-    "runtime-main.js": "/bottega-code-school/js-builder/static/js/runtime-main.d1854fd5.js",
-    "runtime-main.js.map": "/bottega-code-school/js-builder/static/js/runtime-main.d1854fd5.js.map",
-    "static/js/2.a8d05793.chunk.js": "/bottega-code-school/js-builder/static/js/2.a8d05793.chunk.js",
-    "static/js/2.a8d05793.chunk.js.map": "/bottega-code-school/js-builder/static/js/2.a8d05793.chunk.js.map",
-    "index.html": "/bottega-code-school/js-builder/index.html",
-    "static/css/main.66444222.chunk.css.map": "/bottega-code-school/js-builder/static/css/main.66444222.chunk.css.map",
-    "static/js/2.a8d05793.chunk.js.LICENSE.txt": "/bottega-code-school/js-builder/static/js/2.a8d05793.chunk.js.LICENSE.txt",
-    "static/media/space.68343430.jpg": "/bottega-code-school/js-builder/static/media/space.68343430.jpg"
+    "main.css": "/static/css/main.66444222.chunk.css",
+    "main.js": "/static/js/main.d5a813c4.chunk.js",
+    "main.js.map": "/static/js/main.d5a813c4.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.a233d542.js",
+    "runtime-main.js.map": "/static/js/runtime-main.a233d542.js.map",
+    "static/js/2.20431947.chunk.js": "/static/js/2.20431947.chunk.js",
+    "static/js/2.20431947.chunk.js.map": "/static/js/2.20431947.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/main.66444222.chunk.css.map": "/static/css/main.66444222.chunk.css.map",
+    "static/js/2.20431947.chunk.js.LICENSE.txt": "/static/js/2.20431947.chunk.js.LICENSE.txt",
+    "static/media/space.68343430.jpg": "/static/media/space.68343430.jpg"
   },
   "entrypoints": [
-    "static/js/runtime-main.d1854fd5.js",
-    "static/js/2.a8d05793.chunk.js",
+    "static/js/runtime-main.a233d542.js",
+    "static/js/2.20431947.chunk.js",
     "static/css/main.66444222.chunk.css",
-    "static/js/main.64246132.chunk.js"
+    "static/js/main.d5a813c4.chunk.js"
   ]
 }
