@@ -1,0 +1,19 @@
+{
+  "name": "astralspace",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mizzmeoeow/astralspace.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mizzmeoeow/astralspace/issues"
+  },
+  "homepage": "https://github.com/mizzmeoeow/astralspace#readme"
+}
