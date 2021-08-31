@@ -80,10 +80,9 @@ app.use("/api/categories", categoryRoute);
 app.use("/api/contact", contactRoute);
 
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "build")));
-
-  app.get("/*", function (req, res) {
-    res.sendFile(path.join(__dirname, "build", "index.html"));
+  app.use(express.static(__dirname + "/dist/"));
+  app.get(/.*/, function (req, res) {
+    res.sendFile(__dirname + "/dist/index.html");
   });
 }
 

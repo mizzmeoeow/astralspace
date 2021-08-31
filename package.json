@@ -2,13 +2,14 @@
   "name": "astralspace",
   "version": "1.0.0",
   "description": "",
-  "main": "frontend/index.js",
+  "main": "index.js",
   "engines": {
     "node": "14.17.5"
   },
   "scripts": {
     "build": "react-scripts build",
-    "heroku-postbuild": "cd frontend && npm install && npm run build"
+    "heroku-postbuild": "cd frontend && npm install && npm run build",
+    "prod": "NODE_ENV=production node app.js"
   },
   "repository": {
     "type": "git",
