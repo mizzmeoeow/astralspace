@@ -39,10 +39,6 @@ export const loginUser = (userData) => (dispatch) => {
       const decoded = jwt_decode(token);
       // sessionStorage.setItem("userData", JSON.stringify(decoded));
 
-      console.log(token);
-      console.log(decoded);
-      console.log(res);
-
       // Set current user
       dispatch(setCurrentUser(decoded));
 
