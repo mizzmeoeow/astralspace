@@ -23,10 +23,10 @@ router.post("/register", async (req, res, next) => {
     });
 
     const user = await newUser.save();
-    res.status(200).json(user);
+    return res.status(200).json(user);
     next();
   } catch (err) {
-    res.status(500).json(err);
+    return res.status(500).json(err);
   }
 });
 
@@ -44,7 +44,7 @@ router.post("/login", (req, res) => {
   User.findOne({ email }).then((user) => {
     if (!user) {
       errors.email = "User not found";
-      res.status(404).json({ errors });
+      return res.status(404).json({ errors });
     }
 
     bcrypt.compare(password, user.password).then((isMatch) => {
@@ -63,7 +63,7 @@ router.post("/login", (req, res) => {
           config.JWT_SECRET,
           { expiresIn: config.tokenLife },
           (err, token) => {
-            res.json({
+            return res.json({
               success: true,
               token: "Bearer " + token,
               httpOnly: true,

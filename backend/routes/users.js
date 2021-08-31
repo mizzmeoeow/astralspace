@@ -20,13 +20,12 @@ router.put("/:id", verifyToken, async (req, res) => {
         },
         { new: true }
       );
-      res.status(200).json(updatedUser);
-      console.log(updatedUser);
+      return res.status(200).json(updatedUser);
     } catch (err) {
-      res.status(500).json(err);
+      return res.status(500).json(err);
     }
   } else {
-    res.status(401).json("You can update only your account!");
+    return res.status(401).json("You can update only your account!");
   }
 });
 
@@ -64,15 +63,15 @@ router.delete("/:id", async (req, res) => {
       try {
         await Post.deleteMany({ username: user.username });
         await User.findByIdAndDelete(req.params.id);
-        res.status(200).json("User has been deleted...");
+        return res.status(200).json("User has been deleted...");
       } catch (err) {
-        res.status(500).json(err);
+        return res.status(500).json(err);
       }
     } catch (err) {
-      res.status(404).json("User not found!");
+      return res.status(404).json("User not found!");
     }
   } else {
-    res.status(401).json("You can delete only your account!");
+    return res.status(401).json("You can delete only your account!");
   }
 });
 
@@ -97,7 +96,7 @@ router.get("/user/:id", requireLogin, (req, res) => {
           if (err) {
             return res.status(422).json({ error: err });
           }
-          res.json({ user, posts });
+          return res.json({ user, posts });
         });
     })
     .catch((err) => {
@@ -128,7 +127,7 @@ router.put("/follow", requireLogin, (req, res) => {
       )
         .select("-password")
         .then((result) => {
-          res.json(result);
+          return res.json(result);
         })
         .catch((err) => {
           return res.status(422).json({ error: err });
@@ -158,7 +157,7 @@ router.put("/unfollow", requireLogin, (req, res) => {
       )
         .select("-password")
         .then((result) => {
-          res.json(result);
+          return res.json(result);
         })
         .catch((err) => {
           return res.status(422).json({ error: err });
@@ -172,7 +171,7 @@ router.post("/search-users", (req, res) => {
   User.find({ email: { $regex: userPattern } })
     .select("_id email")
     .then((user) => {
-      res.json({ user });
+      return res.json({ user });
     })
     .catch((err) => {
       console.log(err);

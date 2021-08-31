@@ -42,11 +42,11 @@ router.post("/contact", (req, res, next) => {
 
   transporter.sendMail(mail, (err, data) => {
     if (err) {
-      res.json({
+      return res.json({
         msg: "fail",
       });
     } else {
-      res.json({
+      return res.json({
         msg: "success",
       });
     }

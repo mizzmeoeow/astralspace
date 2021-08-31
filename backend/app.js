@@ -59,7 +59,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 app.post("/api/upload", upload.single("file"), (req, res) => {
-  res.status(200).json("File has been uploaded");
+  return res.status(200).json("File has been uploaded");
 });
 
 app.get("/images", (req, res) => {
@@ -80,10 +80,10 @@ app.use("/api/categories", categoryRoute);
 app.use("/api/contact", contactRoute);
 
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static("client/build"));
+  app.use(express.static(path.join(__dirname, "build")));
 
-  app.get("*", (req, res, next) => {
-    res.send("ok");
+  app.get("/*", function (req, res) {
+    res.sendFile(path.join(__dirname, "build", "index.html"));
   });
 }
 

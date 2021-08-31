@@ -7,9 +7,9 @@ router.post("/", verifyToken, async (req, res) => {
   const newPost = new Post(req.body);
   try {
     const savedPost = await newPost.save();
-    res.status(200).json(savedPost);
+    return res.status(200).json(savedPost);
   } catch (err) {
-    res.status(500).json("there is an error");
+    return res.status(500).json("there is an error");
   }
 });
 
@@ -26,15 +26,15 @@ router.put("/:id", verifyToken, async (req, res) => {
           },
           { new: true }
         );
-        res.status(200).json(updatedPost);
+        return res.status(200).json(updatedPost);
       } catch (err) {
-        res.status(500).json(err);
+        return res.status(500).json(err);
       }
     } else {
-      res.status(401).json("You can update only your post!");
+      return res.status(401).json("You can update only your post!");
     }
   } catch (err) {
-    res.status(500).json(err);
+    return res.status(500).json(err);
   }
 });
 
@@ -45,15 +45,15 @@ router.delete("/:id", async (req, res) => {
     if (post.username === req.body.username) {
       try {
         await post.delete();
-        res.status(200).json("Post has been deleted...");
+        return res.status(200).json("Post has been deleted...");
       } catch (err) {
-        res.status(500).json(err);
+        return res.status(500).json(err);
       }
     } else {
-      res.status(401).json("You can delete only your post!");
+      return res.status(401).json("You can delete only your post!");
     }
   } catch (err) {
-    res.status(500).json(err);
+    return res.status(500).json(err);
   }
 });
 
@@ -68,7 +68,7 @@ router.delete("/deletepost/:postId", verifyToken, (req, res) => {
         post
           .remove()
           .then((result) => {
-            res.json(result);
+            return res.json(result);
           })
           .catch((err) => {
             console.log(err);
@@ -81,9 +81,9 @@ router.delete("/deletepost/:postId", verifyToken, (req, res) => {
 router.get("/:id", async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
-    res.status(200).json(post);
+    return res.status(200).json(post);
   } catch (err) {
-    res.status(500).json(err);
+    return res.status(500).json(err);
   }
 });
 
@@ -91,7 +91,7 @@ router.get("/mypost", (req, res) => {
   Post.find({ postedBy: req.user._id })
     .populate("PostedBy", "_id name")
     .then((mypost) => {
-      res.json({ mypost });
+      return res.json({ mypost });
     })
     .catch((err) => {
       console.log(err);
@@ -124,10 +124,10 @@ router.get("/", async (req, res) => {
     } else {
       posts = await Post.find();
     }
-    res.status(200).json(posts);
+    return res.status(200).json(posts);
     uuidv4();
   } catch (err) {
-    res.status(500).json(err);
+    return res.status(500).json(err);
   }
 });
 
@@ -137,7 +137,7 @@ router.get("/allpost", verifyToken, (req, res) => {
     .populate("comments.postedBy", "_id name")
     .sort("-createdAt")
     .then((posts) => {
-      res.json({ posts });
+      return res.json({ posts });
     })
     .catch((err) => {
       console.log(err);
@@ -154,7 +154,7 @@ router.put("/updatepic", verifyToken, (req, res) => {
       if (err) {
         return res.status(422).json({ error: "pic canot post" });
       }
-      res.json(result);
+      return res.json(result);
     }
   );
 });

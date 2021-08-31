@@ -30,8 +30,8 @@
   "bugs": {
     "url": "https://github.com/bottega-code-school/js-builder/issues"
   },
-  "homepage": "https://astralspace.com",
-  "proxy": "http://localhost:5000",
+  "homepage": "https://astralspace.herokuapp.com/",
+  "proxy": "https://astralspace.herokuapp.com/",
   "dependencies": {
     "@babel/core": "^7.14.8",
     "@babel/preset-env": "^7.14.8",
